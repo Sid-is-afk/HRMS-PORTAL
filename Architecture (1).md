@@ -304,7 +304,7 @@ Login --> Dashboard
 Dashboard --> Attendance
 Dashboard --> Leave
 Dashboard --> Profile
-Dashboard --> Employe
+Dashboard --> Employee
 ```
 
 Navigation logic remains independent from business logic.
