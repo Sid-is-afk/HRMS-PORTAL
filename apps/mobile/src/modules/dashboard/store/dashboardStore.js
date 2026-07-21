@@ -1,6 +1,12 @@
 import { create } from 'zustand';
 import { dashboardService } from '../services/dashboardService';
 
+const normalizeDashboardResult = (data) => ({
+  summary: data?.summary || null,
+  announcements: data?.announcements || [],
+  holidays: data?.holidays || [],
+});
+
 export const useDashboardStore = create((set) => ({
   summary: null,
   announcements: [],
@@ -17,7 +23,7 @@ export const useDashboardStore = create((set) => ({
         dashboardService.getAnnouncements(),
         dashboardService.getUpcomingHolidays(),
       ]);
-      set({ summary, announcements, holidays, isLoading: false });
+      set({ ...normalizeDashboardResult({ summary, announcements, holidays }), isLoading: false });
     } catch (err) {
       set({ error: err.message || 'Failed to load dashboard', isLoading: false });
     }
@@ -31,7 +37,7 @@ export const useDashboardStore = create((set) => ({
         dashboardService.getAnnouncements(),
         dashboardService.getUpcomingHolidays(),
       ]);
-      set({ summary, announcements, holidays, isRefreshing: false });
+      set({ ...normalizeDashboardResult({ summary, announcements, holidays }), isRefreshing: false });
     } catch (err) {
       set({ error: err.message || 'Failed to refresh dashboard', isRefreshing: false });
     }

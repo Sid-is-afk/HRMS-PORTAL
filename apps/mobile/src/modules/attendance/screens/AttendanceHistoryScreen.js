@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { View, Text, FlatList, RefreshControl } from 'react-native';
 import { useAttendanceStore } from '../store/attendanceStore';
 import { AttendanceHistoryItem } from '../components/AttendanceHistoryItem';
@@ -12,14 +12,18 @@ export default function AttendanceHistoryScreen() {
     fetchHistory();
   }, [fetchHistory]);
 
-  const renderEmpty = () => {
+  const renderEmpty = useCallback(() => {
     if (isLoading && !isRefreshing) return null;
     return (
       <View className="p-8 items-center justify-center">
         <Text className="text-textSecondary font-inter">No attendance history found.</Text>
       </View>
     );
-  };
+  }, [isLoading, isRefreshing]);
+
+  const renderItem = useCallback(({ item }) => <AttendanceHistoryItem record={item} />, []);
+  const keyExtractor = useCallback((item) => item.id, []);
+  const handleRefresh = useCallback(() => fetchHistory(true), [fetchHistory]);
 
   return (
     <View className="flex-1 bg-surface">
@@ -33,14 +37,18 @@ export default function AttendanceHistoryScreen() {
 
       <FlatList
         data={history}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <AttendanceHistoryItem record={item} />}
+        keyExtractor={keyExtractor}
+        renderItem={renderItem}
         contentContainerStyle={{ padding: 16 }}
         ListEmptyComponent={renderEmpty}
+        initialNumToRender={8}
+        maxToRenderPerBatch={6}
+        windowSize={5}
+        removeClippedSubviews
         refreshControl={
           <RefreshControl 
             refreshing={isRefreshing} 
-            onRefresh={() => fetchHistory(true)} 
+            onRefresh={handleRefresh}
           />
         }
       />

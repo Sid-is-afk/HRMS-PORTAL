@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { View, Text } from 'react-native';
 import { StatusBadge } from '@/components/StatusBadge';
 
-export function AttendanceHistoryItem({ record }) {
+export const AttendanceHistoryItem = memo(function AttendanceHistoryItem({ record }) {
   const formatTime = (isoString) => {
     if (!isoString) return '--:--';
     return new Date(isoString).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -36,4 +36,4 @@ export function AttendanceHistoryItem({ record }) {
       </View>
     </View>
   );
-}
+});

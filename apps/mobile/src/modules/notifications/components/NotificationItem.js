@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Pressable, Text, View } from 'react-native';
 
-export default function NotificationItem({ item, onPress }) {
+const NotificationItem = memo(function NotificationItem({ item, onPress }) {
   return (
     <Pressable
       onPress={() => onPress(item)}
@@ -17,4 +17,6 @@ export default function NotificationItem({ item, onPress }) {
       <Text className="mt-2 text-xs text-slate-400">{new Date(item.createdAt).toLocaleDateString()}</Text>
     </Pressable>
   );
-}
+});
+
+export default NotificationItem;

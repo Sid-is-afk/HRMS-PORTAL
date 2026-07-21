@@ -1,31 +1,33 @@
 import axios from 'axios';
 import { API_BASE_URL } from '@/constants/env';
+import { logger } from '@/utils/logger';
+
+const DEFAULT_TIMEOUT = 10000;
 
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
-  timeout: 10000,
+  timeout: DEFAULT_TIMEOUT,
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
-// Interceptor scaffolding
-axiosInstance.interceptors.request.use(
-  (config) => {
-    // Add auth token logic here later
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
+const requestInterceptor = (config) => {
+  const normalizedConfig = { ...config };
+  if (!normalizedConfig.timeout) {
+    normalizedConfig.timeout = DEFAULT_TIMEOUT;
   }
-);
+  return normalizedConfig;
+};
 
-axiosInstance.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    // Handle global errors, token refresh etc.
-    return Promise.reject(error);
+const responseErrorInterceptor = (error) => {
+  if (error?.config?.url) {
+    logger.warn('API request failed', error.config.url, error.message);
   }
-);
+  return Promise.reject(error);
+};
+
+axiosInstance.interceptors.request.use(requestInterceptor, (error) => Promise.reject(error));
+axiosInstance.interceptors.response.use((response) => response, responseErrorInterceptor);
 
 export default axiosInstance;

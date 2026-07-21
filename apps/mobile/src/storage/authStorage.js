@@ -6,19 +6,23 @@ const KEYS = {
   USER: 'auth.user',
 };
 
-export const saveToken = (accessToken, refreshToken) => {
-  storage.set(KEYS.ACCESS_TOKEN, accessToken);
+const writeToken = (accessToken, refreshToken) => {
+  storage.set(KEYS.ACCESS_TOKEN, accessToken ?? '');
   if (refreshToken) {
     storage.set(KEYS.REFRESH_TOKEN, refreshToken);
+  } else {
+    storage.delete(KEYS.REFRESH_TOKEN);
   }
 };
 
-export const getToken = () => {
-  return {
-    accessToken: storage.getString(KEYS.ACCESS_TOKEN),
-    refreshToken: storage.getString(KEYS.REFRESH_TOKEN),
-  };
+export const saveToken = (accessToken, refreshToken) => {
+  writeToken(accessToken, refreshToken);
 };
+
+export const getToken = () => ({
+  accessToken: storage.getString(KEYS.ACCESS_TOKEN) || undefined,
+  refreshToken: storage.getString(KEYS.REFRESH_TOKEN) || undefined,
+});
 
 export const clearToken = () => {
   storage.delete(KEYS.ACCESS_TOKEN);
@@ -26,12 +30,25 @@ export const clearToken = () => {
 };
 
 export const saveUser = (user) => {
-  storage.set(KEYS.USER, JSON.stringify(user));
+  if (user) {
+    storage.set(KEYS.USER, JSON.stringify(user));
+  } else {
+    storage.delete(KEYS.USER);
+  }
 };
 
 export const getUser = () => {
   const userStr = storage.getString(KEYS.USER);
-  return userStr ? JSON.parse(userStr) : null;
+  if (!userStr) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(userStr);
+  } catch {
+    storage.delete(KEYS.USER);
+    return null;
+  }
 };
 
 export const logout = () => {

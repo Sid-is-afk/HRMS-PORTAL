@@ -1,6 +1,12 @@
 import { create } from 'zustand';
 import { attendanceService } from '../services/attendanceService';
 
+const buildTodayRecord = (data) => ({
+  checkIn: data?.checkIn ?? null,
+  checkOut: data?.checkOut ?? null,
+  hoursWorked: data?.hoursWorked ?? 0,
+});
+
 export const useAttendanceStore = create((set, get) => ({
   // State
   currentStatus: 'NOT_MARKED', // NOT_MARKED, CLOCKED_IN, CLOCKED_OUT
@@ -23,11 +29,7 @@ export const useAttendanceStore = create((set, get) => ({
       const data = await attendanceService.getTodayAttendance();
       set({
         currentStatus: data.status,
-        todayRecord: {
-          checkIn: data.checkIn,
-          checkOut: data.checkOut,
-          hoursWorked: data.hoursWorked,
-        },
+        todayRecord: buildTodayRecord(data),
         isLoading: false,
       });
     } catch (err) {
@@ -44,11 +46,7 @@ export const useAttendanceStore = create((set, get) => ({
       const data = await attendanceService.checkIn();
       set({
         currentStatus: data.status,
-        todayRecord: {
-          checkIn: data.checkIn,
-          checkOut: data.checkOut,
-          hoursWorked: data.hoursWorked,
-        },
+        todayRecord: buildTodayRecord(data),
         isLoading: false,
       });
     } catch (err) {
@@ -66,11 +64,7 @@ export const useAttendanceStore = create((set, get) => ({
       const data = await attendanceService.checkOut(todayRecord.checkIn);
       set({
         currentStatus: data.status,
-        todayRecord: {
-          checkIn: data.checkIn,
-          checkOut: data.checkOut,
-          hoursWorked: data.hoursWorked,
-        },
+        todayRecord: buildTodayRecord(data),
         isLoading: false,
       });
     } catch (err) {
