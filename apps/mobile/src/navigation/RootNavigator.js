@@ -14,7 +14,8 @@ import EditProfileScreen from '@/modules/profile/screens/EditProfileScreen';
 import EmergencyContactsScreen from '@/modules/profile/screens/EmergencyContactsScreen';
 import AccountInfoScreen from '@/modules/profile/screens/AccountInfoScreen';
 import ChangePasswordScreen from '@/modules/profile/screens/ChangePasswordScreen';
-import Notifications from '@/modules/notifications/Notifications';
+import NotificationsScreen from '@/modules/notifications/screens/NotificationsScreen';
+import NotificationDetailsScreen from '@/modules/notifications/screens/NotificationDetailsScreen';
 import { useAuthStore } from '@/modules/auth/store/authStore';
 import { sessionManager } from '@/modules/auth/services/sessionManager';
 
@@ -59,7 +60,8 @@ export default function RootNavigator() {
           <Stack.Screen name="EmergencyContacts" component={EmergencyContactsScreen} />
           <Stack.Screen name="AccountInfo" component={AccountInfoScreen} />
           <Stack.Screen name="ChangePassword" component={ChangePasswordScreen} />
-          <Stack.Screen name="Notifications" component={Notifications} />
+          <Stack.Screen name="Notifications" component={NotificationsScreen} />
+          <Stack.Screen name="NotificationDetails" component={NotificationDetailsScreen} />
         </>
       )}
     </Stack.Navigator>
