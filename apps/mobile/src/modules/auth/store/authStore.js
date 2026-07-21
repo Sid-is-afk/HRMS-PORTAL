@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { clearToken, saveToken, saveUser, logout as storageLogout } from '@/storage/authStorage';
+import { saveToken, saveUser, logout as storageLogout } from '@/storage/authStorage';
 
 export const useAuthStore = create((set) => ({
   user: null,

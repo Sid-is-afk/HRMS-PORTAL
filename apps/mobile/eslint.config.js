@@ -16,6 +16,8 @@ module.exports = [
       },
       globals: {
         setTimeout: "readonly",
+        setInterval: "readonly",
+        clearInterval: "readonly",
         Promise: "readonly"
       }
     },

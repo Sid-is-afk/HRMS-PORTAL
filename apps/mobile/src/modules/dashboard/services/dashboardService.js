@@ -1,10 +1,10 @@
-import axiosInstance from '@/api/axios';
+// import axiosInstance from '@/api/axios';
 
-const ENDPOINTS = {
-  SUMMARY: '/dashboard/summary',
-  ANNOUNCEMENTS: '/dashboard/announcements',
-  HOLIDAYS: '/dashboard/holidays',
-};
+// const ENDPOINTS = {
+//   SUMMARY: '/dashboard/summary',
+//   ANNOUNCEMENTS: '/dashboard/announcements',
+//   HOLIDAYS: '/dashboard/holidays',
+// };
 
 export const dashboardService = {
   getDashboardSummary: async () => {
