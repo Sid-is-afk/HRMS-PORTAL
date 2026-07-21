@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { View } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Splash from '@/app/Splash';
 import Login from '@/modules/auth/Login';
@@ -27,6 +28,9 @@ import AboutApplicationScreen from '@/modules/settings/screens/AboutApplicationS
 import LogoutConfirmationScreen from '@/modules/settings/screens/LogoutConfirmationScreen';
 import { useAuthStore } from '@/modules/auth/store/authStore';
 import { sessionManager } from '@/modules/auth/services/sessionManager';
+import { networkMonitor } from '@/network/networkMonitor';
+import { queueManager } from '@/offline/queueManager';
+import { OfflineBanner } from '@/components/OfflineBanner';
 
 const Stack = createNativeStackNavigator();
 
@@ -37,6 +41,9 @@ export default function RootNavigator() {
   useEffect(() => {
     async function bootstrap() {
       await sessionManager.initialize();
+      queueManager.initializeStore();
+      networkMonitor.startMonitoring();
+      
       // Simulate splash delay for branding
       setTimeout(() => {
         setIsReady(true);
@@ -50,8 +57,10 @@ export default function RootNavigator() {
   }
 
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      {accessToken == null ? (
+    <View className="flex-1">
+      <OfflineBanner />
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        {accessToken == null ? (
         // Unauthenticated Stack
         <Stack.Screen name="Login" component={Login} />
       ) : (
@@ -82,6 +91,7 @@ export default function RootNavigator() {
           <Stack.Screen name="LogoutConfirmation" component={LogoutConfirmationScreen} />
         </>
       )}
-    </Stack.Navigator>
+      </Stack.Navigator>
+    </View>
   );
 }
