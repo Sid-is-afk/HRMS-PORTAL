@@ -18,7 +18,16 @@ module.exports = [
         setTimeout: "readonly",
         setInterval: "readonly",
         clearInterval: "readonly",
-        Promise: "readonly"
+        clearTimeout: "readonly",
+        Promise: "readonly",
+        console: "readonly",
+        window: "readonly",
+        require: "readonly",
+        module: "readonly",
+        exports: "readonly",
+        process: "readonly",
+        __DEV__: "readonly",
+        alert: "readonly"
       }
     },
     rules: {
