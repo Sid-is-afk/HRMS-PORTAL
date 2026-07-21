@@ -16,7 +16,7 @@ export const sessionManager = {
       // For now we assume if token exists, user is logged in
       useAuthStore.getState().hydrate(accessToken, refreshToken, { id: 'temp' });
       return true;
-    } catch (error) {
+    } catch {
       useAuthStore.getState().logoutAction();
       return false;
     }
