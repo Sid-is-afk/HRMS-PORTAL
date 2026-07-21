@@ -13,11 +13,18 @@ module.exports = [
     languageOptions: {
       parserOptions: {
         ecmaFeatures: { jsx: true }
+      },
+      globals: {
+        setTimeout: "readonly",
+        Promise: "readonly"
       }
     },
     rules: {
+      "react/jsx-uses-vars": "error",
+      "react/jsx-uses-react": "error",
       "react/react-in-jsx-scope": "off",
       "react/prop-types": "off",
+      "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }]
     }
   }
 ];
