@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { View, TextInput as RNTextInput, Text } from 'react-native';
-import Animated, { useAnimatedStyle, withTiming, interpolateColor } from 'react-native-reanimated';
 
-export function TextInput({ label, error, styleClass = '', onFocus, onBlur, ...props }) {
+export function TextInput({ label, error, styleClass = '', icon: Icon, onFocus, onBlur, ...props }) {
   const [isFocused, setIsFocused] = useState(false);
 
   const handleFocus = (e) => {
@@ -31,9 +30,10 @@ export function TextInput({ label, error, styleClass = '', onFocus, onBlur, ...p
       ) : null}
       
       <View 
-        className={`h-12 border rounded-xl px-4 justify-center bg-white ${borderColorClass} ${shadowClass}`}
+        className={`h-12 border rounded-xl px-4 flex-row items-center bg-white ${borderColorClass} ${shadowClass}`}
         style={{ borderWidth: isFocused || error ? 1.5 : 1 }}
       >
+        {Icon && <View className="mr-3"><Icon size={20} color={isFocused ? "#2563EB" : "#9CA3AF"} /></View>}
         <RNTextInput
           className="flex-1 text-textPrimary text-base font-inter"
           placeholderTextColor="#9CA3AF"

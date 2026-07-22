@@ -31,7 +31,7 @@ export default function DashboardScreen() {
 
   if (isLoading && !summary) {
     return (
-      <View className="flex-1 bg-surface">
+      <View style={{ flex: 1 }} className="bg-surface">
         <LoadingOverlay visible={true} message="Loading Dashboard..." />
       </View>
     );
@@ -39,7 +39,8 @@ export default function DashboardScreen() {
 
   return (
     <ScrollView 
-      className="flex-1 bg-surface"
+      style={{ flex: 1 }}
+      className="bg-surface"
       showsVerticalScrollIndicator={false}
       refreshControl={
         <RefreshControl 

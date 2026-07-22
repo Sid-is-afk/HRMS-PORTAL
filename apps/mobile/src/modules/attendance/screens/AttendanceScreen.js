@@ -7,6 +7,7 @@ import { WorkingHoursCard } from '../components/WorkingHoursCard';
 import { StatusBadge } from '@/components/StatusBadge';
 import { ErrorMessage } from '@/components/ErrorMessage';
 import { LoadingOverlay } from '@/components/LoadingOverlay';
+import { TopHeader } from '@/components/TopHeader';
 
 export default function AttendanceScreen() {
   const navigation = useNavigation();
@@ -32,9 +33,13 @@ export default function AttendanceScreen() {
   });
 
   return (
-    <View className="flex-1 bg-surface">
+    <View style={{ flex: 1 }} className="bg-surface">
+      <View className="bg-white">
+        <TopHeader />
+      </View>
       <ScrollView 
         contentContainerStyle={{ flexGrow: 1 }}
+        stickyHeaderIndices={[0]}
         refreshControl={
           <RefreshControl refreshing={isLoading} onRefresh={fetchTodayAttendance} />
         }

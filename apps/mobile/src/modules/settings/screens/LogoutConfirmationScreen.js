@@ -14,9 +14,8 @@ export default function LogoutConfirmationScreen() {
   const handleLogout = async () => {
     try {
       await logout();
-      logoutAction();
-      navigation.reset({ index: 0, routes: [{ name: 'Login' }] });
-    } catch {
+      useAuthStore.getState().logoutAction();
+    } catch (err) {
       // error handled by store
     }
   };

@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Splash from '@/app/Splash';
 import Login from '@/modules/auth/Login';
-import DashboardScreen from '@/modules/dashboard/screens/DashboardScreen';
+import MainTabNavigator from './MainTabNavigator';
 import AttendanceScreen from '@/modules/attendance/screens/AttendanceScreen';
 import AttendanceHistoryScreen from '@/modules/attendance/screens/AttendanceHistoryScreen';
 import LeaveScreen from '@/modules/leave/screens/LeaveScreen';
@@ -57,7 +57,7 @@ export default function RootNavigator() {
   }
 
   return (
-    <View className="flex-1">
+    <View style={{ flex: 1 }}>
       <OfflineBanner />
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {accessToken == null ? (
@@ -66,14 +66,11 @@ export default function RootNavigator() {
       ) : (
         // Authenticated Stack
         <>
-          <Stack.Screen name="Dashboard" component={DashboardScreen} />
-          <Stack.Screen name="Attendance" component={AttendanceScreen} />
+          <Stack.Screen name="Main" component={MainTabNavigator} />
           <Stack.Screen name="AttendanceHistory" component={AttendanceHistoryScreen} />
-          <Stack.Screen name="Leave" component={LeaveScreen} />
           <Stack.Screen name="ApplyLeave" component={ApplyLeaveScreen} />
           <Stack.Screen name="LeaveHistory" component={LeaveHistoryScreen} />
           <Stack.Screen name="LeaveDetails" component={LeaveDetailsScreen} />
-          <Stack.Screen name="Profile" component={ProfileHomeScreen} />
           <Stack.Screen name="EditProfile" component={EditProfileScreen} />
           <Stack.Screen name="EmergencyContacts" component={EmergencyContactsScreen} />
           <Stack.Screen name="AccountInfo" component={AccountInfoScreen} />

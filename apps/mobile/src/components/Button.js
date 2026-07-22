@@ -15,7 +15,9 @@ export function Button({
   loading, 
   disabled, 
   variant = 'primary', 
-  styleClass = '' 
+  styleClass = '',
+  textClass = '',
+  icon
 }) {
   const scale = useSharedValue(1);
   const opacity = useSharedValue(1);
@@ -62,24 +64,27 @@ export function Button({
   }
 
   return (
-    <AnimatedPressable
+    <Pressable
       onPress={onPress}
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
       disabled={isDisabled}
       className={`${baseClasses} ${variantClasses} ${styleClass}`}
-      style={animatedStyle}
       accessibilityRole="button"
       accessibilityState={{ disabled: isDisabled, busy: loading }}
       accessibilityLabel={title}
     >
-      {loading ? (
-        <ActivityIndicator 
-          color={variant === 'primary' ? "#FFFFFF" : "#2563EB"} 
-          className="mr-2" 
-        />
-      ) : null}
-      <Text className={textClasses}>{title}</Text>
-    </AnimatedPressable>
+      <Animated.View style={[animatedStyle, { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }]}>
+        {loading ? (
+          <ActivityIndicator 
+            color={variant === 'primary' ? "#FFFFFF" : "#2563EB"} 
+            className="mr-2" 
+          />
+        ) : icon ? (
+          icon
+        ) : null}
+        <Text className={`${textClasses} ${textClass}`}>{title}</Text>
+      </Animated.View>
+    </Pressable>
   );
 }

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 import { useProfileStore } from '../store/profileStore';
 
 export function useProfile() {
@@ -8,12 +8,16 @@ export function useProfile() {
     fetchProfile(false);
   }, [fetchProfile]);
 
+  const refreshProfile = useCallback(() => {
+    return fetchProfile(true);
+  }, [fetchProfile]);
+
   return {
     profile,
     isLoading,
     isRefreshing,
     error,
-    refreshProfile: () => fetchProfile(true),
+    refreshProfile,
     refreshProfileData,
   };
 }

@@ -9,6 +9,7 @@ import { LeaveHistoryItem } from '../components/LeaveHistoryItem';
 import { ErrorMessage } from '@/components/ErrorMessage';
 import { LoadingOverlay } from '@/components/LoadingOverlay';
 import { Button } from '@/components/Button';
+import { TopHeader } from '@/components/TopHeader';
 
 export default function LeaveScreen() {
   const navigation = useNavigation();
@@ -26,10 +27,14 @@ export default function LeaveScreen() {
   const recentHistory = useMemo(() => history.slice(0, 4), [history]);
 
   return (
-    <View className="flex-1 bg-surface">
+    <View style={{ flex: 1 }} className="bg-surface">
+      <View className="bg-white">
+        <TopHeader />
+      </View>
       {isInitialLoading ? <LoadingOverlay visible message="Loading leave data..." /> : null}
       <ScrollView
         contentContainerStyle={{ flexGrow: 1 }}
+        stickyHeaderIndices={[0]}
         refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={refreshHistory} />}
       >
         <View className="p-4">

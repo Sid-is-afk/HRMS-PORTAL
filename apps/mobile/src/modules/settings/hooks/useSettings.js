@@ -3,12 +3,13 @@ import { useSettingsStore } from '../store/settingsStore';
 
 export function useSettings() {
   const store = useSettingsStore();
+  const { settings, fetchSettings } = store;
 
   useEffect(() => {
-    if (!store.settings) {
-      store.fetchSettings();
+    if (!settings) {
+      fetchSettings();
     }
-  }, [store]);
+  }, [settings, fetchSettings]);
 
   return {
     settings: store.settings,

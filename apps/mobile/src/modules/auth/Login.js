@@ -11,6 +11,7 @@ import { LoadingOverlay } from '@/components/LoadingOverlay';
 import { authService } from './api/authService';
 import { useAuthStore } from './store/authStore';
 import Animated, { FadeInDown } from 'react-native-reanimated';
+import { Building2, User as UserIcon, Lock } from 'lucide-react-native';
 
 export default function Login() {
   const { setTokens, setUser, setLoading, setError, isLoading, error } = useAuthStore();
@@ -46,17 +47,17 @@ export default function Login() {
         <View className="flex-1 justify-center px-6 py-12">
           
           <Animated.View entering={FadeInDown.duration(600).springify()}>
-            <View className="mb-10 items-center">
+            <View className="mb-8 items-center">
               <View className="w-16 h-16 bg-primary rounded-2xl items-center justify-center mb-6 shadow-md">
-                <Text className="text-white text-3xl font-bold font-inter">H</Text>
+                <Building2 color="#FFFFFF" size={32} />
               </View>
-              <Text className="text-textPrimary text-3xl font-bold font-inter mb-2 tracking-tight">Welcome Back</Text>
+              <Text className="text-primary text-3xl font-bold font-inter mb-2 tracking-tight">WorkForce</Text>
               <Text className="text-textSecondary text-base font-inter text-center">
-                Sign in to manage your attendance and leaves
+                Sign in to your account
               </Text>
             </View>
 
-            <View className="bg-white p-6 rounded-3xl shadow-sm border border-border">
+            <View className="bg-white p-6 rounded-2xl shadow-sm border border-border">
               <ErrorMessage message={error} />
 
               <Controller
@@ -64,8 +65,9 @@ export default function Login() {
                 name="identifier"
                 render={({ field: { onChange, onBlur, value } }) => (
                   <TextInput
-                    label="Email or Employee ID"
-                    placeholder="Enter your email or ID"
+                    label="Email or Phone"
+                    placeholder="Enter your email or phone"
+                    icon={UserIcon}
                     onBlur={onBlur}
                     onChangeText={onChange}
                     value={value}
@@ -82,10 +84,16 @@ export default function Login() {
                 control={control}
                 name="password"
                 render={({ field: { onChange, onBlur, value } }) => (
-                  <View className="mb-2">
+                  <View className="mb-2 relative">
+                    <View className="absolute right-0 top-0 z-10">
+                      <TouchableOpacity activeOpacity={0.6} className="py-1">
+                        <Text className="text-primary text-xs font-inter font-semibold">Forgot Password?</Text>
+                      </TouchableOpacity>
+                    </View>
                     <PasswordInput
                       label="Password"
                       placeholder="Enter your password"
+                      icon={Lock}
                       onBlur={onBlur}
                       onChangeText={onChange}
                       value={value}
@@ -97,24 +105,21 @@ export default function Login() {
                 )}
               />
 
-              <View className="items-end mb-6 -mt-2">
-                <TouchableOpacity activeOpacity={0.6} className="p-1">
-                  <Text className="text-primary text-sm font-inter font-semibold">Forgot Password?</Text>
+              <View className="mt-4">
+                <Button 
+                  title="Login" 
+                  onPress={handleSubmit(onSubmit)} 
+                  loading={isLoading}
+                  styleClass="w-full"
+                />
+              </View>
+              
+              <View className="mt-6 flex-row justify-center items-center">
+                <Text className="text-textSecondary text-sm font-inter">Don't have an account? </Text>
+                <TouchableOpacity activeOpacity={0.6}>
+                  <Text className="text-primary text-sm font-inter font-semibold">Contact HR</Text>
                 </TouchableOpacity>
               </View>
-
-              <Button 
-                title="Sign In" 
-                onPress={handleSubmit(onSubmit)} 
-                loading={isLoading}
-                styleClass="w-full"
-              />
-            </View>
-            
-            <View className="mt-8 items-center">
-              <Text className="text-textSecondary text-sm font-inter">
-                HRMS Portal v1.0
-              </Text>
             </View>
           </Animated.View>
 
