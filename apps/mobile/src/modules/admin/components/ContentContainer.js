@@ -1,9 +1,13 @@
 import React from 'react';
 import { StyleSheet, ScrollView } from 'react-native';
 
-export default function ContentContainer({ children }) {
+export default function ContentContainer({ children, refreshControl }) {
   return (
-    <ScrollView style={styles.scroll} contentContainerStyle={styles.container}>
+    <ScrollView 
+      style={styles.scroll} 
+      contentContainerStyle={styles.container}
+      refreshControl={refreshControl}
+    >
       {children}
     </ScrollView>
   );
