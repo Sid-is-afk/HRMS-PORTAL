@@ -6,7 +6,7 @@ import AdminPageContainer from './AdminPageContainer';
 import Breadcrumb from './Breadcrumb';
 import ContentContainer from './ContentContainer';
 
-export default function AdminLayout({ title, children }) {
+export default function AdminLayout({ title, refreshControl, children }) {
   return (
     <View style={styles.layout}>
       <AdminHeader title={title} />
@@ -14,7 +14,7 @@ export default function AdminLayout({ title, children }) {
         <AdminSidebar />
         <AdminPageContainer>
           <Breadcrumb title={title} />
-          <ContentContainer>{children}</ContentContainer>
+          <ContentContainer refreshControl={refreshControl}>{children}</ContentContainer>
         </AdminPageContainer>
       </View>
     </View>
