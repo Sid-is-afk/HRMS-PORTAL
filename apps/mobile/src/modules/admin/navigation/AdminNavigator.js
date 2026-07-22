@@ -31,6 +31,10 @@ import WorkflowDetailsScreen from '../workflow/screens/WorkflowDetailsScreen';
 import ApprovalDetailsScreen from '../workflow/screens/ApprovalDetailsScreen';
 import ApprovalTimelineScreen from '../workflow/screens/ApprovalTimelineScreen';
 import WorkflowConfigurationScreen from '../workflow/screens/WorkflowConfigurationScreen';
+import WorkforceOverviewScreen from '../workforce/screens/WorkforceOverviewScreen';
+import ShiftDirectoryScreen from '../workforce/screens/ShiftDirectoryScreen';
+import HolidayCalendarScreen from '../workforce/screens/HolidayCalendarScreen';
+import AttendancePolicyDirectoryScreen from '../workforce/screens/AttendancePolicyDirectoryScreen';
 import { PermissionGuard } from '@/core/rbac/guards/PermissionGuard';
 
 const Stack = createNativeStackNavigator();
@@ -179,6 +183,30 @@ const ProtectedWorkflowConfiguration = () => (
   </PermissionGuard>
 );
 
+const ProtectedWorkforceOverview = () => (
+  <PermissionGuard requiredPermissions="MANAGE_WORKFORCE_CONFIG">
+    <WorkforceOverviewScreen />
+  </PermissionGuard>
+);
+
+const ProtectedShiftDirectory = () => (
+  <PermissionGuard requiredPermissions="MANAGE_SHIFT">
+    <ShiftDirectoryScreen />
+  </PermissionGuard>
+);
+
+const ProtectedHolidayCalendar = () => (
+  <PermissionGuard requiredPermissions="MANAGE_HOLIDAY">
+    <HolidayCalendarScreen />
+  </PermissionGuard>
+);
+
+const ProtectedAttendancePolicy = () => (
+  <PermissionGuard requiredPermissions="MANAGE_ATTENDANCE_POLICY">
+    <AttendancePolicyDirectoryScreen />
+  </PermissionGuard>
+);
+
 export default function AdminNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -214,6 +242,12 @@ export default function AdminNavigator() {
       <Stack.Screen name="AdminReports" component={AdminReports} />
       <Stack.Screen name="AdminAnnouncements" component={AdminAnnouncements} />
       <Stack.Screen name="AdminSettings" component={AdminSettings} />
+      
+      {/* Workforce Configuration Domain */}
+      <Stack.Screen name="WorkforceOverview" component={ProtectedWorkforceOverview} />
+      <Stack.Screen name="ShiftDirectory" component={ProtectedShiftDirectory} />
+      <Stack.Screen name="HolidayCalendar" component={ProtectedHolidayCalendar} />
+      <Stack.Screen name="AttendancePolicyDirectory" component={ProtectedAttendancePolicy} />
     </Stack.Navigator>
   );
 }
