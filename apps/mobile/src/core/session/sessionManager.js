@@ -1,6 +1,6 @@
 import axiosInstance from '@/api/client/axios';
 import { useAuthStore } from '@/core/auth/authStore';
-import { getToken } from '@/core/storage/authStorage';
+import { getToken, getUser } from '@/core/storage/authStorage';
 import { authService } from '@/core/auth/authService';
 
 export const sessionManager = {
@@ -13,8 +13,9 @@ export const sessionManager = {
       }
 
       // If token exists, try to validate or fetch profile
-      // For now we assume if token exists, user is logged in
-      useAuthStore.getState().hydrate(accessToken, refreshToken, { id: 'temp' });
+      // Hydrate with the stored user details to preserve role and permissions
+      const storedUser = getUser() || { id: 'temp', role: 'EMPLOYEE' };
+      useAuthStore.getState().hydrate(accessToken, refreshToken, storedUser);
       return true;
     } catch {
       useAuthStore.getState().logoutAction();
