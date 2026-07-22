@@ -4,13 +4,10 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Splash from '@/app/Splash';
 import Login from '@/modules/auth/Login';
 import MainTabNavigator from './MainTabNavigator';
-import AttendanceScreen from '@/modules/employee/attendance/screens/AttendanceScreen';
 import AttendanceHistoryScreen from '@/modules/employee/attendance/screens/AttendanceHistoryScreen';
-import LeaveScreen from '@/modules/employee/leave/screens/LeaveScreen';
 import ApplyLeaveScreen from '@/modules/employee/leave/screens/ApplyLeaveScreen';
 import LeaveHistoryScreen from '@/modules/employee/leave/screens/LeaveHistoryScreen';
 import LeaveDetailsScreen from '@/modules/employee/leave/screens/LeaveDetailsScreen';
-import ProfileHomeScreen from '@/modules/employee/profile/screens/ProfileHomeScreen';
 import EditProfileScreen from '@/modules/employee/profile/screens/EditProfileScreen';
 import EmergencyContactsScreen from '@/modules/employee/profile/screens/EmergencyContactsScreen';
 import AccountInfoScreen from '@/modules/employee/profile/screens/AccountInfoScreen';
@@ -31,16 +28,29 @@ import { sessionManager } from '@/core/session/sessionManager';
 import { networkMonitor } from '@/core/network/networkMonitor';
 import { queueManager } from '@/core/offline/queueManager';
 import { OfflineBanner } from '@/shared/components/OfflineBanner';
+import AdminNavigator from '@/modules/admin/navigation/AdminNavigator';
+import HRNavigator from './HRNavigator';
+import SuperAdminNavigator from './SuperAdminNavigator';
+import { useRbacStore } from '@/core/rbac/store/rbacStore';
+import { ROLES } from '@/core/rbac/roles';
 
 const Stack = createNativeStackNavigator();
 
 export default function RootNavigator() {
   const [isReady, setIsReady] = useState(false);
   const accessToken = useAuthStore((state) => state.accessToken);
+  const role = useRbacStore((state) => state.role);
 
   useEffect(() => {
     async function bootstrap() {
       await sessionManager.initialize();
+      
+      // Sync RBAC store with the restored user (role, permissions, accessible modules)
+      const user = useAuthStore.getState().user;
+      if (user) {
+        useRbacStore.getState().syncWithUser(user);
+      }
+
       queueManager.initializeStore();
       networkMonitor.startMonitoring();
       
@@ -66,7 +76,15 @@ export default function RootNavigator() {
       ) : (
         // Authenticated Stack
         <>
-          <Stack.Screen name="Main" component={MainTabNavigator} />
+          {role === ROLES.ADMIN ? (
+            <Stack.Screen name="AdminMain" component={AdminNavigator} />
+          ) : role === ROLES.HR ? (
+            <Stack.Screen name="HRMain" component={HRNavigator} />
+          ) : role === ROLES.SUPER_ADMIN ? (
+            <Stack.Screen name="SuperAdminMain" component={SuperAdminNavigator} />
+          ) : (
+            <Stack.Screen name="Main" component={MainTabNavigator} />
+          )}
           <Stack.Screen name="AttendanceHistory" component={AttendanceHistoryScreen} />
           <Stack.Screen name="ApplyLeave" component={ApplyLeaveScreen} />
           <Stack.Screen name="LeaveHistory" component={LeaveHistoryScreen} />
