@@ -3,7 +3,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import DashboardScreen from '../dashboard/DashboardScreen';
 import {
   AdminAttendance,
-  AdminLeave,
   AdminReports,
   AdminAnnouncements,
   AdminSettings,
@@ -23,6 +22,15 @@ import TeamDirectoryScreen from '../organization/screens/TeamDirectoryScreen';
 import LocationDirectoryScreen from '../organization/screens/LocationDirectoryScreen';
 import OrganizationTreeScreen from '../organization/screens/OrganizationTreeScreen';
 import ReportingStructureScreen from '../organization/screens/ReportingStructureScreen';
+import WorkflowDashboardScreen from '../workflow/screens/WorkflowDashboardScreen';
+import WorkflowTemplatesScreen from '../workflow/screens/WorkflowTemplatesScreen';
+import ApprovalQueueScreen from '../workflow/screens/ApprovalQueueScreen';
+import PendingRequestsScreen from '../workflow/screens/PendingRequestsScreen';
+import ApprovalHistoryScreen from '../workflow/screens/ApprovalHistoryScreen';
+import WorkflowDetailsScreen from '../workflow/screens/WorkflowDetailsScreen';
+import ApprovalDetailsScreen from '../workflow/screens/ApprovalDetailsScreen';
+import ApprovalTimelineScreen from '../workflow/screens/ApprovalTimelineScreen';
+import WorkflowConfigurationScreen from '../workflow/screens/WorkflowConfigurationScreen';
 import { PermissionGuard } from '@/core/rbac/guards/PermissionGuard';
 
 const Stack = createNativeStackNavigator();
@@ -117,6 +125,60 @@ const ProtectedReportingStructure = () => (
   </PermissionGuard>
 );
 
+const ProtectedWorkflowDashboard = () => (
+  <PermissionGuard requiredPermissions="VIEW_APPROVAL_QUEUE">
+    <WorkflowDashboardScreen />
+  </PermissionGuard>
+);
+
+const ProtectedWorkflowTemplates = () => (
+  <PermissionGuard requiredPermissions="CONFIGURE_WORKFLOW">
+    <WorkflowTemplatesScreen />
+  </PermissionGuard>
+);
+
+const ProtectedApprovalQueue = () => (
+  <PermissionGuard requiredPermissions="VIEW_APPROVAL_QUEUE">
+    <ApprovalQueueScreen />
+  </PermissionGuard>
+);
+
+const ProtectedPendingRequests = () => (
+  <PermissionGuard requiredPermissions="VIEW_APPROVAL_QUEUE">
+    <PendingRequestsScreen />
+  </PermissionGuard>
+);
+
+const ProtectedApprovalHistory = () => (
+  <PermissionGuard requiredPermissions="VIEW_WORKFLOW_HISTORY">
+    <ApprovalHistoryScreen />
+  </PermissionGuard>
+);
+
+const ProtectedWorkflowDetails = () => (
+  <PermissionGuard requiredPermissions="VIEW_APPROVAL_QUEUE">
+    <WorkflowDetailsScreen />
+  </PermissionGuard>
+);
+
+const ProtectedApprovalDetails = () => (
+  <PermissionGuard requiredPermissions="VIEW_APPROVAL_QUEUE">
+    <ApprovalDetailsScreen />
+  </PermissionGuard>
+);
+
+const ProtectedApprovalTimeline = () => (
+  <PermissionGuard requiredPermissions="VIEW_APPROVAL_QUEUE">
+    <ApprovalTimelineScreen />
+  </PermissionGuard>
+);
+
+const ProtectedWorkflowConfiguration = () => (
+  <PermissionGuard requiredPermissions="CONFIGURE_WORKFLOW">
+    <WorkflowConfigurationScreen />
+  </PermissionGuard>
+);
+
 export default function AdminNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -138,8 +200,17 @@ export default function AdminNavigator() {
       <Stack.Screen name="AdminOrganizationTree" component={ProtectedOrgTree} />
       <Stack.Screen name="AdminReportingStructure" component={ProtectedReportingStructure} />
 
+      <Stack.Screen name="AdminLeave" component={ProtectedWorkflowDashboard} />
+      <Stack.Screen name="AdminWorkflowTemplates" component={ProtectedWorkflowTemplates} />
+      <Stack.Screen name="AdminApprovalQueue" component={ProtectedApprovalQueue} />
+      <Stack.Screen name="AdminPendingRequests" component={ProtectedPendingRequests} />
+      <Stack.Screen name="AdminApprovalHistory" component={ProtectedApprovalHistory} />
+      <Stack.Screen name="AdminWorkflowDetails" component={ProtectedWorkflowDetails} />
+      <Stack.Screen name="AdminApprovalDetails" component={ProtectedApprovalDetails} />
+      <Stack.Screen name="AdminApprovalTimeline" component={ProtectedApprovalTimeline} />
+      <Stack.Screen name="AdminWorkflowConfiguration" component={ProtectedWorkflowConfiguration} />
+
       <Stack.Screen name="AdminAttendance" component={AdminAttendance} />
-      <Stack.Screen name="AdminLeave" component={AdminLeave} />
       <Stack.Screen name="AdminReports" component={AdminReports} />
       <Stack.Screen name="AdminAnnouncements" component={AdminAnnouncements} />
       <Stack.Screen name="AdminSettings" component={AdminSettings} />
