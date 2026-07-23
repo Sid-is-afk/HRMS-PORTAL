@@ -9,6 +9,9 @@ import {
 import AttendanceDashboardScreen from '../attendance/screens/AttendanceDashboardScreen';
 import AttendanceDirectoryScreen from '../attendance/screens/AttendanceDirectoryScreen';
 import EmployeeAttendanceSummaryScreen from '../attendance/screens/EmployeeAttendanceSummaryScreen';
+import LeaveDashboardScreen from '../leave/screens/LeaveDashboardScreen';
+import LeaveDirectoryScreen from '../leave/screens/LeaveDirectoryScreen';
+import LeaveBalanceSummaryScreen from '../leave/screens/LeaveBalanceSummaryScreen';
 import EmployeeDirectoryScreen from '../employee-management/screens/EmployeeDirectoryScreen';
 import EmployeeDetailsScreen from '../employee-management/screens/EmployeeDetailsScreen';
 import AddEmployeeScreen from '../employee-management/screens/AddEmployeeScreen';
@@ -381,6 +384,25 @@ const ProtectedEmployeeAttendanceSummary = () => (
   </PermissionGuard>
 );
 
+// Leave Protected Screen Wrappers
+const ProtectedLeaveDashboard = () => (
+  <PermissionGuard requiredPermissions="VIEW_LEAVE">
+    <LeaveDashboardScreen />
+  </PermissionGuard>
+);
+
+const ProtectedLeaveDirectory = () => (
+  <PermissionGuard requiredPermissions="VIEW_ALL_LEAVE">
+    <LeaveDirectoryScreen />
+  </PermissionGuard>
+);
+
+const ProtectedLeaveBalanceSummary = () => (
+  <PermissionGuard requiredPermissions="VIEW_LEAVE">
+    <LeaveBalanceSummaryScreen />
+  </PermissionGuard>
+);
+
 export default function AdminNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -402,7 +424,10 @@ export default function AdminNavigator() {
       <Stack.Screen name="AdminOrganizationTree" component={ProtectedOrgTree} />
       <Stack.Screen name="AdminReportingStructure" component={ProtectedReportingStructure} />
 
-      <Stack.Screen name="AdminLeave" component={ProtectedWorkflowDashboard} />
+      {/* Leave Administration Domain */}
+      <Stack.Screen name="AdminLeave" component={ProtectedLeaveDashboard} />
+      <Stack.Screen name="LeaveDirectory" component={ProtectedLeaveDirectory} />
+      <Stack.Screen name="LeaveBalanceSummary" component={ProtectedLeaveBalanceSummary} />
       <Stack.Screen name="AdminWorkflowTemplates" component={ProtectedWorkflowTemplates} />
       <Stack.Screen name="AdminApprovalQueue" component={ProtectedApprovalQueue} />
       <Stack.Screen name="AdminPendingRequests" component={ProtectedPendingRequests} />
