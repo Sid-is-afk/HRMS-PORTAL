@@ -2,11 +2,13 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import DashboardScreen from '../dashboard/DashboardScreen';
 import {
-  AdminAttendance,
   AdminReports,
   AdminAnnouncements,
   AdminSettings,
 } from '../screens/Placeholders';
+import AttendanceDashboardScreen from '../attendance/screens/AttendanceDashboardScreen';
+import AttendanceDirectoryScreen from '../attendance/screens/AttendanceDirectoryScreen';
+import EmployeeAttendanceSummaryScreen from '../attendance/screens/EmployeeAttendanceSummaryScreen';
 import EmployeeDirectoryScreen from '../employee-management/screens/EmployeeDirectoryScreen';
 import EmployeeDetailsScreen from '../employee-management/screens/EmployeeDetailsScreen';
 import AddEmployeeScreen from '../employee-management/screens/AddEmployeeScreen';
@@ -360,6 +362,25 @@ const ProtectedExportPlaceholder = () => (
   </PermissionGuard>
 );
 
+// Attendance Protected Screen Wrappers
+const ProtectedAttendanceDashboard = () => (
+  <PermissionGuard requiredPermissions="VIEW_ATTENDANCE">
+    <AttendanceDashboardScreen />
+  </PermissionGuard>
+);
+
+const ProtectedAttendanceDirectory = () => (
+  <PermissionGuard requiredPermissions="VIEW_ALL_ATTENDANCE">
+    <AttendanceDirectoryScreen />
+  </PermissionGuard>
+);
+
+const ProtectedEmployeeAttendanceSummary = () => (
+  <PermissionGuard requiredPermissions="VIEW_ATTENDANCE_SUMMARY">
+    <EmployeeAttendanceSummaryScreen />
+  </PermissionGuard>
+);
+
 export default function AdminNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -391,7 +412,10 @@ export default function AdminNavigator() {
       <Stack.Screen name="AdminApprovalTimeline" component={ProtectedApprovalTimeline} />
       <Stack.Screen name="AdminWorkflowConfiguration" component={ProtectedWorkflowConfiguration} />
 
-      <Stack.Screen name="AdminAttendance" component={AdminAttendance} />
+      {/* Attendance Administration Domain */}
+      <Stack.Screen name="AdminAttendance" component={ProtectedAttendanceDashboard} />
+      <Stack.Screen name="AttendanceDirectory" component={ProtectedAttendanceDirectory} />
+      <Stack.Screen name="EmployeeAttendanceSummary" component={ProtectedEmployeeAttendanceSummary} />
       <Stack.Screen name="AdminReports" component={AdminReports} />
       <Stack.Screen name="AdminAnnouncements" component={AdminAnnouncements} />
       <Stack.Screen name="AdminSettings" component={AdminSettings} />
