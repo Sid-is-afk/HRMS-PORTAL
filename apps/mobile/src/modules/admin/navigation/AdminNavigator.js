@@ -51,6 +51,17 @@ import PermissionMatrixScreen from '../iam/screens/PermissionMatrixScreen';
 import AccessPolicyDirectoryScreen from '../iam/screens/AccessPolicyDirectoryScreen';
 import AccessReviewDashboardScreen from '../iam/screens/AccessReviewDashboardScreen';
 
+// Master Data Screen Imports
+import MasterDataDashboardScreen from '../master-data/screens/MasterDataDashboardScreen';
+import CategoryDirectoryScreen from '../master-data/screens/CategoryDirectoryScreen';
+import CategoryDetailsScreen from '../master-data/screens/CategoryDetailsScreen';
+import ReferenceValueListScreen from '../master-data/screens/ReferenceValueListScreen';
+import ReferenceValueFormScreen from '../master-data/screens/ReferenceValueFormScreen';
+import ConfigurationSearchScreen from '../master-data/screens/ConfigurationSearchScreen';
+import ConfigurationFiltersScreen from '../master-data/screens/ConfigurationFiltersScreen';
+import ImportPlaceholderScreen from '../master-data/screens/ImportPlaceholderScreen';
+import ExportPlaceholderScreen from '../master-data/screens/ExportPlaceholderScreen';
+
 const Stack = createNativeStackNavigator();
 
 const ProtectedEmployeeDirectory = () => (
@@ -294,6 +305,61 @@ const ProtectedAccessReviewDashboard = () => (
   </PermissionGuard>
 );
 
+// Master Data Protected Screen Wrappers
+const ProtectedMasterDataDashboard = () => (
+  <PermissionGuard requiredPermissions="VIEW_MASTER_DATA">
+    <MasterDataDashboardScreen />
+  </PermissionGuard>
+);
+
+const ProtectedCategoryDirectory = () => (
+  <PermissionGuard requiredPermissions="VIEW_MASTER_DATA">
+    <CategoryDirectoryScreen />
+  </PermissionGuard>
+);
+
+const ProtectedCategoryDetails = () => (
+  <PermissionGuard requiredPermissions="VIEW_MASTER_DATA">
+    <CategoryDetailsScreen />
+  </PermissionGuard>
+);
+
+const ProtectedReferenceValueList = () => (
+  <PermissionGuard requiredPermissions="VIEW_MASTER_DATA">
+    <ReferenceValueListScreen />
+  </PermissionGuard>
+);
+
+const ProtectedReferenceValueForm = () => (
+  <PermissionGuard requiredPermissions="CREATE_MASTER_DATA">
+    <ReferenceValueFormScreen />
+  </PermissionGuard>
+);
+
+const ProtectedConfigurationSearch = () => (
+  <PermissionGuard requiredPermissions="VIEW_MASTER_DATA">
+    <ConfigurationSearchScreen />
+  </PermissionGuard>
+);
+
+const ProtectedConfigurationFilters = () => (
+  <PermissionGuard requiredPermissions="MANAGE_CONFIGURATION">
+    <ConfigurationFiltersScreen />
+  </PermissionGuard>
+);
+
+const ProtectedImportPlaceholder = () => (
+  <PermissionGuard requiredPermissions="CREATE_MASTER_DATA">
+    <ImportPlaceholderScreen />
+  </PermissionGuard>
+);
+
+const ProtectedExportPlaceholder = () => (
+  <PermissionGuard requiredPermissions="VIEW_MASTER_DATA">
+    <ExportPlaceholderScreen />
+  </PermissionGuard>
+);
+
 export default function AdminNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -349,6 +415,17 @@ export default function AdminNavigator() {
       <Stack.Screen name="PermissionMatrix" component={ProtectedPermissionMatrix} />
       <Stack.Screen name="AccessPolicyDirectory" component={ProtectedAccessPolicyDirectory} />
       <Stack.Screen name="AccessReviewDashboard" component={ProtectedAccessReviewDashboard} />
+
+      {/* Master Data & Configuration Domain */}
+      <Stack.Screen name="AdminMasterData" component={ProtectedMasterDataDashboard} />
+      <Stack.Screen name="CategoryDirectory" component={ProtectedCategoryDirectory} />
+      <Stack.Screen name="CategoryDetails" component={ProtectedCategoryDetails} />
+      <Stack.Screen name="ReferenceValueList" component={ProtectedReferenceValueList} />
+      <Stack.Screen name="ReferenceValueForm" component={ProtectedReferenceValueForm} />
+      <Stack.Screen name="ConfigurationSearch" component={ProtectedConfigurationSearch} />
+      <Stack.Screen name="ConfigurationFilters" component={ProtectedConfigurationFilters} />
+      <Stack.Screen name="ImportPlaceholder" component={ProtectedImportPlaceholder} />
+      <Stack.Screen name="ExportPlaceholder" component={ProtectedExportPlaceholder} />
     </Stack.Navigator>
   );
 }
