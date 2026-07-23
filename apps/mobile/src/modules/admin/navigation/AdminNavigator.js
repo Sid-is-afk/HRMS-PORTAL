@@ -37,6 +37,20 @@ import HolidayCalendarScreen from '../workforce/screens/HolidayCalendarScreen';
 import AttendancePolicyDirectoryScreen from '../workforce/screens/AttendancePolicyDirectoryScreen';
 import { PermissionGuard } from '@/core/rbac/guards/PermissionGuard';
 
+// IAM Screen Imports
+import IAMDashboardScreen from '../iam/screens/IAMDashboardScreen';
+import RoleDirectoryScreen from '../iam/screens/RoleDirectoryScreen';
+import RoleDetailsScreen from '../iam/screens/RoleDetailsScreen';
+import CreateRoleScreen from '../iam/screens/CreateRoleScreen';
+import EditRoleScreen from '../iam/screens/EditRoleScreen';
+import PermissionDirectoryScreen from '../iam/screens/PermissionDirectoryScreen';
+import PermissionGroupDirectoryScreen from '../iam/screens/PermissionGroupDirectoryScreen';
+import RoleAssignmentScreen from '../iam/screens/RoleAssignmentScreen';
+import UserPermissionViewerScreen from '../iam/screens/UserPermissionViewerScreen';
+import PermissionMatrixScreen from '../iam/screens/PermissionMatrixScreen';
+import AccessPolicyDirectoryScreen from '../iam/screens/AccessPolicyDirectoryScreen';
+import AccessReviewDashboardScreen from '../iam/screens/AccessReviewDashboardScreen';
+
 const Stack = createNativeStackNavigator();
 
 const ProtectedEmployeeDirectory = () => (
@@ -207,6 +221,79 @@ const ProtectedAttendancePolicy = () => (
   </PermissionGuard>
 );
 
+// IAM Protected Screen Wrappers
+const ProtectedIAMDashboard = () => (
+  <PermissionGuard requiredPermissions="VIEW_ROLE">
+    <IAMDashboardScreen />
+  </PermissionGuard>
+);
+
+const ProtectedRoleDirectory = () => (
+  <PermissionGuard requiredPermissions="VIEW_ROLE">
+    <RoleDirectoryScreen />
+  </PermissionGuard>
+);
+
+const ProtectedRoleDetails = () => (
+  <PermissionGuard requiredPermissions="VIEW_ROLE">
+    <RoleDetailsScreen />
+  </PermissionGuard>
+);
+
+const ProtectedCreateRole = () => (
+  <PermissionGuard requiredPermissions="CREATE_ROLE">
+    <CreateRoleScreen />
+  </PermissionGuard>
+);
+
+const ProtectedEditRole = () => (
+  <PermissionGuard requiredPermissions="UPDATE_ROLE">
+    <EditRoleScreen />
+  </PermissionGuard>
+);
+
+const ProtectedPermissionDirectory = () => (
+  <PermissionGuard requiredPermissions="VIEW_PERMISSION">
+    <PermissionDirectoryScreen />
+  </PermissionGuard>
+);
+
+const ProtectedPermissionGroupDirectory = () => (
+  <PermissionGuard requiredPermissions="VIEW_PERMISSION">
+    <PermissionGroupDirectoryScreen />
+  </PermissionGuard>
+);
+
+const ProtectedRoleAssignment = () => (
+  <PermissionGuard requiredPermissions="ASSIGN_ROLE">
+    <RoleAssignmentScreen />
+  </PermissionGuard>
+);
+
+const ProtectedUserPermissionViewer = () => (
+  <PermissionGuard requiredPermissions="VIEW_PERMISSION">
+    <UserPermissionViewerScreen />
+  </PermissionGuard>
+);
+
+const ProtectedPermissionMatrix = () => (
+  <PermissionGuard requiredPermissions="VIEW_PERMISSION">
+    <PermissionMatrixScreen />
+  </PermissionGuard>
+);
+
+const ProtectedAccessPolicyDirectory = () => (
+  <PermissionGuard requiredPermissions="VIEW_ACCESS_POLICY">
+    <AccessPolicyDirectoryScreen />
+  </PermissionGuard>
+);
+
+const ProtectedAccessReviewDashboard = () => (
+  <PermissionGuard requiredPermissions="VIEW_ROLE">
+    <AccessReviewDashboardScreen />
+  </PermissionGuard>
+);
+
 export default function AdminNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -248,6 +335,20 @@ export default function AdminNavigator() {
       <Stack.Screen name="ShiftDirectory" component={ProtectedShiftDirectory} />
       <Stack.Screen name="HolidayCalendar" component={ProtectedHolidayCalendar} />
       <Stack.Screen name="AttendancePolicyDirectory" component={ProtectedAttendancePolicy} />
+
+      {/* Identity & Access Management (IAM) Domain */}
+      <Stack.Screen name="AdminIAM" component={ProtectedIAMDashboard} />
+      <Stack.Screen name="RoleDirectory" component={ProtectedRoleDirectory} />
+      <Stack.Screen name="RoleDetails" component={ProtectedRoleDetails} />
+      <Stack.Screen name="CreateRole" component={ProtectedCreateRole} />
+      <Stack.Screen name="EditRole" component={ProtectedEditRole} />
+      <Stack.Screen name="PermissionDirectory" component={ProtectedPermissionDirectory} />
+      <Stack.Screen name="PermissionGroupDirectory" component={ProtectedPermissionGroupDirectory} />
+      <Stack.Screen name="RoleAssignment" component={ProtectedRoleAssignment} />
+      <Stack.Screen name="UserPermissionViewer" component={ProtectedUserPermissionViewer} />
+      <Stack.Screen name="PermissionMatrix" component={ProtectedPermissionMatrix} />
+      <Stack.Screen name="AccessPolicyDirectory" component={ProtectedAccessPolicyDirectory} />
+      <Stack.Screen name="AccessReviewDashboard" component={ProtectedAccessReviewDashboard} />
     </Stack.Navigator>
   );
 }

@@ -36,6 +36,7 @@ export const rbacService = {
           { name: 'AdminDashboard', label: 'Admin Dashboard', icon: 'view-dashboard' },
           { name: 'AttendanceManagement', label: 'Manage Attendance', icon: 'clock-outline' },
           { name: 'LeaveManagement', label: 'Manage Leaves', icon: 'calendar-range' },
+          { name: 'AdminIAM', label: 'Identity & Access', icon: 'shield-key-outline' },
         ];
       case ROLES.EMPLOYEE:
       default:
