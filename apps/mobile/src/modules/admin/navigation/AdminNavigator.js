@@ -1,9 +1,11 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import DashboardScreen from '../dashboard/DashboardScreen';
-import {
-  AdminSettings,
-} from '../screens/Placeholders';
+import SystemDashboardScreen from '../system/screens/SystemDashboardScreen';
+import FeatureFlagsScreen from '../system/screens/FeatureFlagsScreen';
+import SystemHealthScreen from '../system/screens/SystemHealthScreen';
+import AuditLogsScreen from '../system/screens/AuditLogsScreen';
+import ApplicationSettingsScreen from '../system/screens/ApplicationSettingsScreen';
 import ReportsDashboardScreen from '../reports/screens/ReportsDashboardScreen';
 import ReportExplorerScreen from '../reports/screens/ReportExplorerScreen';
 import AnalyticsOverviewScreen from '../reports/screens/AnalyticsOverviewScreen';
@@ -452,6 +454,37 @@ const ProtectedSavedReports = () => (
   </PermissionGuard>
 );
 
+// System Administration Protected Screen Wrappers
+const ProtectedSystemDashboard = () => (
+  <PermissionGuard requiredPermissions="VIEW_SYSTEM">
+    <SystemDashboardScreen />
+  </PermissionGuard>
+);
+
+const ProtectedFeatureFlags = () => (
+  <PermissionGuard requiredPermissions="MANAGE_FEATURE_FLAGS">
+    <FeatureFlagsScreen />
+  </PermissionGuard>
+);
+
+const ProtectedSystemHealth = () => (
+  <PermissionGuard requiredPermissions="VIEW_SYSTEM_HEALTH">
+    <SystemHealthScreen />
+  </PermissionGuard>
+);
+
+const ProtectedAuditLogs = () => (
+  <PermissionGuard requiredPermissions="VIEW_AUDIT_LOGS">
+    <AuditLogsScreen />
+  </PermissionGuard>
+);
+
+const ProtectedApplicationSettings = () => (
+  <PermissionGuard requiredPermissions="MANAGE_SYSTEM">
+    <ApplicationSettingsScreen />
+  </PermissionGuard>
+);
+
 export default function AdminNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -499,7 +532,12 @@ export default function AdminNavigator() {
       <Stack.Screen name="AdminAnnouncements" component={ProtectedCommunicationDashboard} />
       <Stack.Screen name="AnnouncementDirectory" component={ProtectedAnnouncementDirectory} />
       <Stack.Screen name="CommunicationTemplates" component={ProtectedCommunicationTemplates} />
-      <Stack.Screen name="AdminSettings" component={AdminSettings} />
+      {/* System Administration Domain */}
+      <Stack.Screen name="AdminSettings" component={ProtectedSystemDashboard} />
+      <Stack.Screen name="ApplicationSettings" component={ProtectedApplicationSettings} />
+      <Stack.Screen name="FeatureFlags" component={ProtectedFeatureFlags} />
+      <Stack.Screen name="SystemHealth" component={ProtectedSystemHealth} />
+      <Stack.Screen name="AuditLogs" component={ProtectedAuditLogs} />
       
       {/* Workforce Configuration Domain */}
       <Stack.Screen name="WorkforceOverview" component={ProtectedWorkforceOverview} />
