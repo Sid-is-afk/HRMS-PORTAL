@@ -3,9 +3,11 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import DashboardScreen from '../dashboard/DashboardScreen';
 import {
   AdminReports,
-  AdminAnnouncements,
   AdminSettings,
 } from '../screens/Placeholders';
+import CommunicationDashboardScreen from '../communication/screens/CommunicationDashboardScreen';
+import AnnouncementDirectoryScreen from '../communication/screens/AnnouncementDirectoryScreen';
+import CommunicationTemplatesScreen from '../communication/screens/CommunicationTemplatesScreen';
 import AttendanceDashboardScreen from '../attendance/screens/AttendanceDashboardScreen';
 import AttendanceDirectoryScreen from '../attendance/screens/AttendanceDirectoryScreen';
 import EmployeeAttendanceSummaryScreen from '../attendance/screens/EmployeeAttendanceSummaryScreen';
@@ -403,6 +405,25 @@ const ProtectedLeaveBalanceSummary = () => (
   </PermissionGuard>
 );
 
+// Communication Center Protected Screen Wrappers
+const ProtectedCommunicationDashboard = () => (
+  <PermissionGuard requiredPermissions="VIEW_COMMUNICATION">
+    <CommunicationDashboardScreen />
+  </PermissionGuard>
+);
+
+const ProtectedAnnouncementDirectory = () => (
+  <PermissionGuard requiredPermissions="VIEW_COMMUNICATION">
+    <AnnouncementDirectoryScreen />
+  </PermissionGuard>
+);
+
+const ProtectedCommunicationTemplates = () => (
+  <PermissionGuard requiredPermissions="VIEW_TEMPLATES">
+    <CommunicationTemplatesScreen />
+  </PermissionGuard>
+);
+
 export default function AdminNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -442,7 +463,10 @@ export default function AdminNavigator() {
       <Stack.Screen name="AttendanceDirectory" component={ProtectedAttendanceDirectory} />
       <Stack.Screen name="EmployeeAttendanceSummary" component={ProtectedEmployeeAttendanceSummary} />
       <Stack.Screen name="AdminReports" component={AdminReports} />
-      <Stack.Screen name="AdminAnnouncements" component={AdminAnnouncements} />
+      {/* Communication Center Domain */}
+      <Stack.Screen name="AdminAnnouncements" component={ProtectedCommunicationDashboard} />
+      <Stack.Screen name="AnnouncementDirectory" component={ProtectedAnnouncementDirectory} />
+      <Stack.Screen name="CommunicationTemplates" component={ProtectedCommunicationTemplates} />
       <Stack.Screen name="AdminSettings" component={AdminSettings} />
       
       {/* Workforce Configuration Domain */}
