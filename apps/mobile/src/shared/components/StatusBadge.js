@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-export function StatusBadge({ status, type = 'default' }) {
+export function StatusBadge({ status }) {
   let bgColor = 'bg-gray-100';
   let textColor = 'text-gray-600';
   

@@ -510,6 +510,7 @@ export default function AdminNavigator() {
       <Stack.Screen name="AdminLeave" component={ProtectedLeaveDashboard} />
       <Stack.Screen name="LeaveDirectory" component={ProtectedLeaveDirectory} />
       <Stack.Screen name="LeaveBalanceSummary" component={ProtectedLeaveBalanceSummary} />
+      <Stack.Screen name="AdminWorkflow" component={ProtectedWorkflowDashboard} />
       <Stack.Screen name="AdminWorkflowTemplates" component={ProtectedWorkflowTemplates} />
       <Stack.Screen name="AdminApprovalQueue" component={ProtectedApprovalQueue} />
       <Stack.Screen name="AdminPendingRequests" component={ProtectedPendingRequests} />
