@@ -30,7 +30,7 @@ import { queueManager } from '@/core/offline/queueManager';
 import { OfflineBanner } from '@/shared/components/OfflineBanner';
 import AdminNavigator from '@/modules/admin/navigation/AdminNavigator';
 import HRNavigator from './HRNavigator';
-import SuperAdminNavigator from './SuperAdminNavigator';
+import PlatformNavigator from './PlatformNavigator';
 import { useRbacStore } from '@/core/rbac/store/rbacStore';
 import { ROLES } from '@/core/rbac/roles';
 
@@ -81,7 +81,7 @@ export default function RootNavigator() {
           ) : role === ROLES.HR ? (
             <Stack.Screen name="HRMain" component={HRNavigator} />
           ) : role === ROLES.SUPER_ADMIN ? (
-            <Stack.Screen name="SuperAdminMain" component={SuperAdminNavigator} />
+            <Stack.Screen name="SuperAdminMain" component={PlatformNavigator} />
           ) : (
             <Stack.Screen name="Main" component={MainTabNavigator} />
           )}
