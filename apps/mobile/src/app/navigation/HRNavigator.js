@@ -57,6 +57,14 @@ import AutomationCenterScreen from '@/modules/hr/operations/screens/AutomationCe
 import ReminderCenterScreen from '@/modules/hr/operations/screens/ReminderCenterScreen';
 import ApprovalQueueScreen from '@/modules/hr/operations/screens/ApprovalQueueScreen';
 
+// People Intelligence Screen Imports
+import ExecutiveDashboardScreen from '@/modules/hr/people-intelligence/screens/ExecutiveDashboardScreen';
+import WorkforceAnalyticsScreen from '@/modules/hr/people-intelligence/screens/WorkforceAnalyticsScreen';
+import RecruitmentAnalyticsScreen from '@/modules/hr/people-intelligence/screens/RecruitmentAnalyticsScreen';
+import PerformanceAnalyticsScreen from '@/modules/hr/people-intelligence/screens/PerformanceAnalyticsScreen';
+import LearningAnalyticsScreen from '@/modules/hr/people-intelligence/screens/LearningAnalyticsScreen';
+import InsightsHubScreen from '@/modules/hr/people-intelligence/screens/InsightsHubScreen';
+
 const Stack = createNativeStackNavigator();
 
 const ProtectedHRDashboard = () => (
@@ -323,6 +331,43 @@ const ProtectedApprovalQueue = () => (
   </PermissionGuard>
 );
 
+// People Intelligence Guarded Screen Wrappers
+const ProtectedExecutiveDashboard = () => (
+  <PermissionGuard requiredPermissions="VIEW_EXECUTIVE_DASHBOARD">
+    <ExecutiveDashboardScreen />
+  </PermissionGuard>
+);
+
+const ProtectedWorkforceAnalytics = () => (
+  <PermissionGuard requiredPermissions="VIEW_WORKFORCE_ANALYTICS">
+    <WorkforceAnalyticsScreen />
+  </PermissionGuard>
+);
+
+const ProtectedRecruitmentAnalytics = () => (
+  <PermissionGuard requiredPermissions="VIEW_RECRUITMENT_ANALYTICS">
+    <RecruitmentAnalyticsScreen />
+  </PermissionGuard>
+);
+
+const ProtectedPerformanceAnalytics = () => (
+  <PermissionGuard requiredPermissions="VIEW_PERFORMANCE_ANALYTICS">
+    <PerformanceAnalyticsScreen />
+  </PermissionGuard>
+);
+
+const ProtectedLearningAnalytics = () => (
+  <PermissionGuard requiredPermissions="VIEW_LEARNING_ANALYTICS">
+    <LearningAnalyticsScreen />
+  </PermissionGuard>
+);
+
+const ProtectedInsightsHub = () => (
+  <PermissionGuard requiredPermissions="VIEW_EXECUTIVE_DASHBOARD">
+    <InsightsHubScreen />
+  </PermissionGuard>
+);
+
 export default function HRNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -382,6 +427,14 @@ export default function HRNavigator() {
       <Stack.Screen name="AutomationCenter" component={ProtectedAutomationCenter} />
       <Stack.Screen name="ReminderCenter" component={ProtectedReminderCenter} />
       <Stack.Screen name="ApprovalQueue" component={ProtectedApprovalQueue} />
+
+      {/* People Intelligence Subdomain */}
+      <Stack.Screen name="ExecutiveDashboard" component={ProtectedExecutiveDashboard} />
+      <Stack.Screen name="WorkforceAnalytics" component={ProtectedWorkforceAnalytics} />
+      <Stack.Screen name="RecruitmentAnalytics" component={ProtectedRecruitmentAnalytics} />
+      <Stack.Screen name="PerformanceAnalytics" component={ProtectedPerformanceAnalytics} />
+      <Stack.Screen name="LearningAnalytics" component={ProtectedLearningAnalytics} />
+      <Stack.Screen name="InsightsHub" component={ProtectedInsightsHub} />
     </Stack.Navigator>
   );
 }
