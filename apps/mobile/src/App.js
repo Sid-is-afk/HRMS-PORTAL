@@ -2,6 +2,8 @@ import '../global.css';
 import { NavigationContainer } from '@react-navigation/native';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { PaperProvider } from 'react-native-paper';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { queryClient } from '@/api/client/queryClient';
 import RootNavigator from '@/app/navigation/RootNavigator';
 import { sessionManager } from '@/core/session/sessionManager';
@@ -34,9 +36,11 @@ export default function App() {
   return (
     <SafeAreaProvider style={{ flex: 1, height: Platform.OS === 'web' ? '100vh' : 'auto' }}>
       <QueryClientProvider client={queryClient}>
-        <NavigationContainer>
-          <RootNavigator />
-        </NavigationContainer>
+        <PaperProvider settings={{ icon: props => <MaterialCommunityIcons {...props} /> }}>
+          <NavigationContainer>
+            <RootNavigator />
+          </NavigationContainer>
+        </PaperProvider>
       </QueryClientProvider>
     </SafeAreaProvider>
   );

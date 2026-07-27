@@ -10,7 +10,7 @@ import UpcomingEventsScreen from '@/modules/hr/screens/UpcomingEventsScreen';
 import HRSearchScreen from '@/modules/hr/screens/HRSearchScreen';
 
 // Talent Acquisition Screen Imports
-import TalentDashboardScreen from '@/modules/hr/talent-acquisition/screens/TalentDashboardScreen';
+import TalentAcquisitionDashboardScreen from '@/modules/hr/talent-acquisition/screens/TalentDashboardScreen';
 import JobRequisitionDirectoryScreen from '@/modules/hr/talent-acquisition/screens/JobRequisitionDirectoryScreen';
 import JobRequisitionDetailsScreen from '@/modules/hr/talent-acquisition/screens/JobRequisitionDetailsScreen';
 import JobPostingDirectoryScreen from '@/modules/hr/talent-acquisition/screens/JobPostingDirectoryScreen';
@@ -42,7 +42,7 @@ import ProbationTrackerScreen from '@/modules/hr/employee-lifecycle/screens/Prob
 import ConfirmationCenterScreen from '@/modules/hr/employee-lifecycle/screens/ConfirmationCenterScreen';
 
 // Talent Development Screen Imports
-import TalentDashboardScreen from '@/modules/hr/talent-development/screens/TalentDashboardScreen';
+import TalentDevelopmentDashboardScreen from '@/modules/hr/talent-development/screens/TalentDashboardScreen';
 import PerformanceGoalsScreen from '@/modules/hr/talent-development/screens/PerformanceGoalsScreen';
 import PerformanceReviewsScreen from '@/modules/hr/talent-development/screens/PerformanceReviewsScreen';
 import LearningCatalogScreen from '@/modules/hr/talent-development/screens/LearningCatalogScreen';
@@ -110,9 +110,9 @@ const ProtectedHRSearch = () => (
 );
 
 // Talent Acquisition Guarded Screen Wrappers
-const ProtectedTalentDashboard = () => (
+const ProtectedTalentAcquisitionDashboard = () => (
   <PermissionGuard requiredPermissions="VIEW_RECRUITMENT">
-    <TalentDashboardScreen />
+    <TalentAcquisitionDashboardScreen />
   </PermissionGuard>
 );
 
@@ -258,9 +258,9 @@ const ProtectedConfirmationCenter = () => (
 );
 
 // Talent Development Guarded Screen Wrappers
-const ProtectedTalentDashboard = () => (
+const ProtectedTalentDevelopmentDashboard = () => (
   <PermissionGuard requiredPermissions="VIEW_PERFORMANCE">
-    <TalentDashboardScreen />
+    <TalentDevelopmentDashboardScreen />
   </PermissionGuard>
 );
 
@@ -381,7 +381,7 @@ export default function HRNavigator() {
       <Stack.Screen name="HRSearch" component={ProtectedHRSearch} />
 
       {/* Talent Acquisition Domain */}
-      <Stack.Screen name="TalentDashboard" component={ProtectedTalentDashboard} />
+      <Stack.Screen name="TalentAcquisitionDashboard" component={ProtectedTalentAcquisitionDashboard} />
       <Stack.Screen name="JobRequisitions" component={ProtectedJobRequisitions} />
       <Stack.Screen name="JobRequisitionDetails" component={ProtectedJobRequisitionDetails} />
       <Stack.Screen name="JobPostings" component={ProtectedJobPostings} />
@@ -413,7 +413,7 @@ export default function HRNavigator() {
       <Stack.Screen name="ConfirmationCenter" component={ProtectedConfirmationCenter} />
 
       {/* Talent Development Subdomain */}
-      <Stack.Screen name="TalentDashboard" component={ProtectedTalentDashboard} />
+      <Stack.Screen name="TalentDevelopmentDashboard" component={ProtectedTalentDevelopmentDashboard} />
       <Stack.Screen name="PerformanceGoals" component={ProtectedPerformanceGoals} />
       <Stack.Screen name="PerformanceReviews" component={ProtectedPerformanceReviews} />
       <Stack.Screen name="LearningCatalog" component={ProtectedLearningCatalog} />

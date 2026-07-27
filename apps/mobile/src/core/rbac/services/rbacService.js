@@ -42,8 +42,8 @@ export const rbacService = {
       case ROLES.ADMIN:
         return [
           { name: 'AdminDashboard', label: 'Admin Dashboard', icon: 'view-dashboard' },
-          { name: 'AttendanceManagement', label: 'Manage Attendance', icon: 'clock-outline' },
-          { name: 'LeaveManagement', label: 'Manage Leaves', icon: 'calendar-range' },
+          { name: 'AdminAttendance', label: 'Manage Attendance', icon: 'clock-outline' },
+          { name: 'AdminLeave', label: 'Manage Leaves', icon: 'calendar-range' },
           { name: 'AdminIAM', label: 'Identity & Access', icon: 'shield-key-outline' },
           { name: 'AdminMasterData', label: 'Master Data Config', icon: 'database-settings' },
         ];

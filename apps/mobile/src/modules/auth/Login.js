@@ -12,6 +12,7 @@ import { authService } from '@/core/auth/authService';
 import { useAuthStore } from '@/core/auth/authStore';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import { Building2, User as UserIcon, Lock } from 'lucide-react-native';
+import { ROLES } from '@/core/rbac/roles';
 
 export default function Login() {
   const { setTokens, setUser, setLoading, setError, isLoading, error } = useAuthStore();
@@ -20,6 +21,7 @@ export default function Login() {
     defaultValues: {
       identifier: '',
       password: '',
+      role: ROLES.EMPLOYEE,
     },
   });
 
@@ -27,7 +29,7 @@ export default function Login() {
     setLoading(true);
     setError(null);
     try {
-      const response = await authService.login(data.identifier, data.password);
+      const response = await authService.login(data.identifier, data.password, data.role);
       setTokens(response.accessToken, response.refreshToken);
       setUser(response.user);
       setLoading(false);
@@ -101,6 +103,35 @@ export default function Login() {
                       accessible={true}
                       accessibilityLabel="Password input"
                     />
+                  </View>
+                )}
+              />
+
+              <Controller
+                control={control}
+                name="role"
+                render={({ field: { onChange, value } }) => (
+                  <View className="mb-4">
+                    <Text className="text-textSecondary text-sm font-inter mb-2">Select Role (MVP Testing)</Text>
+                    <ScrollView horizontal showsHorizontalScrollIndicator={false} className="flex-row">
+                      {Object.values(ROLES).map((role) => (
+                        <TouchableOpacity
+                          key={role}
+                          onPress={() => onChange(role)}
+                          className={`mr-2 px-4 py-2 rounded-full border ${
+                            value === role 
+                              ? 'bg-primary border-primary' 
+                              : 'bg-surface border-border'
+                          }`}
+                        >
+                          <Text className={`font-inter text-sm ${
+                            value === role ? 'text-white font-semibold' : 'text-textSecondary'
+                          }`}>
+                            {role.replace('_', ' ')}
+                          </Text>
+                        </TouchableOpacity>
+                      ))}
+                    </ScrollView>
                   </View>
                 )}
               />

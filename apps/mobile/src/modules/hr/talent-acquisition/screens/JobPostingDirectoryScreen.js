@@ -42,7 +42,10 @@ export default function JobPostingDirectoryScreen() {
           placeholder="Search job postings..."
         />
 
-        <FlatList\n        initialNumToRender={10}\n        maxToRenderPerBatch={10}\n        windowSize={5}
+        <FlatList
+        initialNumToRender={10}
+        maxToRenderPerBatch={10}
+        windowSize={5}
           data={jobPostings}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (

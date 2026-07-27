@@ -1,6 +1,6 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { PermissionGuard } from '@/core/rbac/components/PermissionGuard';
+import { PermissionGuard } from '@/core/rbac/guards/PermissionGuard';
 
 import PlatformDashboardScreen from '@/modules/platform/screens/PlatformDashboardScreen';
 import PlatformNotificationsScreen from '@/modules/platform/screens/PlatformNotificationsScreen';
