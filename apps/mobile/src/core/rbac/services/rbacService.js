@@ -35,6 +35,9 @@ export const rbacService = {
           { name: 'HRQuickActions', label: 'Quick Actions', icon: 'lightning-bolt-outline' },
           { name: 'UpcomingEvents', label: 'Upcoming Events', icon: 'calendar-clock' },
           { name: 'HRSearch', label: 'Search', icon: 'magnify' },
+          { name: 'TalentDashboard', label: 'Talent Dashboard', icon: 'account-group-outline' },
+          { name: 'JobRequisitions', label: 'Job Requisitions', icon: 'file-document-multiple-outline' },
+          { name: 'JobPostings', label: 'Job Postings', icon: 'bullhorn-outline' },
         ];
       case ROLES.ADMIN:
         return [
