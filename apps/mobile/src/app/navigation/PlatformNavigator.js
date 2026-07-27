@@ -21,6 +21,13 @@ import PermissionExplorerScreen from '@/modules/platform/identity/screens/Permis
 import SessionCenterScreen from '@/modules/platform/identity/screens/SessionCenterScreen';
 import AuthenticationPoliciesScreen from '@/modules/platform/identity/screens/AuthenticationPoliciesScreen';
 
+// Governance & Configuration Screen Imports
+import GovernanceDashboardScreen from '@/modules/platform/governance/screens/GovernanceDashboardScreen';
+import FeatureManagementScreen from '@/modules/platform/governance/screens/FeatureManagementScreen';
+import ModuleCatalogScreen from '@/modules/platform/governance/screens/ModuleCatalogScreen';
+import SubscriptionCenterScreen from '@/modules/platform/governance/screens/SubscriptionCenterScreen';
+import PlatformConfigurationScreen from '@/modules/platform/governance/screens/PlatformConfigurationScreen';
+
 const Stack = createNativeStackNavigator();
 
 const ProtectedPlatformDashboard = () => (
@@ -109,6 +116,37 @@ const ProtectedAuthenticationPolicies = () => (
   </PermissionGuard>
 );
 
+// Governance & Configuration Guarded Screen Wrappers
+const ProtectedGovernanceDashboard = () => (
+  <PermissionGuard requiredPermissions="VIEW_PLATFORM_CONFIGURATION">
+    <GovernanceDashboardScreen />
+  </PermissionGuard>
+);
+
+const ProtectedFeatureManagement = () => (
+  <PermissionGuard requiredPermissions="VIEW_FEATURES">
+    <FeatureManagementScreen />
+  </PermissionGuard>
+);
+
+const ProtectedModuleCatalog = () => (
+  <PermissionGuard requiredPermissions="VIEW_PLATFORM_CONFIGURATION">
+    <ModuleCatalogScreen />
+  </PermissionGuard>
+);
+
+const ProtectedSubscriptionCenter = () => (
+  <PermissionGuard requiredPermissions="VIEW_SUBSCRIPTIONS">
+    <SubscriptionCenterScreen />
+  </PermissionGuard>
+);
+
+const ProtectedPlatformConfiguration = () => (
+  <PermissionGuard requiredPermissions="VIEW_PLATFORM_CONFIGURATION">
+    <PlatformConfigurationScreen />
+  </PermissionGuard>
+);
+
 export default function PlatformNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -130,6 +168,13 @@ export default function PlatformNavigator() {
       <Stack.Screen name="PermissionExplorer" component={ProtectedPermissionExplorer} />
       <Stack.Screen name="SessionCenter" component={ProtectedSessionCenter} />
       <Stack.Screen name="AuthenticationPolicies" component={ProtectedAuthenticationPolicies} />
+
+      {/* Governance & Configuration Subdomain */}
+      <Stack.Screen name="GovernanceDashboard" component={ProtectedGovernanceDashboard} />
+      <Stack.Screen name="FeatureManagement" component={ProtectedFeatureManagement} />
+      <Stack.Screen name="ModuleCatalog" component={ProtectedModuleCatalog} />
+      <Stack.Screen name="SubscriptionCenter" component={ProtectedSubscriptionCenter} />
+      <Stack.Screen name="PlatformConfiguration" component={ProtectedPlatformConfiguration} />
     </Stack.Navigator>
   );
 }
