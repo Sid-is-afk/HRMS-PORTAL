@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, ActivityIndicator, Alert } from 'react-native';
+import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import { Text, Button, Card } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import HRWorkspaceScreen from '@/modules/hr/screens/HRWorkspaceScreen';
@@ -28,12 +28,7 @@ export default function TalentDashboardScreen() {
     );
   }
 
-  const handleRaiseRequisition = () => {
-    Alert.alert(
-      'Hiring Workflow',
-      'Raise Job Requisition dialog will initiate. Standard multi-stage approval routing via Workflow Engine will apply.'
-    );
-  };
+
 
   return (
     <HRWorkspaceScreen title="Talent Acquisition Console">
@@ -101,17 +96,35 @@ export default function TalentDashboardScreen() {
             </View>
           </RecruitmentWidget>
 
-          <RecruitmentWidget id="calendar" title="Hiring Calendar (Sprint 2)" size="medium">
+          <RecruitmentWidget id="calendar" title="Hiring Operations Center" size="medium">
             <Card style={styles.calendarCard}>
               <Card.Content style={styles.calendarContent}>
-                <Text style={styles.calendarText}>No interviews scheduled today.</Text>
+                <Text style={styles.calendarText}>Manage pipelines, schedules, and active candidates.</Text>
+                <View style={styles.buttonRow}>
+                  <Button 
+                    mode="contained" 
+                    buttonColor="#2563EB"
+                    style={[styles.opBtn, { marginRight: 8 }]}
+                    onPress={() => navigation.navigate('PipelineBoard')}
+                  >
+                    Pipeline Board
+                  </Button>
+                  <Button 
+                    mode="contained" 
+                    buttonColor="#2563EB"
+                    style={styles.opBtn}
+                    onPress={() => navigation.navigate('CandidateDirectory')}
+                  >
+                    Candidate List
+                  </Button>
+                </View>
                 <Button 
-                  mode="contained" 
-                  buttonColor="#2563EB"
-                  style={styles.raiseBtn}
-                  onPress={handleRaiseRequisition}
+                  mode="outlined" 
+                  textColor="#2563EB" 
+                  style={[styles.raiseBtn, { marginTop: 8, width: '100%' }]}
+                  onPress={() => navigation.navigate('InterviewDashboard')}
                 >
-                  Raise Requisition
+                  Interview Dashboard
                 </Button>
               </Card.Content>
             </Card>
@@ -174,6 +187,16 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   raiseBtn: {
+    borderRadius: 8,
+  },
+  buttonRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    marginBottom: 8,
+  },
+  opBtn: {
+    flex: 1,
     borderRadius: 8,
   },
 });

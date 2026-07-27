@@ -18,6 +18,16 @@ import RecruitmentActivityFeedScreen from '@/modules/hr/talent-acquisition/scree
 import RecruitmentSearchScreen from '@/modules/hr/talent-acquisition/screens/RecruitmentSearchScreen';
 import RecruitmentFiltersScreen from '@/modules/hr/talent-acquisition/screens/RecruitmentFiltersScreen';
 
+// Pipeline Screen Imports
+import CandidateDirectoryScreen from '@/modules/hr/talent-acquisition/pipeline/screens/CandidateDirectoryScreen';
+import CandidateProfileScreen from '@/modules/hr/talent-acquisition/pipeline/screens/CandidateProfileScreen';
+import PipelineBoardScreen from '@/modules/hr/talent-acquisition/pipeline/screens/PipelineBoardScreen';
+import InterviewDashboardScreen from '@/modules/hr/talent-acquisition/pipeline/screens/InterviewDashboardScreen';
+import InterviewCalendarScreen from '@/modules/hr/talent-acquisition/pipeline/screens/InterviewCalendarScreen';
+import InterviewDetailsScreen from '@/modules/hr/talent-acquisition/pipeline/screens/InterviewDetailsScreen';
+import FeedbackFormScreen from '@/modules/hr/talent-acquisition/pipeline/screens/FeedbackFormScreen';
+import CandidateTimelineScreen from '@/modules/hr/talent-acquisition/pipeline/screens/CandidateTimelineScreen';
+
 const Stack = createNativeStackNavigator();
 
 const ProtectedHRDashboard = () => (
@@ -105,6 +115,55 @@ const ProtectedRecruitmentFilters = () => (
   </PermissionGuard>
 );
 
+// Pipeline Guarded Screen Wrappers
+const ProtectedCandidateDirectory = () => (
+  <PermissionGuard requiredPermissions="VIEW_CANDIDATES">
+    <CandidateDirectoryScreen />
+  </PermissionGuard>
+);
+
+const ProtectedCandidateProfile = () => (
+  <PermissionGuard requiredPermissions="VIEW_CANDIDATES">
+    <CandidateProfileScreen />
+  </PermissionGuard>
+);
+
+const ProtectedPipelineBoard = () => (
+  <PermissionGuard requiredPermissions="VIEW_PIPELINE">
+    <PipelineBoardScreen />
+  </PermissionGuard>
+);
+
+const ProtectedInterviewDashboard = () => (
+  <PermissionGuard requiredPermissions="VIEW_RECRUITMENT">
+    <InterviewDashboardScreen />
+  </PermissionGuard>
+);
+
+const ProtectedInterviewCalendar = () => (
+  <PermissionGuard requiredPermissions="VIEW_RECRUITMENT">
+    <InterviewCalendarScreen />
+  </PermissionGuard>
+);
+
+const ProtectedInterviewDetails = () => (
+  <PermissionGuard requiredPermissions="VIEW_RECRUITMENT">
+    <InterviewDetailsScreen />
+  </PermissionGuard>
+);
+
+const ProtectedFeedbackForm = () => (
+  <PermissionGuard requiredPermissions="SUBMIT_INTERVIEW_FEEDBACK">
+    <FeedbackFormScreen />
+  </PermissionGuard>
+);
+
+const ProtectedCandidateTimeline = () => (
+  <PermissionGuard requiredPermissions="VIEW_CANDIDATES">
+    <CandidateTimelineScreen />
+  </PermissionGuard>
+);
+
 export default function HRNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -125,6 +184,16 @@ export default function HRNavigator() {
       <Stack.Screen name="RecruitmentActivityFeed" component={ProtectedRecruitmentActivityFeed} />
       <Stack.Screen name="RecruitmentSearch" component={ProtectedRecruitmentSearch} />
       <Stack.Screen name="RecruitmentFilters" component={ProtectedRecruitmentFilters} />
+
+      {/* Pipeline & Interview Subdomain */}
+      <Stack.Screen name="CandidateDirectory" component={ProtectedCandidateDirectory} />
+      <Stack.Screen name="CandidateProfile" component={ProtectedCandidateProfile} />
+      <Stack.Screen name="PipelineBoard" component={ProtectedPipelineBoard} />
+      <Stack.Screen name="InterviewDashboard" component={ProtectedInterviewDashboard} />
+      <Stack.Screen name="InterviewCalendar" component={ProtectedInterviewCalendar} />
+      <Stack.Screen name="InterviewDetails" component={ProtectedInterviewDetails} />
+      <Stack.Screen name="FeedbackForm" component={ProtectedFeedbackForm} />
+      <Stack.Screen name="CandidateTimeline" component={ProtectedCandidateTimeline} />
     </Stack.Navigator>
   );
 }

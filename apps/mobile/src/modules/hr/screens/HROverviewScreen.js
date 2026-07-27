@@ -1,10 +1,11 @@
 import React from 'react';
 import { View, StyleSheet, Alert } from 'react-native';
 import { Text, Card, Button } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
 import HRWorkspaceScreen from './HRWorkspaceScreen';
 
 const overviewModules = [
-  { id: 'rec', title: 'Recruitment Management', description: 'Pipeline overview, interview tracking, and job postings.', icon: 'briefcase-search-outline', status: 'Placeholder (Sprint 2)' },
+  { id: 'rec', title: 'Recruitment Management', description: 'Pipeline overview, interview tracking, and job postings.', icon: 'briefcase-search-outline', status: 'Active (Sprint 3)' },
   { id: 'onb', title: 'Employee Onboarding', description: 'New hire checklists, document validation, and confirmation tasks.', icon: 'account-child-circle', status: 'Placeholder (Sprint 2)' },
   { id: 'perf', title: 'Performance Reviews', description: 'Appraisals cycle setup, self evaluations, and goals management.', icon: 'chart-gantt', status: 'Placeholder (Sprint 2)' },
   { id: 'train', title: 'Training & Development', description: 'Course enrollments, policy compliance, and certificates.', icon: 'school-outline', status: 'Placeholder (Sprint 2)' },
@@ -12,8 +13,14 @@ const overviewModules = [
 ];
 
 export default function HROverviewScreen() {
+  const navigation = useNavigation();
+
   const handleLaunchModule = (mod) => {
-    Alert.alert('Module Offline', `${mod.title} will be fully activated in Sprint 2.`);
+    if (mod.id === 'rec') {
+      navigation.navigate('TalentDashboard');
+    } else {
+      Alert.alert('Module Offline', `${mod.title} will be fully activated in Sprint 2.`);
+    }
   };
 
   return (
