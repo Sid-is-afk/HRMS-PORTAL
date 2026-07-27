@@ -113,7 +113,7 @@ export default function CandidateDirectoryScreen() {
           onReset={resetFilters}
         />
 
-        <FlatList
+        <FlatList\n        initialNumToRender={10}\n        maxToRenderPerBatch={10}\n        windowSize={5}
           data={candidates}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (

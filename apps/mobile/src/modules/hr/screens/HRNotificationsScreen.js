@@ -12,7 +12,7 @@ export default function HRNotificationsScreen() {
     <HRWorkspaceScreen title="HR Notifications & Alerts">
       <View style={styles.container}>
         <Text style={styles.subtitle}>Critical workflow notifications, compliance alerts, and policy updates requiring attention.</Text>
-        <FlatList
+        <FlatList\n        initialNumToRender={10}\n        maxToRenderPerBatch={10}\n        windowSize={5}
           data={notifications}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (

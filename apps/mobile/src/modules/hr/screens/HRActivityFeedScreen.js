@@ -12,7 +12,7 @@ export default function HRActivityFeedScreen() {
     <HRWorkspaceScreen title="HR Activity Feed">
       <View style={styles.container}>
         <Text style={styles.subtitle}>Recent logs of all talent, recruitment, and onboarding events across the organization.</Text>
-        <FlatList
+        <FlatList\n        initialNumToRender={10}\n        maxToRenderPerBatch={10}\n        windowSize={5}
           data={activities}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => <HRActivityCard activity={item} />}

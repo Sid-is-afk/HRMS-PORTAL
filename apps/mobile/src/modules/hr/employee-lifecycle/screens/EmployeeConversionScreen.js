@@ -17,7 +17,7 @@ export default function EmployeeConversionScreen() {
         <View className="p-4"><Text className="text-error">{error}</Text></View>
       ) : null}
 
-      <FlatList
+      <FlatList\n        initialNumToRender={10}\n        maxToRenderPerBatch={10}\n        windowSize={5}
         data={conversions}
         keyExtractor={(item) => item.id}
         contentContainerStyle={{ padding: 16 }}
