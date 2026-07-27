@@ -13,6 +13,14 @@ import TenantDirectoryScreen from '@/modules/platform/tenant/screens/TenantDirec
 import TenantDetailsScreen from '@/modules/platform/tenant/screens/TenantDetailsScreen';
 import ProvisioningWizardScreen from '@/modules/platform/tenant/screens/ProvisioningWizardScreen';
 
+// Identity & Trust Screen Imports
+import IdentityDashboardScreen from '@/modules/platform/identity/screens/IdentityDashboardScreen';
+import PlatformUsersScreen from '@/modules/platform/identity/screens/PlatformUsersScreen';
+import GlobalRolesScreen from '@/modules/platform/identity/screens/GlobalRolesScreen';
+import PermissionExplorerScreen from '@/modules/platform/identity/screens/PermissionExplorerScreen';
+import SessionCenterScreen from '@/modules/platform/identity/screens/SessionCenterScreen';
+import AuthenticationPoliciesScreen from '@/modules/platform/identity/screens/AuthenticationPoliciesScreen';
+
 const Stack = createNativeStackNavigator();
 
 const ProtectedPlatformDashboard = () => (
@@ -64,6 +72,43 @@ const ProtectedProvisioningWizard = () => (
   </PermissionGuard>
 );
 
+// Identity & Trust Guarded Screen Wrappers
+const ProtectedIdentityDashboard = () => (
+  <PermissionGuard requiredPermissions="VIEW_PLATFORM_USERS">
+    <IdentityDashboardScreen />
+  </PermissionGuard>
+);
+
+const ProtectedPlatformUsers = () => (
+  <PermissionGuard requiredPermissions="VIEW_PLATFORM_USERS">
+    <PlatformUsersScreen />
+  </PermissionGuard>
+);
+
+const ProtectedGlobalRoles = () => (
+  <PermissionGuard requiredPermissions="VIEW_GLOBAL_ROLES">
+    <GlobalRolesScreen />
+  </PermissionGuard>
+);
+
+const ProtectedPermissionExplorer = () => (
+  <PermissionGuard requiredPermissions="VIEW_GLOBAL_ROLES">
+    <PermissionExplorerScreen />
+  </PermissionGuard>
+);
+
+const ProtectedSessionCenter = () => (
+  <PermissionGuard requiredPermissions="VIEW_SESSIONS">
+    <SessionCenterScreen />
+  </PermissionGuard>
+);
+
+const ProtectedAuthenticationPolicies = () => (
+  <PermissionGuard requiredPermissions="VIEW_AUTH_POLICIES">
+    <AuthenticationPoliciesScreen />
+  </PermissionGuard>
+);
+
 export default function PlatformNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -77,6 +122,14 @@ export default function PlatformNavigator() {
       <Stack.Screen name="TenantDirectory" component={ProtectedTenantDirectory} />
       <Stack.Screen name="TenantDetails" component={ProtectedTenantDetails} />
       <Stack.Screen name="ProvisioningWizard" component={ProtectedProvisioningWizard} />
+
+      {/* Identity & Trust Subdomain */}
+      <Stack.Screen name="IdentityDashboard" component={ProtectedIdentityDashboard} />
+      <Stack.Screen name="PlatformUsers" component={ProtectedPlatformUsers} />
+      <Stack.Screen name="GlobalRoles" component={ProtectedGlobalRoles} />
+      <Stack.Screen name="PermissionExplorer" component={ProtectedPermissionExplorer} />
+      <Stack.Screen name="SessionCenter" component={ProtectedSessionCenter} />
+      <Stack.Screen name="AuthenticationPolicies" component={ProtectedAuthenticationPolicies} />
     </Stack.Navigator>
   );
 }
