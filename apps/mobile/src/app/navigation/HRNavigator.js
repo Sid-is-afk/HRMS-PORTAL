@@ -33,6 +33,14 @@ import OfferDashboardScreen from '@/modules/hr/talent-acquisition/offers/screens
 import OfferDirectoryScreen from '@/modules/hr/talent-acquisition/offers/screens/OfferDirectoryScreen';
 import OfferDetailsScreen from '@/modules/hr/talent-acquisition/offers/screens/OfferDetailsScreen';
 import DecisionCenterScreen from '@/modules/hr/talent-acquisition/offers/screens/DecisionCenterScreen';
+
+// Employee Lifecycle Screen Imports
+import LifecycleDashboardScreen from '@/modules/hr/employee-lifecycle/screens/LifecycleDashboardScreen';
+import EmployeeConversionScreen from '@/modules/hr/employee-lifecycle/screens/EmployeeConversionScreen';
+import OnboardingWorkspaceScreen from '@/modules/hr/employee-lifecycle/screens/OnboardingWorkspaceScreen';
+import ProbationTrackerScreen from '@/modules/hr/employee-lifecycle/screens/ProbationTrackerScreen';
+import ConfirmationCenterScreen from '@/modules/hr/employee-lifecycle/screens/ConfirmationCenterScreen';
+
 const Stack = createNativeStackNavigator();
 
 const ProtectedHRDashboard = () => (
@@ -194,6 +202,37 @@ const ProtectedDecisionCenter = () => (
   </PermissionGuard>
 );
 
+// Employee Lifecycle Guarded Screen Wrappers
+const ProtectedLifecycleDashboard = () => (
+  <PermissionGuard requiredPermissions="VIEW_EMPLOYEE_LIFECYCLE">
+    <LifecycleDashboardScreen />
+  </PermissionGuard>
+);
+
+const ProtectedEmployeeConversion = () => (
+  <PermissionGuard requiredPermissions="CONVERT_CANDIDATE">
+    <EmployeeConversionScreen />
+  </PermissionGuard>
+);
+
+const ProtectedOnboardingWorkspace = () => (
+  <PermissionGuard requiredPermissions="MANAGE_ONBOARDING">
+    <OnboardingWorkspaceScreen />
+  </PermissionGuard>
+);
+
+const ProtectedProbationTracker = () => (
+  <PermissionGuard requiredPermissions="VIEW_PROBATION">
+    <ProbationTrackerScreen />
+  </PermissionGuard>
+);
+
+const ProtectedConfirmationCenter = () => (
+  <PermissionGuard requiredPermissions="MANAGE_CONFIRMATION">
+    <ConfirmationCenterScreen />
+  </PermissionGuard>
+);
+
 export default function HRNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -230,6 +269,13 @@ export default function HRNavigator() {
       <Stack.Screen name="OfferDirectory" component={ProtectedOfferDirectory} />
       <Stack.Screen name="OfferDetails" component={ProtectedOfferDetails} />
       <Stack.Screen name="DecisionCenter" component={ProtectedDecisionCenter} />
+
+      {/* Employee Lifecycle Subdomain */}
+      <Stack.Screen name="LifecycleDashboard" component={ProtectedLifecycleDashboard} />
+      <Stack.Screen name="EmployeeConversion" component={ProtectedEmployeeConversion} />
+      <Stack.Screen name="OnboardingWorkspace" component={ProtectedOnboardingWorkspace} />
+      <Stack.Screen name="ProbationTracker" component={ProtectedProbationTracker} />
+      <Stack.Screen name="ConfirmationCenter" component={ProtectedConfirmationCenter} />
     </Stack.Navigator>
   );
 }
