@@ -49,6 +49,14 @@ import LearningCatalogScreen from '@/modules/hr/talent-development/screens/Learn
 import ComplianceCenterScreen from '@/modules/hr/talent-development/screens/ComplianceCenterScreen';
 import DevelopmentPlansScreen from '@/modules/hr/talent-development/screens/DevelopmentPlansScreen';
 
+// HR Operations Screen Imports
+import OperationsDashboardScreen from '@/modules/hr/operations/screens/OperationsDashboardScreen';
+import ServiceRequestCenterScreen from '@/modules/hr/operations/screens/ServiceRequestCenterScreen';
+import CaseManagementScreen from '@/modules/hr/operations/screens/CaseManagementScreen';
+import AutomationCenterScreen from '@/modules/hr/operations/screens/AutomationCenterScreen';
+import ReminderCenterScreen from '@/modules/hr/operations/screens/ReminderCenterScreen';
+import ApprovalQueueScreen from '@/modules/hr/operations/screens/ApprovalQueueScreen';
+
 const Stack = createNativeStackNavigator();
 
 const ProtectedHRDashboard = () => (
@@ -278,6 +286,43 @@ const ProtectedDevelopmentPlans = () => (
   </PermissionGuard>
 );
 
+// HR Operations Guarded Screen Wrappers
+const ProtectedOperationsDashboard = () => (
+  <PermissionGuard requiredPermissions="VIEW_HR_DASHBOARD">
+    <OperationsDashboardScreen />
+  </PermissionGuard>
+);
+
+const ProtectedServiceRequests = () => (
+  <PermissionGuard requiredPermissions="VIEW_SERVICE_REQUESTS">
+    <ServiceRequestCenterScreen />
+  </PermissionGuard>
+);
+
+const ProtectedCaseManagement = () => (
+  <PermissionGuard requiredPermissions="MANAGE_CASES">
+    <CaseManagementScreen />
+  </PermissionGuard>
+);
+
+const ProtectedAutomationCenter = () => (
+  <PermissionGuard requiredPermissions="CONFIGURE_AUTOMATION">
+    <AutomationCenterScreen />
+  </PermissionGuard>
+);
+
+const ProtectedReminderCenter = () => (
+  <PermissionGuard requiredPermissions="MANAGE_REMINDERS">
+    <ReminderCenterScreen />
+  </PermissionGuard>
+);
+
+const ProtectedApprovalQueue = () => (
+  <PermissionGuard requiredPermissions="VIEW_APPROVAL_QUEUE">
+    <ApprovalQueueScreen />
+  </PermissionGuard>
+);
+
 export default function HRNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -329,6 +374,14 @@ export default function HRNavigator() {
       <Stack.Screen name="LearningCatalog" component={ProtectedLearningCatalog} />
       <Stack.Screen name="ComplianceCenter" component={ProtectedComplianceCenter} />
       <Stack.Screen name="DevelopmentPlans" component={ProtectedDevelopmentPlans} />
+
+      {/* HR Operations Subdomain */}
+      <Stack.Screen name="OperationsDashboard" component={ProtectedOperationsDashboard} />
+      <Stack.Screen name="ServiceRequestCenter" component={ProtectedServiceRequests} />
+      <Stack.Screen name="CaseManagement" component={ProtectedCaseManagement} />
+      <Stack.Screen name="AutomationCenter" component={ProtectedAutomationCenter} />
+      <Stack.Screen name="ReminderCenter" component={ProtectedReminderCenter} />
+      <Stack.Screen name="ApprovalQueue" component={ProtectedApprovalQueue} />
     </Stack.Navigator>
   );
 }
