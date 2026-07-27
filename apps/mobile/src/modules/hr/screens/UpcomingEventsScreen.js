@@ -12,7 +12,7 @@ export default function UpcomingEventsScreen() {
     <HRWorkspaceScreen title="Upcoming Events & Milestones">
       <View style={styles.container}>
         <Text style={styles.subtitle}>Scheduled interviews, upcoming birthdays, and employment anniversaries for the team.</Text>
-        <FlatList
+        <FlatList\n        initialNumToRender={10}\n        maxToRenderPerBatch={10}\n        windowSize={5}
           data={events}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => <UpcomingEventCard event={item} />}

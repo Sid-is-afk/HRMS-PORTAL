@@ -13,7 +13,7 @@ export default function RecruitmentActivityFeedScreen() {
       <View style={styles.container}>
         <Text style={styles.subtitle}>Audit history of requisition workflow changes, job postings state updates, and reviews logs.</Text>
         
-        <FlatList
+        <FlatList\n        initialNumToRender={10}\n        maxToRenderPerBatch={10}\n        windowSize={5}
           data={activities}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => <HiringActivityCard activity={item} />}
