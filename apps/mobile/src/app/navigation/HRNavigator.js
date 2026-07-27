@@ -28,6 +28,11 @@ import InterviewDetailsScreen from '@/modules/hr/talent-acquisition/pipeline/scr
 import FeedbackFormScreen from '@/modules/hr/talent-acquisition/pipeline/screens/FeedbackFormScreen';
 import CandidateTimelineScreen from '@/modules/hr/talent-acquisition/pipeline/screens/CandidateTimelineScreen';
 
+// Offer Management Screen Imports
+import OfferDashboardScreen from '@/modules/hr/talent-acquisition/offers/screens/OfferDashboardScreen';
+import OfferDirectoryScreen from '@/modules/hr/talent-acquisition/offers/screens/OfferDirectoryScreen';
+import OfferDetailsScreen from '@/modules/hr/talent-acquisition/offers/screens/OfferDetailsScreen';
+import DecisionCenterScreen from '@/modules/hr/talent-acquisition/offers/screens/DecisionCenterScreen';
 const Stack = createNativeStackNavigator();
 
 const ProtectedHRDashboard = () => (
@@ -164,6 +169,31 @@ const ProtectedCandidateTimeline = () => (
   </PermissionGuard>
 );
 
+// Offer Management Guarded Screen Wrappers
+const ProtectedOfferDashboard = () => (
+  <PermissionGuard requiredPermissions="VIEW_OFFERS">
+    <OfferDashboardScreen />
+  </PermissionGuard>
+);
+
+const ProtectedOfferDirectory = () => (
+  <PermissionGuard requiredPermissions="VIEW_OFFERS">
+    <OfferDirectoryScreen />
+  </PermissionGuard>
+);
+
+const ProtectedOfferDetails = () => (
+  <PermissionGuard requiredPermissions="VIEW_OFFERS">
+    <OfferDetailsScreen />
+  </PermissionGuard>
+);
+
+const ProtectedDecisionCenter = () => (
+  <PermissionGuard requiredPermissions="MANAGE_HIRING_DECISIONS">
+    <DecisionCenterScreen />
+  </PermissionGuard>
+);
+
 export default function HRNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -194,6 +224,12 @@ export default function HRNavigator() {
       <Stack.Screen name="InterviewDetails" component={ProtectedInterviewDetails} />
       <Stack.Screen name="FeedbackForm" component={ProtectedFeedbackForm} />
       <Stack.Screen name="CandidateTimeline" component={ProtectedCandidateTimeline} />
+
+      {/* Offer Management Subdomain */}
+      <Stack.Screen name="OfferDashboard" component={ProtectedOfferDashboard} />
+      <Stack.Screen name="OfferDirectory" component={ProtectedOfferDirectory} />
+      <Stack.Screen name="OfferDetails" component={ProtectedOfferDetails} />
+      <Stack.Screen name="DecisionCenter" component={ProtectedDecisionCenter} />
     </Stack.Navigator>
   );
 }
