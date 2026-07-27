@@ -28,6 +28,13 @@ import ModuleCatalogScreen from '@/modules/platform/governance/screens/ModuleCat
 import SubscriptionCenterScreen from '@/modules/platform/governance/screens/SubscriptionCenterScreen';
 import PlatformConfigurationScreen from '@/modules/platform/governance/screens/PlatformConfigurationScreen';
 
+// Operations & Observability Screen Imports
+import OperationsDashboardScreen from '@/modules/platform/operations/screens/OperationsDashboardScreen';
+import HealthCenterScreen from '@/modules/platform/operations/screens/HealthCenterScreen';
+import IncidentCenterScreen from '@/modules/platform/operations/screens/IncidentCenterScreen';
+import LogCenterScreen from '@/modules/platform/operations/screens/LogCenterScreen';
+import ApiStatusScreen from '@/modules/platform/operations/screens/ApiStatusScreen';
+
 const Stack = createNativeStackNavigator();
 
 const ProtectedPlatformDashboard = () => (
@@ -147,6 +154,37 @@ const ProtectedPlatformConfiguration = () => (
   </PermissionGuard>
 );
 
+// Operations & Observability Guarded Screen Wrappers
+const ProtectedOperationsDashboard = () => (
+  <PermissionGuard requiredPermissions="VIEW_OPERATIONS">
+    <OperationsDashboardScreen />
+  </PermissionGuard>
+);
+
+const ProtectedHealthCenter = () => (
+  <PermissionGuard requiredPermissions="VIEW_HEALTH">
+    <HealthCenterScreen />
+  </PermissionGuard>
+);
+
+const ProtectedIncidentCenter = () => (
+  <PermissionGuard requiredPermissions="VIEW_INCIDENTS">
+    <IncidentCenterScreen />
+  </PermissionGuard>
+);
+
+const ProtectedLogCenter = () => (
+  <PermissionGuard requiredPermissions="VIEW_LOGS">
+    <LogCenterScreen />
+  </PermissionGuard>
+);
+
+const ProtectedApiStatus = () => (
+  <PermissionGuard requiredPermissions="VIEW_API_STATUS">
+    <ApiStatusScreen />
+  </PermissionGuard>
+);
+
 export default function PlatformNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -175,6 +213,13 @@ export default function PlatformNavigator() {
       <Stack.Screen name="ModuleCatalog" component={ProtectedModuleCatalog} />
       <Stack.Screen name="SubscriptionCenter" component={ProtectedSubscriptionCenter} />
       <Stack.Screen name="PlatformConfiguration" component={ProtectedPlatformConfiguration} />
+
+      {/* Operations & Observability Subdomain */}
+      <Stack.Screen name="OperationsDashboard" component={ProtectedOperationsDashboard} />
+      <Stack.Screen name="HealthCenter" component={ProtectedHealthCenter} />
+      <Stack.Screen name="IncidentCenter" component={ProtectedIncidentCenter} />
+      <Stack.Screen name="LogCenter" component={ProtectedLogCenter} />
+      <Stack.Screen name="ApiStatus" component={ProtectedApiStatus} />
     </Stack.Navigator>
   );
 }
