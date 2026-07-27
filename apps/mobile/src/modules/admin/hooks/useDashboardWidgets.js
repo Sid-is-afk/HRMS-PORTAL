@@ -1,13 +1,9 @@
 import { useAdminDashboardStore } from '../store/adminDashboardStore';
 
 export function useDashboardWidgets() {
-  const { widgets, toggleWidgetVisibility, reorderWidgets } = useAdminDashboardStore(
-    (state) => ({
-      widgets: state.widgets,
-      toggleWidgetVisibility: state.toggleWidgetVisibility,
-      reorderWidgets: state.reorderWidgets,
-    })
-  );
+  const widgets = useAdminDashboardStore((state) => state.widgets);
+  const toggleWidgetVisibility = useAdminDashboardStore((state) => state.toggleWidgetVisibility);
+  const reorderWidgets = useAdminDashboardStore((state) => state.reorderWidgets);
 
   return {
     widgets,

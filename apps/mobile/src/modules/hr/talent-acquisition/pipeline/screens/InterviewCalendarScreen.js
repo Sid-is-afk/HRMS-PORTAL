@@ -38,7 +38,10 @@ export default function InterviewCalendarScreen() {
             <Text style={styles.emptyText}>No interviews scheduled in the near calendar.</Text>
           </View>
         ) : (
-          <FlatList\n        initialNumToRender={10}\n        maxToRenderPerBatch={10}\n        windowSize={5}
+          <FlatList
+        initialNumToRender={10}
+        maxToRenderPerBatch={10}
+        windowSize={5}
             data={sections}
             keyExtractor={(item) => item.date}
             renderItem={({ item }) => {

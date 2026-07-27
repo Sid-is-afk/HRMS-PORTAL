@@ -122,7 +122,10 @@ export default function JobRequisitionDirectoryScreen() {
           />
         )}
 
-        <FlatList\n        initialNumToRender={10}\n        maxToRenderPerBatch={10}\n        windowSize={5}
+        <FlatList
+        initialNumToRender={10}
+        maxToRenderPerBatch={10}
+        windowSize={5}
           data={jobRequisitions}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (

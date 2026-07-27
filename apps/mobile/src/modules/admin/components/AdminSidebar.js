@@ -1,8 +1,9 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
-import { Text, List } from 'react-native-paper';
+import { Text } from 'react-native-paper';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useAdminNavigation } from '@/core/rbac/hooks/useAdminNavigation';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export default function AdminSidebar() {
   const { adminRoutes } = useAdminNavigation();
@@ -25,7 +26,7 @@ export default function AdminSidebar() {
               }
             }}
           >
-            <List.Icon icon={item.icon || 'folder'} color={isActive ? '#2563EB' : '#4B5563'} />
+            <MaterialCommunityIcons name={item.icon || 'folder'} size={24} color={isActive ? '#2563EB' : '#4B5563'} />
             <Text style={[styles.label, isActive && styles.activeLabel]}>{item.label}</Text>
           </TouchableOpacity>
         );

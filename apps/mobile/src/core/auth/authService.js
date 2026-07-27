@@ -6,12 +6,16 @@ import { mockData } from '@/tests/mocks/mockData';
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const authService = {
-  login: async (identifier, password) => {
+  login: async (identifier, password, role = null) => {
     if (USE_MOCK_DATA) {
       await delay(800);
-      return mockData.auth.loginResponse;
+      const response = { ...mockData.auth.loginResponse };
+      if (role) {
+        response.user = { ...response.user, role };
+      }
+      return response;
     }
-    const payload = { identifier, password };
+    const payload = { identifier, password, role };
     const response = await apiClient.post(API_ROUTES.AUTH.LOGIN, payload);
     return response?.data || response;
   },

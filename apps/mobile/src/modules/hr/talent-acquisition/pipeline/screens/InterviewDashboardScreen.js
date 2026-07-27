@@ -6,8 +6,8 @@ import HRWorkspaceScreen from '@/modules/hr/screens/HRWorkspaceScreen';
 import { useInterviewDashboard } from '../hooks/useInterviewDashboard';
 import InterviewCard from '../components/InterviewCard';
 import HRDashboardGrid from '@/modules/hr/components/HRDashboardGrid';
-import RecruitmentWidget from '../components/RecruitmentWidget';
-import RecruitmentSummaryCard from '../components/RecruitmentSummaryCard';
+import RecruitmentWidget from '../../components/RecruitmentWidget';
+import RecruitmentSummaryCard from '../../components/RecruitmentSummaryCard';
 
 export default function InterviewDashboardScreen() {
   const navigation = useNavigation();

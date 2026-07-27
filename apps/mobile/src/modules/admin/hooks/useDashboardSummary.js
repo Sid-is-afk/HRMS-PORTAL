@@ -1,15 +1,11 @@
 import { useAdminDashboardStore } from '../store/adminDashboardStore';
 
 export function useDashboardSummary() {
-  const { summary, attendanceSummary, leaveSummary, employeeSummary, systemHealth } = useAdminDashboardStore(
-    (state) => ({
-      summary: state.summary,
-      attendanceSummary: state.attendanceSummary,
-      leaveSummary: state.leaveSummary,
-      employeeSummary: state.employeeSummary,
-      systemHealth: state.systemHealth,
-    })
-  );
+  const summary = useAdminDashboardStore((state) => state.summary);
+  const attendanceSummary = useAdminDashboardStore((state) => state.attendanceSummary);
+  const leaveSummary = useAdminDashboardStore((state) => state.leaveSummary);
+  const employeeSummary = useAdminDashboardStore((state) => state.employeeSummary);
+  const systemHealth = useAdminDashboardStore((state) => state.systemHealth);
 
   return {
     summary,
