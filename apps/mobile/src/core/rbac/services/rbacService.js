@@ -28,8 +28,13 @@ export const rbacService = {
         ];
       case ROLES.HR:
         return [
-          { name: 'HRDashboard', label: 'HR Dashboard', icon: 'users' },
-          { name: 'EmployeeManagement', label: 'Manage Employees', icon: 'user-cog' },
+          { name: 'HRDashboard', label: 'HR Dashboard', icon: 'view-dashboard' },
+          { name: 'HROverview', label: 'HR Overview', icon: 'briefcase-outline' },
+          { name: 'HRActivityFeed', label: 'Activity Feed', icon: 'newspaper-variant-outline' },
+          { name: 'HRNotifications', label: 'Notifications', icon: 'bell-outline' },
+          { name: 'HRQuickActions', label: 'Quick Actions', icon: 'lightning-bolt-outline' },
+          { name: 'UpcomingEvents', label: 'Upcoming Events', icon: 'calendar-clock' },
+          { name: 'HRSearch', label: 'Search', icon: 'magnify' },
         ];
       case ROLES.ADMIN:
         return [
