@@ -41,6 +41,14 @@ import OnboardingWorkspaceScreen from '@/modules/hr/employee-lifecycle/screens/O
 import ProbationTrackerScreen from '@/modules/hr/employee-lifecycle/screens/ProbationTrackerScreen';
 import ConfirmationCenterScreen from '@/modules/hr/employee-lifecycle/screens/ConfirmationCenterScreen';
 
+// Talent Development Screen Imports
+import TalentDashboardScreen from '@/modules/hr/talent-development/screens/TalentDashboardScreen';
+import PerformanceGoalsScreen from '@/modules/hr/talent-development/screens/PerformanceGoalsScreen';
+import PerformanceReviewsScreen from '@/modules/hr/talent-development/screens/PerformanceReviewsScreen';
+import LearningCatalogScreen from '@/modules/hr/talent-development/screens/LearningCatalogScreen';
+import ComplianceCenterScreen from '@/modules/hr/talent-development/screens/ComplianceCenterScreen';
+import DevelopmentPlansScreen from '@/modules/hr/talent-development/screens/DevelopmentPlansScreen';
+
 const Stack = createNativeStackNavigator();
 
 const ProtectedHRDashboard = () => (
@@ -233,6 +241,43 @@ const ProtectedConfirmationCenter = () => (
   </PermissionGuard>
 );
 
+// Talent Development Guarded Screen Wrappers
+const ProtectedTalentDashboard = () => (
+  <PermissionGuard requiredPermissions="VIEW_PERFORMANCE">
+    <TalentDashboardScreen />
+  </PermissionGuard>
+);
+
+const ProtectedPerformanceGoals = () => (
+  <PermissionGuard requiredPermissions="MANAGE_GOALS">
+    <PerformanceGoalsScreen />
+  </PermissionGuard>
+);
+
+const ProtectedPerformanceReviews = () => (
+  <PermissionGuard requiredPermissions="MANAGE_REVIEWS">
+    <PerformanceReviewsScreen />
+  </PermissionGuard>
+);
+
+const ProtectedLearningCatalog = () => (
+  <PermissionGuard requiredPermissions="VIEW_LEARNING">
+    <LearningCatalogScreen />
+  </PermissionGuard>
+);
+
+const ProtectedComplianceCenter = () => (
+  <PermissionGuard requiredPermissions="VIEW_COMPLIANCE">
+    <ComplianceCenterScreen />
+  </PermissionGuard>
+);
+
+const ProtectedDevelopmentPlans = () => (
+  <PermissionGuard requiredPermissions="MANAGE_DEVELOPMENT_PLANS">
+    <DevelopmentPlansScreen />
+  </PermissionGuard>
+);
+
 export default function HRNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -276,6 +321,14 @@ export default function HRNavigator() {
       <Stack.Screen name="OnboardingWorkspace" component={ProtectedOnboardingWorkspace} />
       <Stack.Screen name="ProbationTracker" component={ProtectedProbationTracker} />
       <Stack.Screen name="ConfirmationCenter" component={ProtectedConfirmationCenter} />
+
+      {/* Talent Development Subdomain */}
+      <Stack.Screen name="TalentDashboard" component={ProtectedTalentDashboard} />
+      <Stack.Screen name="PerformanceGoals" component={ProtectedPerformanceGoals} />
+      <Stack.Screen name="PerformanceReviews" component={ProtectedPerformanceReviews} />
+      <Stack.Screen name="LearningCatalog" component={ProtectedLearningCatalog} />
+      <Stack.Screen name="ComplianceCenter" component={ProtectedComplianceCenter} />
+      <Stack.Screen name="DevelopmentPlans" component={ProtectedDevelopmentPlans} />
     </Stack.Navigator>
   );
 }
