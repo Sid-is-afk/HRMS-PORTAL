@@ -35,6 +35,12 @@ import IncidentCenterScreen from '@/modules/platform/operations/screens/Incident
 import LogCenterScreen from '@/modules/platform/operations/screens/LogCenterScreen';
 import ApiStatusScreen from '@/modules/platform/operations/screens/ApiStatusScreen';
 
+// Intelligence & Analytics Screen Imports
+import ExecutiveDashboardScreen from '@/modules/platform/analytics/screens/ExecutiveDashboardScreen';
+import CrossTenantAnalyticsScreen from '@/modules/platform/analytics/screens/CrossTenantAnalyticsScreen';
+import UsageAnalyticsScreen from '@/modules/platform/analytics/screens/UsageAnalyticsScreen';
+import CapacityDashboardScreen from '@/modules/platform/analytics/screens/CapacityDashboardScreen';
+
 const Stack = createNativeStackNavigator();
 
 const ProtectedPlatformDashboard = () => (
@@ -185,6 +191,31 @@ const ProtectedApiStatus = () => (
   </PermissionGuard>
 );
 
+// Intelligence & Analytics Guarded Screen Wrappers
+const ProtectedExecutiveDashboard = () => (
+  <PermissionGuard requiredPermissions="VIEW_EXECUTIVE_DASHBOARD">
+    <ExecutiveDashboardScreen />
+  </PermissionGuard>
+);
+
+const ProtectedCrossTenantAnalytics = () => (
+  <PermissionGuard requiredPermissions="VIEW_ANALYTICS">
+    <CrossTenantAnalyticsScreen />
+  </PermissionGuard>
+);
+
+const ProtectedUsageAnalytics = () => (
+  <PermissionGuard requiredPermissions="VIEW_ANALYTICS">
+    <UsageAnalyticsScreen />
+  </PermissionGuard>
+);
+
+const ProtectedCapacityDashboard = () => (
+  <PermissionGuard requiredPermissions="VIEW_ANALYTICS">
+    <CapacityDashboardScreen />
+  </PermissionGuard>
+);
+
 export default function PlatformNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -220,6 +251,12 @@ export default function PlatformNavigator() {
       <Stack.Screen name="IncidentCenter" component={ProtectedIncidentCenter} />
       <Stack.Screen name="LogCenter" component={ProtectedLogCenter} />
       <Stack.Screen name="ApiStatus" component={ProtectedApiStatus} />
+
+      {/* Intelligence & Analytics Subdomain */}
+      <Stack.Screen name="ExecutiveDashboard" component={ProtectedExecutiveDashboard} />
+      <Stack.Screen name="CrossTenantAnalytics" component={ProtectedCrossTenantAnalytics} />
+      <Stack.Screen name="UsageAnalytics" component={ProtectedUsageAnalytics} />
+      <Stack.Screen name="CapacityDashboard" component={ProtectedCapacityDashboard} />
     </Stack.Navigator>
   );
 }
