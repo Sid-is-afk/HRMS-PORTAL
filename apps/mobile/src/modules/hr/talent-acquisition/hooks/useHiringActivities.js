@@ -1,11 +1,9 @@
 import { useTalentAcquisitionStore } from '../store/talentAcquisitionStore';
 
 export function useHiringActivities() {
-  const { activities, isLoading, error } = useTalentAcquisitionStore((state) => ({
-    activities: state.activities,
-    isLoading: state.isLoading,
-    error: state.error,
-  }));
+  const activities = useTalentAcquisitionStore((state) => state.activities);
+  const isLoading = useTalentAcquisitionStore((state) => state.isLoading);
+  const error = useTalentAcquisitionStore((state) => state.error);
 
   return {
     activities,

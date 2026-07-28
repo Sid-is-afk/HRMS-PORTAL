@@ -1,23 +1,13 @@
 import { useTalentAcquisitionStore } from '../store/talentAcquisitionStore';
 
 export function useJobPostings() {
-  const {
-    jobPostings,
-    selectedPostingId,
-    setSelectedPostingId,
-    publishPosting,
-    archivePosting,
-    isLoading,
-    error,
-  } = useTalentAcquisitionStore((state) => ({
-    jobPostings: state.jobPostings,
-    selectedPostingId: state.selectedPostingId,
-    setSelectedPostingId: state.setSelectedPostingId,
-    publishPosting: state.publishPosting,
-    archivePosting: state.archivePosting,
-    isLoading: state.isLoading,
-    error: state.error,
-  }));
+  const jobPostings = useTalentAcquisitionStore((state) => state.jobPostings);
+  const selectedPostingId = useTalentAcquisitionStore((state) => state.selectedPostingId);
+  const setSelectedPostingId = useTalentAcquisitionStore((state) => state.setSelectedPostingId);
+  const publishPosting = useTalentAcquisitionStore((state) => state.publishPosting);
+  const archivePosting = useTalentAcquisitionStore((state) => state.archivePosting);
+  const isLoading = useTalentAcquisitionStore((state) => state.isLoading);
+  const error = useTalentAcquisitionStore((state) => state.error);
 
   const selectedPosting = jobPostings.find(p => p.id === selectedPostingId) || null;
 

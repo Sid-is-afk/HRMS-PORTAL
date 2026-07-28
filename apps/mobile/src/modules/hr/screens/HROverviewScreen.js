@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, StyleSheet, Alert } from 'react-native';
-import { Text, Card, Button } from 'react-native-paper';
+import { View, StyleSheet } from 'react-native';
+import { Text, Card, Button, Avatar } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import HRWorkspaceScreen from './HRWorkspaceScreen';
 
@@ -19,7 +19,7 @@ export default function HROverviewScreen() {
     if (mod.id === 'rec') {
       navigation.navigate('TalentDashboard');
     } else {
-      Alert.alert('Module Offline', `${mod.title} will be fully activated in Sprint 2.`);
+      console.log('Module Offline', `${mod.title} will be fully activated in Sprint 2.`);
     }
   };
 
@@ -35,7 +35,7 @@ export default function HROverviewScreen() {
               <Card.Title
                 title={mod.title}
                 subtitle={mod.status}
-                left={(props) => <Card.Icon {...props} icon={mod.icon} />}
+                left={(props) => <Avatar.Icon {...props} icon={mod.icon} />}
               />
               <Card.Content>
                 <Text style={styles.desc}>{mod.description}</Text>

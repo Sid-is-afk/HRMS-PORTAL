@@ -1,23 +1,13 @@
 import { useTalentAcquisitionStore } from '../store/talentAcquisitionStore';
 
 export function useJobRequisitions() {
-  const {
-    jobRequisitions,
-    selectedRequisitionId,
-    setSelectedRequisitionId,
-    createRequisition,
-    updateRequisition,
-    isLoading,
-    error,
-  } = useTalentAcquisitionStore((state) => ({
-    jobRequisitions: state.jobRequisitions,
-    selectedRequisitionId: state.selectedRequisitionId,
-    setSelectedRequisitionId: state.setSelectedRequisitionId,
-    createRequisition: state.createRequisition,
-    updateRequisition: state.updateRequisition,
-    isLoading: state.isLoading,
-    error: state.error,
-  }));
+  const jobRequisitions = useTalentAcquisitionStore((state) => state.jobRequisitions);
+  const selectedRequisitionId = useTalentAcquisitionStore((state) => state.selectedRequisitionId);
+  const setSelectedRequisitionId = useTalentAcquisitionStore((state) => state.setSelectedRequisitionId);
+  const createRequisition = useTalentAcquisitionStore((state) => state.createRequisition);
+  const updateRequisition = useTalentAcquisitionStore((state) => state.updateRequisition);
+  const isLoading = useTalentAcquisitionStore((state) => state.isLoading);
+  const error = useTalentAcquisitionStore((state) => state.error);
 
   const selectedRequisition = jobRequisitions.find(r => r.id === selectedRequisitionId) || null;
 

@@ -1,11 +1,9 @@
 import { useHRDashboardStore } from '../store/hrDashboardStore';
 
 export function useRecentActivities() {
-  const { activities, isLoading, error } = useHRDashboardStore((state) => ({
-    activities: state.activities,
-    isLoading: state.isLoading,
-    error: state.error,
-  }));
+  const activities = useHRDashboardStore((state) => state.activities);
+  const isLoading = useHRDashboardStore((state) => state.isLoading);
+  const error = useHRDashboardStore((state) => state.error);
 
   return {
     activities,

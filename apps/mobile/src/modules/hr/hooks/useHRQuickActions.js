@@ -1,11 +1,9 @@
 import { useHRDashboardStore } from '../store/hrDashboardStore';
 
 export function useHRQuickActions() {
-  const { quickActions, isLoading, error } = useHRDashboardStore((state) => ({
-    quickActions: state.quickActions,
-    isLoading: state.isLoading,
-    error: state.error,
-  }));
+  const quickActions = useHRDashboardStore((state) => state.quickActions);
+  const isLoading = useHRDashboardStore((state) => state.isLoading);
+  const error = useHRDashboardStore((state) => state.error);
 
   return {
     quickActions,

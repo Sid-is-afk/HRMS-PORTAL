@@ -380,8 +380,7 @@ export default function HRNavigator() {
       <Stack.Screen name="UpcomingEvents" component={ProtectedUpcomingEvents} />
       <Stack.Screen name="HRSearch" component={ProtectedHRSearch} />
 
-      {/* Talent Acquisition Domain */}
-      <Stack.Screen name="TalentAcquisitionDashboard" component={ProtectedTalentAcquisitionDashboard} />
+      <Stack.Screen name="TalentDashboard" component={ProtectedTalentAcquisitionDashboard} />
       <Stack.Screen name="JobRequisitions" component={ProtectedJobRequisitions} />
       <Stack.Screen name="JobRequisitionDetails" component={ProtectedJobRequisitionDetails} />
       <Stack.Screen name="JobPostings" component={ProtectedJobPostings} />

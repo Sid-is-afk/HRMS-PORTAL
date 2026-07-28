@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, StyleSheet, Alert } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { Text } from 'react-native-paper';
 import HRWorkspaceScreen from './HRWorkspaceScreen';
 import { useHRQuickActions } from '../hooks/useHRQuickActions';
@@ -7,9 +8,26 @@ import HRQuickActionCard from '../components/HRQuickActionCard';
 
 export default function HRQuickActionsScreen() {
   const { quickActions } = useHRQuickActions();
+  const navigation = useNavigation();
+
+  // Map quick action routes to actual registered navigator screen names
+  const quickActionRouteMap = {
+    CreateJobOpening: 'JobRequisitions',
+    AddCandidate: 'CandidateDirectory',
+    StartOnboarding: 'OnboardingWorkspace',
+    AssignTraining: 'LearningCatalog',
+    CreatePerformanceReview: 'PerformanceReviews',
+    UploadDocument: 'OperationsDashboard',
+    GenerateHRReport: 'ExecutiveDashboard',
+  };
 
   const handleQuickAction = (action) => {
-    Alert.alert('Action Executed', `You triggered: "${action.label}"`);
+    const targetRoute = quickActionRouteMap[action.route] || action.route;
+    try {
+      navigation.navigate(targetRoute);
+    } catch (e) {
+      console.warn(`Quick Action navigation failed for route "${targetRoute}":`, e.message);
+    }
   };
 
   return (
