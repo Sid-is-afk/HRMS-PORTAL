@@ -1,23 +1,13 @@
 import { useEffect } from 'react';
 import { useTalentAcquisitionStore } from '../store/talentAcquisitionStore';
-import { useShallow } from 'zustand/react/shallow';
 
 export function useTalentDashboard() {
-  const {
-    summary,
-    isLoading,
-    isRefreshing,
-    error,
-    loadDashboardData,
-    refreshDashboardData,
-  } = useTalentAcquisitionStore(useShallow((state) => ({
-    summary: state.summary,
-    isLoading: state.isLoading,
-    isRefreshing: state.isRefreshing,
-    error: state.error,
-    loadDashboardData: state.loadDashboardData,
-    refreshDashboardData: state.refreshDashboardData,
-  })));
+  const summary = useTalentAcquisitionStore((state) => state.summary);
+  const isLoading = useTalentAcquisitionStore((state) => state.isLoading);
+  const isRefreshing = useTalentAcquisitionStore((state) => state.isRefreshing);
+  const error = useTalentAcquisitionStore((state) => state.error);
+  const loadDashboardData = useTalentAcquisitionStore((state) => state.loadDashboardData);
+  const refreshDashboardData = useTalentAcquisitionStore((state) => state.refreshDashboardData);
 
   useEffect(() => {
     loadDashboardData();

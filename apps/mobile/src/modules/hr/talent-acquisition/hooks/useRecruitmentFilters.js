@@ -1,12 +1,9 @@
 import { useTalentAcquisitionStore } from '../store/talentAcquisitionStore';
-import { useShallow } from 'zustand/react/shallow';
 
 export function useRecruitmentFilters() {
-  const { filters, setFilters, resetFilters } = useTalentAcquisitionStore(useShallow((state) => ({
-    filters: state.filters,
-    setFilters: state.setFilters,
-    resetFilters: state.resetFilters,
-  })));
+  const filters = useTalentAcquisitionStore((state) => state.filters);
+  const setFilters = useTalentAcquisitionStore((state) => state.setFilters);
+  const resetFilters = useTalentAcquisitionStore((state) => state.resetFilters);
 
   return {
     filters,

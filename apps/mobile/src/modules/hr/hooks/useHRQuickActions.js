@@ -1,12 +1,9 @@
 import { useHRDashboardStore } from '../store/hrDashboardStore';
-import { useShallow } from 'zustand/react/shallow';
 
 export function useHRQuickActions() {
-  const { quickActions, isLoading, error } = useHRDashboardStore(useShallow((state) => ({
-    quickActions: state.quickActions,
-    isLoading: state.isLoading,
-    error: state.error,
-  })));
+  const quickActions = useHRDashboardStore((state) => state.quickActions);
+  const isLoading = useHRDashboardStore((state) => state.isLoading);
+  const error = useHRDashboardStore((state) => state.error);
 
   return {
     quickActions,

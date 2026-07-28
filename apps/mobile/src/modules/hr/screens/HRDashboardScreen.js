@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, ActivityIndicator, Alert } from 'react-native';
+import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import { Text } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import HRWorkspaceScreen from './HRWorkspaceScreen';
@@ -50,12 +50,28 @@ export default function HRDashboardScreen() {
     );
   }
 
+  // Map quick action routes to actual registered navigator screen names
+  const quickActionRouteMap = {
+    CreateJobOpening: 'JobRequisitions',
+    AddCandidate: 'CandidateDirectory',
+    StartOnboarding: 'OnboardingWorkspace',
+    AssignTraining: 'LearningCatalog',
+    CreatePerformanceReview: 'PerformanceReviews',
+    UploadDocument: 'OperationsDashboard',
+    GenerateHRReport: 'ExecutiveDashboard',
+  };
+
   const handleQuickAction = (action) => {
-    Alert.alert('Quick Action Triggered', `Action: "${action.label}"\nRoute: ${action.route}`);
+    const targetRoute = quickActionRouteMap[action.route] || action.route;
+    try {
+      navigation.navigate(targetRoute);
+    } catch (e) {
+      console.warn(`Quick Action navigation failed for route "${targetRoute}":`, e.message);
+    }
   };
 
   const handleCompleteTask = (taskId) => {
-    Alert.alert('Task Completed', `Marked task ID ${taskId} as completed.`);
+    console.log('Task Completed', `Marked task ID ${taskId} as completed.`);
   };
 
   const renderWidget = (widget) => {
