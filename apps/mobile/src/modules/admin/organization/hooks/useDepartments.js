@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useOrganizationStore } from '../store/organizationStore';
+import { useShallow } from 'zustand/react/shallow';
 
 export function useDepartments(id = null) {
   const {
@@ -13,7 +14,7 @@ export function useDepartments(id = null) {
     loadDepartment,
     loadMetadata,
     managers,
-  } = useOrganizationStore((state) => ({
+  } = useOrganizationStore(useShallow((state) => ({
     departments: state.departments,
     selectedDepartment: state.selectedDepartment,
     isLoading: state.isLoading,
@@ -24,7 +25,7 @@ export function useDepartments(id = null) {
     loadDepartment: state.loadDepartment,
     loadMetadata: state.loadMetadata,
     managers: state.managers,
-  }));
+  })));
 
   useEffect(() => {
     loadMetadata();

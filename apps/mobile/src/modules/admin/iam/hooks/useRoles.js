@@ -1,5 +1,6 @@
 import { useEffect, useCallback, useMemo } from 'react';
 import { useIamStore } from '../store/iamStore';
+import { useShallow } from 'zustand/react/shallow';
 
 export function useRoles() {
   const {
@@ -16,7 +17,7 @@ export function useRoles() {
     archiveRole,
     cloneRole,
     setFilters
-  } = useIamStore((state) => ({
+  } = useIamStore(useShallow((state) => ({
     roles: state.roles,
     isLoading: state.isLoading,
     isRefreshing: state.isRefreshing,
@@ -30,7 +31,7 @@ export function useRoles() {
     archiveRole: state.archiveRole,
     cloneRole: state.cloneRole,
     setFilters: state.setFilters
-  }));
+  })));
 
   useEffect(() => {
     if (roles.length === 0) {

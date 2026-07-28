@@ -1,11 +1,12 @@
 import { useCallback, useState } from 'react';
 import { useEmployeeManagementStore } from '../store/employeeManagementStore';
+import { useShallow } from 'zustand/react/shallow';
 
 export function useEmployeeSearch() {
-  const { searchQuery, setSearchQuery } = useEmployeeManagementStore((state) => ({
+  const { searchQuery, setSearchQuery } = useEmployeeManagementStore(useShallow((state) => ({
     searchQuery: state.searchQuery,
     setSearchQuery: state.setSearchQuery,
-  }));
+  })));
 
   const [localSearch, setLocalSearch] = useState(searchQuery);
 

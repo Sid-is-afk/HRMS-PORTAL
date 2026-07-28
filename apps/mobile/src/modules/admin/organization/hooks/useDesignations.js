@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useOrganizationStore } from '../store/organizationStore';
+import { useShallow } from 'zustand/react/shallow';
 
 export function useDesignations(id = null) {
   const {
@@ -13,7 +14,7 @@ export function useDesignations(id = null) {
     loadDesignation,
     departments,
     loadDepartments,
-  } = useOrganizationStore((state) => ({
+  } = useOrganizationStore(useShallow((state) => ({
     designations: state.designations,
     selectedDesignation: state.selectedDesignation,
     isLoading: state.isLoading,
@@ -24,7 +25,7 @@ export function useDesignations(id = null) {
     loadDesignation: state.loadDesignation,
     departments: state.departments,
     loadDepartments: state.loadDepartments,
-  }));
+  })));
 
   useEffect(() => {
     loadDepartments();

@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 import { useCandidatePipelineStore } from '../store/candidatePipelineStore';
+import { useShallow } from 'zustand/react/shallow';
 
 export function useInterviewSchedule() {
   const {
@@ -8,13 +9,13 @@ export function useInterviewSchedule() {
     scheduleInterview,
     rescheduleInterview,
     cancelInterview,
-  } = useCandidatePipelineStore((state) => ({
+  } = useCandidatePipelineStore(useShallow((state) => ({
     isLoading: state.isLoading,
     error: state.error,
     scheduleInterview: state.scheduleInterview,
     rescheduleInterview: state.rescheduleInterview,
     cancelInterview: state.cancelInterview,
-  }));
+  })));
 
   const handleSchedule = useCallback(async (candidateId, interviewData) => {
     return await scheduleInterview(candidateId, interviewData);

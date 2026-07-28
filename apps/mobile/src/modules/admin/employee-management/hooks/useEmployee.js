@@ -1,5 +1,6 @@
 import { useEffect, useCallback } from 'react';
 import { useEmployeeManagementStore } from '../store/employeeManagementStore';
+import { useShallow } from 'zustand/react/shallow';
 
 export function useEmployee(id) {
   const {
@@ -9,14 +10,14 @@ export function useEmployee(id) {
     loadEmployeeDetails,
     deactivateEmployee,
     activateEmployee,
-  } = useEmployeeManagementStore((state) => ({
+  } = useEmployeeManagementStore(useShallow((state) => ({
     selectedEmployee: state.selectedEmployee,
     isLoading: state.isLoading,
     error: state.error,
     loadEmployeeDetails: state.loadEmployeeDetails,
     deactivateEmployee: state.deactivateEmployee,
     activateEmployee: state.activateEmployee,
-  }));
+  })));
 
   useEffect(() => {
     if (id) {

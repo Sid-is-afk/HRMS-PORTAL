@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useIamStore } from '../store/iamStore';
+import { useShallow } from 'zustand/react/shallow';
 
 export function usePermissions() {
   const {
@@ -8,13 +9,13 @@ export function usePermissions() {
     isLoading,
     error,
     loadPermissions,
-  } = useIamStore((state) => ({
+  } = useIamStore(useShallow((state) => ({
     permissions: state.permissions,
     permissionGroups: state.permissionGroups,
     isLoading: state.isLoading,
     error: state.error,
     loadPermissions: state.loadPermissions,
-  }));
+  })));
 
   useEffect(() => {
     if (permissions.length === 0) {

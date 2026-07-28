@@ -1,5 +1,6 @@
 import { useEffect, useCallback } from 'react';
 import { useCandidatePipelineStore } from '../store/candidatePipelineStore';
+import { useShallow } from 'zustand/react/shallow';
 
 export function useCandidate(candidateId) {
   const {
@@ -8,13 +9,13 @@ export function useCandidate(candidateId) {
     error,
     loadCandidate,
     addNote,
-  } = useCandidatePipelineStore((state) => ({
+  } = useCandidatePipelineStore(useShallow((state) => ({
     selectedCandidate: state.selectedCandidate,
     isLoading: state.isLoading,
     error: state.error,
     loadCandidate: state.loadCandidate,
     addNote: state.addNote,
-  }));
+  })));
 
   useEffect(() => {
     if (candidateId) {

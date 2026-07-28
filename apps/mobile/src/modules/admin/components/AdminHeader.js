@@ -1,12 +1,41 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text, IconButton } from 'react-native-paper';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
-export default function AdminHeader({ title }) {
+export default function AdminHeader({ title, onToggleSidebar }) {
+  const navigation = useNavigation();
+  const route = useRoute();
+  const canGoBack = navigation.canGoBack();
+
+  const handleBack = () => {
+    const mainPages = [
+      'AdminEmployeeManagement',
+      'AdminAttendance',
+      'AdminLeave',
+      'AdminDepartments',
+      'AdminReports',
+      'AdminAnnouncements',
+      'AdminSettings',
+      'AdminIAM',
+      'AdminMasterData',
+      'WorkforceOverview'
+    ];
+
+    if (mainPages.includes(route.name)) {
+      navigation.navigate('AdminDashboard');
+    } else {
+      navigation.goBack();
+    }
+  };
+
   return (
     <View style={styles.header}>
       <View style={styles.titleContainer}>
-        <IconButton icon="menu" iconColor="#1F2937" size={24} onPress={() => {}} />
+        <IconButton icon="menu" iconColor="#1F2937" size={24} onPress={onToggleSidebar} />
+        {canGoBack && (
+          <IconButton icon="arrow-left" iconColor="#1F2937" size={24} onPress={handleBack} />
+        )}
         <Text style={styles.title}>{title}</Text>
       </View>
       <View style={styles.actions}>
