@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
   },
   statCard: {
     flex: 1,
-    minWidth: 220,
+    minWidth: 150,
     backgroundColor: '#FFFFFF',
     borderRadius: 8,
     borderWidth: 1,
@@ -155,7 +155,8 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   linkCard: {
-    width: '48%',
+    flexGrow: 1,
+    flexBasis: '48%',
     minWidth: 280,
     backgroundColor: '#FFFFFF',
     borderRadius: 8,

@@ -1,4 +1,5 @@
 import { useTalentAcquisitionStore } from '../store/talentAcquisitionStore';
+import { useShallow } from 'zustand/react/shallow';
 
 export function useJobRequisitions() {
   const {
@@ -9,7 +10,7 @@ export function useJobRequisitions() {
     updateRequisition,
     isLoading,
     error,
-  } = useTalentAcquisitionStore((state) => ({
+  } = useTalentAcquisitionStore(useShallow((state) => ({
     jobRequisitions: state.jobRequisitions,
     selectedRequisitionId: state.selectedRequisitionId,
     setSelectedRequisitionId: state.setSelectedRequisitionId,
@@ -17,7 +18,7 @@ export function useJobRequisitions() {
     updateRequisition: state.updateRequisition,
     isLoading: state.isLoading,
     error: state.error,
-  }));
+  })));
 
   const selectedRequisition = jobRequisitions.find(r => r.id === selectedRequisitionId) || null;
 

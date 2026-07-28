@@ -1,5 +1,6 @@
 import { useEffect, useMemo } from 'react';
 import { useIamStore } from '../store/iamStore';
+import { useShallow } from 'zustand/react/shallow';
 
 export function useAccessPolicies() {
   const {
@@ -11,7 +12,7 @@ export function useAccessPolicies() {
     createAccessPolicy,
     updateAccessPolicy,
     setFilters
-  } = useIamStore((state) => ({
+  } = useIamStore(useShallow((state) => ({
     accessPolicies: state.accessPolicies,
     isLoading: state.isLoading,
     error: state.error,
@@ -20,7 +21,7 @@ export function useAccessPolicies() {
     createAccessPolicy: state.createAccessPolicy,
     updateAccessPolicy: state.updateAccessPolicy,
     setFilters: state.setFilters
-  }));
+  })));
 
   useEffect(() => {
     if (accessPolicies.length === 0) {

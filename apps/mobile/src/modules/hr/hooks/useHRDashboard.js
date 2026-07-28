@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useHRDashboardStore } from '../store/hrDashboardStore';
+import { useShallow } from 'zustand/react/shallow';
 
 export function useHRDashboard() {
   const {
@@ -13,7 +14,7 @@ export function useHRDashboard() {
     toggleWidgetVisibility,
     loadDashboardData,
     refreshDashboardData,
-  } = useHRDashboardStore((state) => ({
+  } = useHRDashboardStore(useShallow((state) => ({
     summary: state.summary,
     widgets: state.widgets,
     isLoading: state.isLoading,
@@ -24,7 +25,7 @@ export function useHRDashboard() {
     toggleWidgetVisibility: state.toggleWidgetVisibility,
     loadDashboardData: state.loadDashboardData,
     refreshDashboardData: state.refreshDashboardData,
-  }));
+  })));
 
   useEffect(() => {
     loadDashboardData();

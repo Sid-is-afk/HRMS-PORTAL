@@ -105,25 +105,11 @@ let mockRoles = [
   }
 ];
 
-let mockAssignments = [
-  { id: 'asgn-1', employeeId: 'emp-1', employeeName: 'Sanjay Kumar', employeeEmail: 'sanjay.kumar@company.com', roleId: 'role-admin', roleName: 'Administrator', assignedAt: '2026-01-02T10:00:00Z', assignedBy: 'Super Admin' },
-  { id: 'asgn-2', employeeId: 'emp-2', employeeName: 'Kriti Sen', employeeEmail: 'kriti.sen@company.com', roleId: 'role-hr', roleName: 'HR Specialist', assignedAt: '2026-01-03T11:00:00Z', assignedBy: 'Sanjay Kumar' },
-  { id: 'asgn-3', employeeId: 'emp-3', employeeName: 'Aarav Patel', employeeEmail: 'aarav.patel@company.com', roleId: 'role-employee', roleName: 'Standard Employee', assignedAt: '2026-01-05T09:00:00Z', assignedBy: 'Kriti Sen' },
-  { id: 'asgn-4', employeeId: 'emp-4', employeeName: 'Priya Sharma', employeeEmail: 'priya.sharma@company.com', roleId: 'role-employee', roleName: 'Standard Employee', assignedAt: '2026-01-06T09:00:00Z', assignedBy: 'Kriti Sen' },
-  { id: 'asgn-5', employeeId: 'emp-5', employeeName: 'Vikram Singh', employeeEmail: 'vikram.singh@company.com', roleId: 'role-finance', roleName: 'Finance & Payroll Officer', assignedAt: '2026-06-21T15:00:00Z', assignedBy: 'Sanjay Kumar' }
-];
+let mockAssignments = [];
 
-let mockAccessPolicies = [
-  { id: 'pol-1', name: 'Office Network Bound Access', description: 'Restrict sensitive administrative functions to corporate office IP addresses.', priority: 10, conditions: { ipRange: '192.168.1.0/24', mfaRequired: false }, status: 'ACTIVE' },
-  { id: 'pol-2', name: 'Working Hour Access Constraint', description: 'Prevent standard employees from clocking in or requesting leaves outside business hours.', priority: 20, conditions: { timeWindowStart: '06:00', timeWindowEnd: '22:00', mfaRequired: false }, status: 'ACTIVE' },
-  { id: 'pol-3', name: 'MFA Enforcement for IAM Screens', description: 'Force multi-factor authentication check for viewing and editing roles or access matrix.', priority: 1, conditions: { mfaRequired: true }, status: 'ACTIVE' }
-];
+let mockAccessPolicies = [];
 
-let mockAccessReviews = [
-  { id: 'rev-1', employeeName: 'Sanjay Kumar', roleName: 'Administrator', status: 'APPROVED', lastReviewedAt: '2026-07-01T09:00:00Z', reviewedBy: 'Super Admin' },
-  { id: 'rev-2', employeeName: 'Kriti Sen', roleName: 'HR Specialist', status: 'PENDING_REVIEW', lastReviewedAt: null, reviewedBy: null },
-  { id: 'rev-3', employeeName: 'Vikram Singh', roleName: 'Finance & Payroll Officer', status: 'PENDING_REVIEW', lastReviewedAt: null, reviewedBy: null }
-];
+let mockAccessReviews = [];
 
 export const iamService = {
   // Roles Management API

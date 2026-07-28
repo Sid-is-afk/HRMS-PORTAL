@@ -1,5 +1,6 @@
 import { useEffect, useCallback } from 'react';
 import { useEmployeeManagementStore } from '../store/employeeManagementStore';
+import { useShallow } from 'zustand/react/shallow';
 
 export function useEmployees() {
   const {
@@ -11,7 +12,7 @@ export function useEmployees() {
     loadEmployees,
     refreshEmployees,
     loadMetadata,
-  } = useEmployeeManagementStore((state) => ({
+  } = useEmployeeManagementStore(useShallow((state) => ({
     employees: state.employees,
     isLoading: state.isLoading,
     isRefreshing: state.isRefreshing,
@@ -20,7 +21,7 @@ export function useEmployees() {
     loadEmployees: state.loadEmployees,
     refreshEmployees: state.refreshEmployees,
     loadMetadata: state.loadMetadata,
-  }));
+  })));
 
   useEffect(() => {
     loadMetadata();

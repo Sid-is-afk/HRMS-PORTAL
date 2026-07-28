@@ -7,14 +7,18 @@ export default function WidgetCard({ id, title, size = 'medium', onHide, childre
   const isLargeScreen = width >= 768;
 
   let cardWidth = '100%';
-  if (isLargeScreen) {
-    if (size === 'small') cardWidth = '31.5%';
-    else if (size === 'medium') cardWidth = '48.5%';
-    else cardWidth = '100%';
+  let minWidth = 150;
+  
+  if (size === 'small') {
+    cardWidth = '31%';
+    minWidth = 140;
+  } else if (size === 'medium') {
+    cardWidth = '48%';
+    minWidth = 160;
   }
 
   return (
-    <Card style={[styles.card, { width: cardWidth }]}>
+    <Card style={[styles.card, { flexBasis: cardWidth, flexGrow: 1, minWidth }]}>
       <Card.Title
         title={title}
         titleStyle={styles.title}

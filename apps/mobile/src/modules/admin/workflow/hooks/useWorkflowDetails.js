@@ -1,13 +1,14 @@
 import { useEffect } from 'react';
 import { useWorkflowStore } from '../store/workflowStore';
+import { useShallow } from 'zustand/react/shallow';
 
 export function useWorkflowDetails(id) {
-  const { selectedRequest, isLoading, error, loadRequestDetails } = useWorkflowStore((state) => ({
+  const { selectedRequest, isLoading, error, loadRequestDetails } = useWorkflowStore(useShallow((state) => ({
     selectedRequest: state.selectedRequest,
     isLoading: state.isLoading,
     error: state.error,
     loadRequestDetails: state.loadRequestDetails,
-  }));
+  })));
 
   useEffect(() => {
     if (id) {

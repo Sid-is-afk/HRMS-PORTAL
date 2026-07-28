@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, StyleSheet, useWindowDimensions } from 'react-native';
 import AdminHeader from './AdminHeader';
 import AdminSidebar from './AdminSidebar';
 import AdminPageContainer from './AdminPageContainer';
@@ -7,11 +7,21 @@ import Breadcrumb from './Breadcrumb';
 import ContentContainer from './ContentContainer';
 
 export default function AdminLayout({ title, refreshControl, children }) {
+  const { width } = useWindowDimensions();
+  const isLargeScreen = width >= 768;
+  const [isSidebarOpen, setIsSidebarOpen] = useState(isLargeScreen);
+
+  useEffect(() => {
+    setIsSidebarOpen(isLargeScreen);
+  }, [isLargeScreen]);
+
+  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
+
   return (
     <View style={styles.layout}>
-      <AdminHeader title={title} />
+      <AdminHeader title={title} onToggleSidebar={toggleSidebar} />
       <View style={styles.body}>
-        <AdminSidebar />
+        <AdminSidebar isOpen={isSidebarOpen} isLargeScreen={isLargeScreen} onClose={() => setIsSidebarOpen(false)} />
         <AdminPageContainer>
           <Breadcrumb title={title} />
           <ContentContainer refreshControl={refreshControl}>{children}</ContentContainer>

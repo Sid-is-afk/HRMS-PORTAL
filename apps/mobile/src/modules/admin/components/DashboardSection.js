@@ -23,8 +23,6 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   content: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 12,
+    width: '100%',
   },
 });

@@ -1,14 +1,15 @@
 import { useCallback } from 'react';
 import { useWorkflowStore } from '../store/workflowStore';
+import { useShallow } from 'zustand/react/shallow';
 
 export function useApprovalActions(id) {
-  const { approve, reject, returnForChanges, addComment, isLoading } = useWorkflowStore((state) => ({
+  const { approve, reject, returnForChanges, addComment, isLoading } = useWorkflowStore(useShallow((state) => ({
     approve: state.approve,
     reject: state.reject,
     returnForChanges: state.returnForChanges,
     addComment: state.addComment,
     isLoading: state.isLoading,
-  }));
+  })));
 
   const handleApprove = useCallback(async (comment) => {
     if (id) return await approve(id, comment);
