@@ -198,8 +198,10 @@ const styles = StyleSheet.create({
     marginHorizontal: -8,
   },
   gridItem: {
-    width: '50%',
+    flexGrow: 1,
+    flexBasis: '48%',
+    minWidth: 150,
     paddingHorizontal: 8,
-    // On web size layouts, this wraps neatly
+    paddingBottom: 16,
   },
 });

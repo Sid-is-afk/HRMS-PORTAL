@@ -3,68 +3,21 @@ import { USE_MOCK_DATA } from '@/shared/constants/env';
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-const mockManagers = [
-  { id: 'emp-mgr1', firstName: 'Sanjay', lastName: 'Kumar', email: 'sanjay.kumar@company.com' },
-  { id: 'emp-mgr2', firstName: 'Kriti', lastName: 'Sen', email: 'kriti.sen@company.com' },
-];
+const mockManagers = [];
 
-let mockDepartments = [
-  { id: 'dept-eng', name: 'Engineering', code: 'ENG', description: 'Product development and technology infrastructure.', managerId: 'emp-mgr1', parentDepartmentId: null, status: 'ACTIVE' },
-  { id: 'dept-hr', name: 'Human Resources', code: 'HR', description: 'Talent acquisition and employee relations.', managerId: 'emp-mgr2', parentDepartmentId: null, status: 'ACTIVE' },
-  { id: 'dept-prod', name: 'Product', code: 'PROD', description: 'Product strategy, mapping, and roadmaps.', managerId: 'emp-mgr1', parentDepartmentId: 'dept-eng', status: 'ACTIVE' },
-  { id: 'dept-mktg', name: 'Marketing', code: 'MKTG', description: 'Brand outreach and customer acquisitions.', managerId: 'emp-mgr2', parentDepartmentId: null, status: 'ACTIVE' },
-];
+let mockDepartments = [];
 
-let mockDesignations = [
-  { id: 'des-se', title: 'Software Engineer', departmentId: 'dept-eng', level: 1, description: 'Core product builder.', status: 'ACTIVE' },
-  { id: 'des-sse', title: 'Senior Software Engineer', departmentId: 'dept-eng', level: 2, description: 'Leads engineering tracks.', status: 'ACTIVE' },
-  { id: 'des-hrm', title: 'HR Specialist', departmentId: 'dept-hr', level: 2, description: 'Talent growth coordinator.', status: 'ACTIVE' },
-  { id: 'des-pm', title: 'Product Manager', departmentId: 'dept-prod', level: 3, description: 'Guides product delivery.', status: 'ACTIVE' },
-];
+let mockDesignations = [];
 
-let mockTeams = [
-  { id: 'team-web', name: 'Web Core Development', departmentId: 'dept-eng', managerId: 'emp-mgr1', memberCount: 8 },
-  { id: 'team-mobile', name: 'Mobile App Core', departmentId: 'dept-eng', managerId: 'emp-mgr1', memberCount: 5 },
-  { id: 'team-ops', name: 'Talent Operations', departmentId: 'dept-hr', managerId: 'emp-mgr2', memberCount: 3 },
-];
+let mockTeams = [];
 
-let mockLocations = [
-  { id: 'loc-hq', name: 'Corporate HQ', type: 'OFFICE', region: 'APAC', timezone: 'IST', country: 'India', state: 'Karnataka', city: 'Bengaluru' },
-  { id: 'loc-us', name: 'North America Remote', type: 'REMOTE', region: 'AMER', timezone: 'EST', country: 'USA', state: 'NY', city: 'New York' },
-  { id: 'loc-hybrid', name: 'Innovation Hub', type: 'HYBRID', region: 'EMEA', timezone: 'GMT', country: 'UK', state: 'England', city: 'London' },
-];
+let mockLocations = [];
 
 const mockHierarchy = {
   id: 'root-org',
   label: 'Enterprise HRMS Inc.',
   subtitle: 'Corporate HQ',
-  children: [
-    {
-      id: 'dept-eng',
-      label: 'Engineering Department',
-      subtitle: 'Sanjay Kumar (Head)',
-      children: [
-        {
-          id: 'dept-prod',
-          label: 'Product Sub-dept',
-          subtitle: 'Kriti Sen (Lead)',
-          children: [],
-        },
-      ],
-    },
-    {
-      id: 'dept-hr',
-      label: 'Human Resources Department',
-      subtitle: 'Kriti Sen (Head)',
-      children: [],
-    },
-    {
-      id: 'dept-mktg',
-      label: 'Marketing Department',
-      subtitle: 'Vacant',
-      children: [],
-    },
-  ],
+  children: [],
 };
 
 export const organizationService = {

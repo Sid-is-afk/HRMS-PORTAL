@@ -1,5 +1,6 @@
 import { useMemo, useCallback } from 'react';
 import { useMasterDataStore } from '../store/masterDataStore';
+import { useShallow } from 'zustand/react/shallow';
 
 export function useReferenceValues() {
   const {
@@ -15,7 +16,7 @@ export function useReferenceValues() {
     archiveReferenceValue,
     importValues,
     exportValues,
-  } = useMasterDataStore((state) => ({
+  } = useMasterDataStore(useShallow((state) => ({
     referenceValues: state.referenceValues,
     selectedReferenceValueId: state.selectedReferenceValueId,
     isLoading: state.isLoading,
@@ -28,7 +29,7 @@ export function useReferenceValues() {
     archiveReferenceValue: state.archiveReferenceValue,
     importValues: state.importValues,
     exportValues: state.exportValues,
-  }));
+  })));
 
   const filteredValues = useMemo(() => {
     let result = [...referenceValues];

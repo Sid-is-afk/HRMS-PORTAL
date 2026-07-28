@@ -25,14 +25,8 @@ export default function RoleAssignmentScreen() {
   const [searchVal, setSearchVal] = useState('');
   const [showAssignPanel, setShowAssignPanel] = useState(false);
 
-  // Mock list of employees that can receive roles
-  const mockEmployees = [
-    { id: 'emp-1', firstName: 'Sanjay', lastName: 'Kumar', email: 'sanjay.kumar@company.com' },
-    { id: 'emp-2', firstName: 'Kriti', lastName: 'Sen', email: 'kriti.sen@company.com' },
-    { id: 'emp-3', firstName: 'Aarav', lastName: 'Patel', email: 'aarav.patel@company.com' },
-    { id: 'emp-4', firstName: 'Priya', lastName: 'Sharma', email: 'priya.sharma@company.com' },
-    { id: 'emp-5', firstName: 'Vikram', lastName: 'Singh', email: 'vikram.singh@company.com' },
-  ];
+  // List of employees that can receive roles
+  const employees = []; // To be replaced with actual employee data
 
   const handleSearch = (val) => {
     setSearchVal(val);
@@ -128,7 +122,7 @@ export default function RoleAssignmentScreen() {
           <View style={styles.panelContainer}>
             <RoleAssignmentPanel
               roles={roles}
-              employees={mockEmployees}
+              employees={employees}
               onSubmit={handleAssignRole}
               onCancel={() => setShowAssignPanel(false)}
               isLoading={isLoading}

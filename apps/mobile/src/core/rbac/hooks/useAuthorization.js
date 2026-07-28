@@ -2,10 +2,8 @@ import { useRbacStore } from '../store/rbacStore';
 import { useCallback } from 'react';
 
 export function useAuthorization() {
-  const { role, permissions } = useRbacStore((state) => ({
-    role: state.role,
-    permissions: state.permissions,
-  }));
+  const role = useRbacStore((state) => state.role);
+  const permissions = useRbacStore((state) => state.permissions);
 
   const hasRole = useCallback((allowedRoles) => {
     if (!role) return false;

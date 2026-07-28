@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useCandidatePipelineStore } from '../store/candidatePipelineStore';
+import { useShallow } from 'zustand/react/shallow';
 
 export function useCandidates() {
   const {
@@ -11,7 +12,7 @@ export function useCandidates() {
     setFilters,
     resetFilters,
     createCandidate,
-  } = useCandidatePipelineStore((state) => ({
+  } = useCandidatePipelineStore(useShallow((state) => ({
     candidates: state.candidates,
     filters: state.filters,
     isLoading: state.isLoading,
@@ -20,7 +21,7 @@ export function useCandidates() {
     setFilters: state.setFilters,
     resetFilters: state.resetFilters,
     createCandidate: state.createCandidate,
-  }));
+  })));
 
   useEffect(() => {
     loadCandidates();

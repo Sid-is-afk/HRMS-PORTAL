@@ -2,11 +2,11 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text, IconButton } from 'react-native-paper';
 
-export default function AdminHeader({ title }) {
+export default function AdminHeader({ title, onToggleSidebar }) {
   return (
     <View style={styles.header}>
       <View style={styles.titleContainer}>
-        <IconButton icon="menu" iconColor="#1F2937" size={24} onPress={() => {}} />
+        <IconButton icon="menu" iconColor="#1F2937" size={24} onPress={onToggleSidebar} />
         <Text style={styles.title}>{title}</Text>
       </View>
       <View style={styles.actions}>

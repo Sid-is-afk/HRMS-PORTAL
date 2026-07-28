@@ -20,15 +20,9 @@ export default function UserPermissionViewerScreen() {
   const [menuVisible, setMenuVisible] = useState(false);
 
   // List of employee choices
-  const mockEmployees = [
-    { id: 'emp-1', firstName: 'Sanjay', lastName: 'Kumar', email: 'sanjay.kumar@company.com' },
-    { id: 'emp-2', firstName: 'Kriti', lastName: 'Sen', email: 'kriti.sen@company.com' },
-    { id: 'emp-3', firstName: 'Aarav', lastName: 'Patel', email: 'aarav.patel@company.com' },
-    { id: 'emp-4', firstName: 'Priya', lastName: 'Sharma', email: 'priya.sharma@company.com' },
-    { id: 'emp-5', firstName: 'Vikram', lastName: 'Singh', email: 'vikram.singh@company.com' },
-  ];
+  const employees = []; // To be replaced with actual employee data from database/store
 
-  const selectedEmployee = mockEmployees.find(e => e.id === selectedEmployeeId);
+  const selectedEmployee = employees.find(e => e.id === selectedEmployeeId);
 
   return (
     <AdminLayout title="User Scope Analyzer">
@@ -50,7 +44,7 @@ export default function UserPermissionViewerScreen() {
               />
             }
           >
-            {mockEmployees.map((emp) => (
+            {employees.map((emp) => (
               <Menu.Item
                 key={emp.id}
                 onPress={() => {

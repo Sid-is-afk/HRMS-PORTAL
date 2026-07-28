@@ -1,5 +1,6 @@
 import { useEffect, useMemo } from 'react';
 import { useIamStore } from '../store/iamStore';
+import { useShallow } from 'zustand/react/shallow';
 
 export function useRoleAssignments() {
   const {
@@ -18,7 +19,7 @@ export function useRoleAssignments() {
     transferRole,
     verifyAccessReview,
     setFilters
-  } = useIamStore((state) => ({
+  } = useIamStore(useShallow((state) => ({
     assignments: state.assignments,
     accessReviews: state.accessReviews,
     effectivePermissions: state.effectivePermissions,
@@ -34,7 +35,7 @@ export function useRoleAssignments() {
     transferRole: state.transferRole,
     verifyAccessReview: state.verifyAccessReview,
     setFilters: state.setFilters
-  }));
+  })));
 
   useEffect(() => {
     if (assignments.length === 0) {

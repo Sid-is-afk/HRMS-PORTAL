@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 import { useOrganizationStore } from '../store/organizationStore';
+import { useShallow } from 'zustand/react/shallow';
 
 export function useOrganization() {
   const {
@@ -9,14 +10,14 @@ export function useOrganization() {
     updateDesignation,
     isLoading,
     error,
-  } = useOrganizationStore((state) => ({
+  } = useOrganizationStore(useShallow((state) => ({
     createDepartment: state.createDepartment,
     updateDepartment: state.updateDepartment,
     createDesignation: state.createDesignation,
     updateDesignation: state.updateDesignation,
     isLoading: state.isLoading,
     error: state.error,
-  }));
+  })));
 
   const saveDepartment = useCallback(async (id, data) => {
     if (id) {

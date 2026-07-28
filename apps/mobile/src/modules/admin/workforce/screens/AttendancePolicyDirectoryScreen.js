@@ -10,11 +10,6 @@ import { Plus } from 'lucide-react-native';
 export default function AttendancePolicyDirectoryScreen() {
   const { attendancePolicies, isLoading, error } = useAttendancePolicies();
 
-  const mockPolicies = attendancePolicies.length > 0 ? attendancePolicies : [
-    { id: '1', name: 'Standard Policy', graceIn: 15, graceOut: 0, lateArrivalThreshold: 15 },
-    { id: '2', name: 'Strict Policy (Contractors)', graceIn: 5, graceOut: 5, lateArrivalThreshold: 5 },
-  ];
-
   return (
     <View className="flex-1 bg-surface">
       <TopHeader title="Attendance Policies" showBack={true} />
@@ -28,7 +23,7 @@ export default function AttendancePolicyDirectoryScreen() {
       <ScrollView contentContainerStyle={{ padding: 16 }}>
         {error ? <Text className="text-error">{error}</Text> : null}
         
-        {mockPolicies.map((policy) => (
+        {attendancePolicies.map((policy) => (
           <AttendancePolicyCard key={policy.id} policy={policy} onPress={() => {}} />
         ))}
       </ScrollView>

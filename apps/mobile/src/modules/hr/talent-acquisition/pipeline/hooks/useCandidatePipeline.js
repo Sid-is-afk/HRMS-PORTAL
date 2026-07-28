@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useCandidatePipelineStore } from '../store/candidatePipelineStore';
+import { useShallow } from 'zustand/react/shallow';
 
 export function useCandidatePipeline() {
   const {
@@ -8,13 +9,13 @@ export function useCandidatePipeline() {
     error,
     loadPipeline,
     updateCandidateStage,
-  } = useCandidatePipelineStore((state) => ({
+  } = useCandidatePipelineStore(useShallow((state) => ({
     pipeline: state.pipeline,
     isLoading: state.isLoading,
     error: state.error,
     loadPipeline: state.loadPipeline,
     updateCandidateStage: state.updateCandidateStage,
-  }));
+  })));
 
   useEffect(() => {
     loadPipeline();

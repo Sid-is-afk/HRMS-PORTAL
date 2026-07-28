@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useCandidatePipelineStore } from '../store/candidatePipelineStore';
+import { useShallow } from 'zustand/react/shallow';
 
 export function useInterviewDashboard() {
   const {
@@ -9,14 +10,14 @@ export function useInterviewDashboard() {
     error,
     loadInterviewDashboard,
     refreshInterviewDashboard,
-  } = useCandidatePipelineStore((state) => ({
+  } = useCandidatePipelineStore(useShallow((state) => ({
     dashboard: state.dashboard,
     isLoading: state.isLoading,
     isRefreshing: state.isRefreshing,
     error: state.error,
     loadInterviewDashboard: state.loadInterviewDashboard,
     refreshInterviewDashboard: state.refreshInterviewDashboard,
-  }));
+  })));
 
   useEffect(() => {
     loadInterviewDashboard();

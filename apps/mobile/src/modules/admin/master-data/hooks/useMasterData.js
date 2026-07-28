@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useMasterDataStore } from '../store/masterDataStore';
+import { useShallow } from 'zustand/react/shallow';
 
 export function useMasterData() {
   const {
@@ -11,7 +12,7 @@ export function useMasterData() {
     loadCategories,
     selectCategory,
     refreshAll,
-  } = useMasterDataStore((state) => ({
+  } = useMasterDataStore(useShallow((state) => ({
     categories: state.categories,
     selectedCategoryId: state.selectedCategoryId,
     isLoading: state.isLoading,
@@ -20,7 +21,7 @@ export function useMasterData() {
     loadCategories: state.loadCategories,
     selectCategory: state.selectCategory,
     refreshAll: state.refreshAll,
-  }));
+  })));
 
   useEffect(() => {
     if (categories.length === 0) {
