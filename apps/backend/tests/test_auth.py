@@ -16,7 +16,7 @@ from app.modules.auth.domains.users.models.user import User
 
 
 @pytest.mark.asyncio
-async def test_password_hashing():
+async def test_password_hashing() -> None:
     password = "super-secure-password"
     hashed = get_password_hash(password)
     assert hashed != password
@@ -25,7 +25,7 @@ async def test_password_hashing():
 
 
 @pytest.mark.asyncio
-async def test_full_auth_flow(client: AsyncClient, db_session: AsyncSession):
+async def test_full_auth_flow(client: AsyncClient, db_session: AsyncSession) -> None:
     # 1. Setup seed data
     company_id = uuid.uuid4()
 

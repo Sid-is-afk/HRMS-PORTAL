@@ -1,8 +1,9 @@
 import pytest
+from httpx import AsyncClient
 
 
 @pytest.mark.asyncio
-async def test_health_endpoint(client):
+async def test_health_endpoint(client: AsyncClient) -> None:
     response = await client.get("/api/v1/health")
     assert response.status_code == 200
     data = response.json()
@@ -10,7 +11,7 @@ async def test_health_endpoint(client):
 
 
 @pytest.mark.asyncio
-async def test_liveness_endpoint(client):
+async def test_liveness_endpoint(client: AsyncClient) -> None:
     response = await client.get("/api/v1/health/live")
     assert response.status_code == 200
     data = response.json()
@@ -18,7 +19,7 @@ async def test_liveness_endpoint(client):
 
 
 @pytest.mark.asyncio
-async def test_version_endpoint(client):
+async def test_version_endpoint(client: AsyncClient) -> None:
     response = await client.get("/api/v1/health/version")
     assert response.status_code == 200
     data = response.json()
