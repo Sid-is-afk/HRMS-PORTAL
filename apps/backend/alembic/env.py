@@ -22,6 +22,13 @@ try:
     from app.modules.auth.domains.permissions.models.permission import Permission
     from app.modules.auth.domains.sessions.models.session import Session
     from app.modules.auth.domains.tokens.models.refresh_token import RefreshToken
+    # Import Employee domain models
+    from app.modules.employee.domains.profile.models.employee import Employee
+    from app.modules.employee.domains.contacts.models.contact import ContactInformation
+    from app.modules.employee.domains.employment.models.employment import Employment
+    from app.modules.employee.domains.emergency.models.emergency import EmergencyContact
+    from app.modules.employee.domains.bank.models.bank import BankInformation
+    from app.modules.employee.domains.documents.models.document import EmployeeDocument
     target_metadata = Base.metadata
 except ImportError:
     target_metadata = None
