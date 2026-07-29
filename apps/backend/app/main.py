@@ -15,7 +15,7 @@ from app.core.middleware.timing import TimingMiddleware
 
 
 @asynccontextmanager
-async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
+async def lifespan(app: FastAPI) -> AsyncGenerator[None]:
     # Startup
     settings = get_settings()
     setup_logging(settings.LOG_LEVEL)

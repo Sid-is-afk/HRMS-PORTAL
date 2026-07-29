@@ -1,6 +1,51 @@
+from collections.abc import AsyncGenerator
+
 import pytest
-from httpx import AsyncClient, ASGITransport
+from httpx import ASGITransport, AsyncClient
+from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
+
+from app.database.base import Base
+from app.database.connection import get_db
 from app.main import app
+
+# Use an in-memory SQLite database for testing
+DATABASE_URL = "sqlite+aiosqlite:///:memory:"
+
+engine = create_async_engine(DATABASE_URL, echo=False)
+TestingSessionLocal = async_sessionmaker(
+    engine, class_=AsyncSession, expire_on_commit=False
+)
+
+
+@pytest.fixture(autouse=True)
+async def setup_db():
+    # Create all tables in the SQLite database
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
+    yield
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.drop_all)
+
+
+@pytest.fixture
+async def db_session() -> AsyncGenerator[AsyncSession]:
+    async with TestingSessionLocal() as session:
+        try:
+            yield session
+            await session.commit()
+        except Exception:
+            await session.rollback()
+            raise
+
+
+@pytest.fixture(autouse=True)
+async def override_db(db_session: AsyncSession):
+    async def _override_get_db() -> AsyncGenerator[AsyncSession]:
+        yield db_session
+
+    app.dependency_overrides[get_db] = _override_get_db
+    yield
+    app.dependency_overrides.pop(get_db, None)
 
 
 @pytest.fixture
