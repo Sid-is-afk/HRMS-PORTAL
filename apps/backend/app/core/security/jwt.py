@@ -27,9 +27,7 @@ def create_access_token(
 def create_refresh_token(data: dict[str, Any]) -> str:
     settings = get_settings()
     to_encode = data.copy()
-    expire = datetime.now(UTC) + timedelta(
-        days=settings.JWT_REFRESH_TOKEN_EXPIRE_DAYS
-    )
+    expire = datetime.now(UTC) + timedelta(days=settings.JWT_REFRESH_TOKEN_EXPIRE_DAYS)
     to_encode.update({"exp": expire})
     encoded_jwt = jwt.encode(
         to_encode, settings.JWT_SECRET_KEY, algorithm=settings.JWT_ALGORITHM

@@ -26,7 +26,7 @@ def get_session_factory() -> async_sessionmaker[AsyncSession]:
     return async_sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
 
 
-async def get_db() -> AsyncGenerator[AsyncSession, None]:  # FastAPI dependency
+async def get_db() -> AsyncGenerator[AsyncSession]:  # FastAPI dependency
     session_factory = get_session_factory()
     async with session_factory() as session:
         try:

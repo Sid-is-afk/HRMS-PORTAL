@@ -15,6 +15,13 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 # Import your models here to ensure they are registered with Base.metadata
 try:
     from app.database.base import Base
+    # Import all models to ensure registration on metadata
+    from app.modules.auth.domains.identity.models.identity import Identity
+    from app.modules.auth.domains.users.models.user import User
+    from app.modules.auth.domains.roles.models.role import Role
+    from app.modules.auth.domains.permissions.models.permission import Permission
+    from app.modules.auth.domains.sessions.models.session import Session
+    from app.modules.auth.domains.tokens.models.refresh_token import RefreshToken
     target_metadata = Base.metadata
 except ImportError:
     target_metadata = None
