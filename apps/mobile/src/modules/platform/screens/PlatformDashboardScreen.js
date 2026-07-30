@@ -134,11 +134,11 @@ export default function PlatformDashboardScreen() {
         <View style={[styles.twoColSection, !isWide && styles.singleCol]}>
           <View style={[styles.twoColItem, !isWide && styles.singleColItem]}>
             <PlatformSectionHeader title="Platform Health" subtitle="Service status" />
-            <PlatformHealthPanel />
+            <PlatformHealthPanel services={dashboardSummary?.healthServices || []} />
           </View>
           <View style={[styles.twoColItem, !isWide && styles.singleColItem]}>
             <PlatformSectionHeader title="Action Center" subtitle="Items needing attention" />
-            <PlatformPendingActions />
+            <PlatformPendingActions actions={dashboardSummary?.pendingActions || []} />
           </View>
         </View>
 
@@ -148,7 +148,11 @@ export default function PlatformDashboardScreen() {
           subtitle="Growth & usage insights"
           onViewAll={() => navigation.navigate('CrossTenantAnalytics')}
         />
-        <PlatformAnalyticsWidget />
+        <PlatformAnalyticsWidget
+          orgGrowth={dashboardSummary?.orgGrowth || []}
+          userDistribution={dashboardSummary?.userDistribution || []}
+          apiUsage={dashboardSummary?.apiUsage || []}
+        />
 
         {/* ─── Recent Activity Timeline ───────────────── */}
         <View style={styles.activitySection}>

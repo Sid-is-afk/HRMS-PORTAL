@@ -7,15 +7,15 @@ import {
   CreditCard,
 } from 'lucide-react-native';
 
-const ACTIONS = [
-  { key: 'orgReq', label: 'Organization Requests', count: 3, icon: Building2, color: '#2563EB', bg: '#EFF6FF' },
-  { key: 'approvals', label: 'Pending Approvals', count: 7, icon: CheckSquare, color: '#EA580C', bg: '#FFF7ED' },
-  { key: 'security', label: 'Security Alerts', count: 2, icon: ShieldAlert, color: '#DC2626', bg: '#FEE2E2' },
-  { key: 'subs', label: 'Subscription Renewals', count: 5, icon: CreditCard, color: '#7C3AED', bg: '#EDE9FE' },
-];
+const ICON_MAP = {
+  Building2,
+  CheckSquare,
+  ShieldAlert,
+  CreditCard,
+};
 
 function ActionRow({ action }) {
-  const IconComp = action.icon;
+  const IconComp = ICON_MAP[action.iconName] || CheckSquare;
   return (
     <Pressable style={({ pressed }) => [styles.actionRow, pressed && styles.actionRowPressed]}>
       <View style={styles.actionLeft}>
@@ -31,8 +31,8 @@ function ActionRow({ action }) {
   );
 }
 
-export const PlatformPendingActions = memo(() => {
-  const totalPending = ACTIONS.reduce((sum, a) => sum + a.count, 0);
+export const PlatformPendingActions = memo(({ actions = [] }) => {
+  const totalPending = actions.reduce((sum, a) => sum + a.count, 0);
 
   return (
     <View style={styles.card}>
@@ -43,7 +43,7 @@ export const PlatformPendingActions = memo(() => {
         </View>
       </View>
 
-      {ACTIONS.map((action) => (
+      {actions.map((action) => (
         <ActionRow key={action.key} action={action} />
       ))}
     </View>

@@ -3,24 +3,26 @@ import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { TrendingUp, TrendingDown } from 'lucide-react-native';
 
 const ACCENT_MAP = {
-  Organizations: { bg: '#EFF6FF', color: '#2563EB', trendValue: '+12%', trendUp: true },
-  'Platform Users': { bg: '#F0FDF4', color: '#16A34A', trendValue: '+8%', trendUp: true },
-  'Active Sessions': { bg: '#FFF7ED', color: '#EA580C', trendValue: '+23%', trendUp: true },
-  'System Health': { bg: '#F0FDF4', color: '#16A34A', trendValue: '99.9%', trendUp: true },
-  'API Status': { bg: '#F0FDF4', color: '#16A34A', trendValue: '100%', trendUp: true },
-  'API Health': { bg: '#F0FDF4', color: '#16A34A', trendValue: '100%', trendUp: true },
+  Organizations: { bg: '#EFF6FF', color: '#2563EB' },
+  'Platform Users': { bg: '#F0FDF4', color: '#16A34A' },
+  'Active Sessions': { bg: '#FFF7ED', color: '#EA580C' },
+  'System Health': { bg: '#F0FDF4', color: '#16A34A' },
+  'API Status': { bg: '#F0FDF4', color: '#16A34A' },
+  'API Health': { bg: '#F0FDF4', color: '#16A34A' },
 };
 
-export const PlatformSummaryCard = memo(({ title, value, status, icon: Icon, onPress }) => {
-  const accent = ACCENT_MAP[title] || { bg: '#F1F5F9', color: '#64748B', trendValue: '—', trendUp: true };
+export const PlatformSummaryCard = memo(({ title, value, status, icon: Icon, trendValue, trendUp, onPress }) => {
+  const accent = ACCENT_MAP[title] || { bg: '#F1F5F9', color: '#64748B' };
 
   let statusColor = '#64748B';
   if (status === 'Healthy' || status === 'Operational') statusColor = '#10B981';
   if (status === 'Degraded') statusColor = '#F59E0B';
   if (status === 'Offline') statusColor = '#EF4444';
 
-  const TrendIcon = accent.trendUp ? TrendingUp : TrendingDown;
-  const trendColor = accent.trendUp ? '#16A34A' : '#DC2626';
+  const isTrendUp = trendUp ?? true;
+  const displayTrend = trendValue ?? '—';
+  const TrendIcon = isTrendUp ? TrendingUp : TrendingDown;
+  const trendColor = isTrendUp ? '#16A34A' : '#DC2626';
 
   return (
     <Pressable
@@ -31,9 +33,9 @@ export const PlatformSummaryCard = memo(({ title, value, status, icon: Icon, onP
         <View style={[styles.iconCircle, { backgroundColor: accent.bg }]}>
           {Icon && <Icon size={22} color={accent.color} />}
         </View>
-        <View style={[styles.trendBadge, { backgroundColor: accent.trendUp ? '#F0FDF4' : '#FEF2F2' }]}>
+        <View style={[styles.trendBadge, { backgroundColor: isTrendUp ? '#F0FDF4' : '#FEF2F2' }]}>
           <TrendIcon size={12} color={trendColor} />
-          <Text style={[styles.trendText, { color: trendColor }]}>{accent.trendValue}</Text>
+          <Text style={[styles.trendText, { color: trendColor }]}>{displayTrend}</Text>
         </View>
       </View>
       <Text style={styles.value}>{value ?? '—'}</Text>

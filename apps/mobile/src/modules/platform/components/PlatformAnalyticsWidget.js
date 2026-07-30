@@ -2,29 +2,7 @@ import React, { memo } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { TrendingUp, Users, BarChart3 } from 'lucide-react-native';
 
-/* ─── Mock Data ────────────────────────────────────────────── */
-const ORG_GROWTH = [
-  { month: 'Jan', value: 98 },
-  { month: 'Feb', value: 106 },
-  { month: 'Mar', value: 112 },
-  { month: 'Apr', value: 120 },
-  { month: 'May', value: 131 },
-  { month: 'Jun', value: 145 },
-];
 
-const USER_DISTRIBUTION = [
-  { label: 'Admins', count: 12, color: '#2563EB', pct: 25 },
-  { label: 'HR Users', count: 18, color: '#16A34A', pct: 38 },
-  { label: 'Employees', count: 14, color: '#EA580C', pct: 29 },
-  { label: 'Viewers', count: 4, color: '#7C3AED', pct: 8 },
-];
-
-const API_USAGE = [
-  { label: 'GET', count: 12400, color: '#2563EB', pct: 85 },
-  { label: 'POST', count: 3200, color: '#16A34A', pct: 55 },
-  { label: 'PUT', count: 1800, color: '#EA580C', pct: 35 },
-  { label: 'DELETE', count: 420, color: '#DC2626', pct: 15 },
-];
 
 /* ─── Sparkline (simplified bar chart) ─────────────────────── */
 function SparkBars({ data, color }) {
@@ -210,7 +188,7 @@ function AnalyticsCard({ title, subtitle, icon: Icon, iconColor, children }) {
 }
 
 /* ─── Main Export ───────────────────────────────────────────── */
-export const PlatformAnalyticsWidget = memo(() => {
+export const PlatformAnalyticsWidget = memo(({ orgGrowth = [], userDistribution = [], apiUsage = [] }) => {
   return (
     <View style={styles.container}>
       <AnalyticsCard
@@ -219,7 +197,7 @@ export const PlatformAnalyticsWidget = memo(() => {
         icon={TrendingUp}
         iconColor="#2563EB"
       >
-        <SparkBars data={ORG_GROWTH} color="#2563EB" />
+        <SparkBars data={orgGrowth} color="#2563EB" />
       </AnalyticsCard>
 
       <AnalyticsCard
@@ -228,7 +206,7 @@ export const PlatformAnalyticsWidget = memo(() => {
         icon={Users}
         iconColor="#16A34A"
       >
-        <DistributionBar items={USER_DISTRIBUTION} />
+        <DistributionBar items={userDistribution} />
       </AnalyticsCard>
 
       <AnalyticsCard
@@ -237,7 +215,7 @@ export const PlatformAnalyticsWidget = memo(() => {
         icon={BarChart3}
         iconColor="#EA580C"
       >
-        <HorizontalBars items={API_USAGE} />
+        <HorizontalBars items={apiUsage} />
       </AnalyticsCard>
     </View>
   );
