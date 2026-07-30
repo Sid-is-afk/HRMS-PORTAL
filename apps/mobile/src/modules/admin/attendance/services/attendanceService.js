@@ -1,44 +1,38 @@
-const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+import { apiClient } from '@/api/client/apiClient';
 
 export const attendanceService = {
-  getAttendance: async (_filters) => {
-    await delay(500);
-    return { data: [], total: 0 }; // Placeholder
+  getAttendance: async (filters) => {
+    const response = await apiClient.get('/admin/attendance', { params: filters });
+    return response.data;
   },
   
   getAttendanceSummary: async (employeeId, period) => {
-    await delay(500);
-    return { 
-      data: {
-        totalPresent: 0,
-        totalAbsent: 0,
-        totalHalfDays: 0,
-        totalLeaves: 0,
-        totalLateArrivals: 0,
-        totalEarlyExits: 0,
-        totalWorkingMinutes: 0,
-        period
-      } 
-    };
+    const response = await apiClient.get('/admin/attendance/summary', { params: { employeeId, period } });
+    return response.data;
   },
   
-  getAttendanceTimeline: async (_employeeId, _date) => {
-    await delay(500);
-    return { data: [] };
+  getAttendanceTimeline: async (employeeId, date) => {
+    const response = await apiClient.get('/admin/attendance/timeline', { params: { employeeId, date } });
+    return response.data;
   },
   
-  getAttendanceExceptions: async (_filters) => {
-    await delay(500);
-    return { data: [], total: 0 };
+  getAttendanceExceptions: async (filters) => {
+    const response = await apiClient.get('/admin/attendance/exceptions', { params: filters });
+    return response.data;
   },
   
   submitRegularization: async (regularizationData) => {
-    await delay(500);
-    return { success: true, data: regularizationData };
+    const response = await apiClient.post('/admin/attendance/regularization', regularizationData);
+    return response.data;
   },
   
-  getRegularizationHistory: async (_attendanceRecordId) => {
-    await delay(500);
-    return { data: [] };
+  getRegularizationHistory: async (attendanceRecordId) => {
+    const response = await apiClient.get(`/admin/attendance/regularization/history/${attendanceRecordId}`);
+    return response.data;
+  },
+
+  getAttendanceDashboardSummary: async () => {
+    const response = await apiClient.get('/admin/attendance/dashboard/summary');
+    return response.data;
   }
 };

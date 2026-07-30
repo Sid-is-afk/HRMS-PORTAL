@@ -66,6 +66,18 @@ export const useLeaveStore = create((set) => ({
     }
   },
   
+  dashboardSummary: null,
+
+  fetchLeaveDashboardSummary: async () => {
+    set({ isLoading: true, error: null });
+    try {
+      const response = await leaveService.getLeaveDashboardSummary();
+      set({ dashboardSummary: response.data, isLoading: false });
+    } catch (error) {
+      set({ error: error.message, isLoading: false });
+    }
+  },
+
   approveLeave: async (leaveId, comments) => {
     set({ isLoading: true, error: null });
     try {

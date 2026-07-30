@@ -1,48 +1,53 @@
-const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+import { apiClient } from '@/api/client/apiClient';
 
 export const leaveService = {
-  getLeaveRequests: async (_filters) => {
-    await delay(500);
-    return { data: [], total: 0 }; // Placeholder
+  getLeaveRequests: async (filters) => {
+    const response = await apiClient.get('/admin/leave/requests', { params: filters });
+    return response.data;
   },
   
-  getLeaveDetails: async (_leaveId) => {
-    await delay(500);
-    return { data: null };
+  getLeaveDetails: async (leaveId) => {
+    const response = await apiClient.get(`/admin/leave/requests/${leaveId}`);
+    return response.data;
   },
   
-  getLeaveBalances: async (_employeeId) => {
-    await delay(500);
-    return { data: [] };
+  getLeaveBalances: async (employeeId) => {
+    const response = await apiClient.get(`/admin/leave/balances/${employeeId}`);
+    return response.data;
   },
   
   getLeavePolicies: async () => {
-    await delay(500);
-    return { data: [] };
+    const response = await apiClient.get('/admin/leave/policies');
+    return response.data;
   },
   
   submitLeaveRequest: async (leaveData) => {
-    await delay(500);
-    return { success: true, data: leaveData };
+    const response = await apiClient.post('/admin/leave/requests', leaveData);
+    return response.data;
   },
   
-  approveLeave: async (_leaveId, _comments) => {
-    await delay(500);
-    return { success: true };
+  approveLeave: async (leaveId, comments) => {
+    const response = await apiClient.post(`/admin/leave/requests/${leaveId}/approve`, { comments });
+    return response.data;
   },
   
-  rejectLeave: async (_leaveId, _comments) => {
-    await delay(500);
-    return { success: true };
+  rejectLeave: async (leaveId, comments) => {
+    const response = await apiClient.post(`/admin/leave/requests/${leaveId}/reject`, { comments });
+    return response.data;
   },
 
-  cancelLeave: async (_leaveId) => {
-    await delay(500);
-    return { success: true };
+  cancelLeave: async (leaveId) => {
+    const response = await apiClient.post(`/admin/leave/requests/${leaveId}/cancel`);
+    return response.data;
   },
   
-  getLeaveCalendar: async (_startDate, _endDate) => {
-    await delay(500);
-    return { data: [] };
+  getLeaveCalendar: async (startDate, endDate) => {
+    const response = await apiClient.get('/admin/leave/calendar', { params: { startDate, endDate } });
+    return response.data;
+  },
+
+  getLeaveDashboardSummary: async () => {
+    const response = await apiClient.get('/admin/leave/dashboard/summary');
+    return response.data;
   }
 };
