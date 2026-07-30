@@ -40,6 +40,25 @@ try:
     from app.modules.admin.domains.branches.models.branch import Branch
     from app.modules.admin.domains.locations.models.location import Location
     from app.modules.admin.domains.cost_centers.models.cost_center import CostCenter
+    # Import HR domain models
+    from app.modules.hr.domains.attendance.models.attendance import Attendance
+    from app.modules.hr.domains.leave.models.leave import Leave
+    from app.modules.hr.domains.leave.models.leave_type import LeaveType
+    from app.modules.hr.domains.leave.models.leave_balance import LeaveBalance
+    from app.modules.hr.domains.shift.models.shift import Shift
+    from app.modules.hr.domains.shift.models.shift_assignment import ShiftAssignment
+    from app.modules.hr.domains.holiday.models.holiday import Holiday
+    from app.modules.hr.domains.recruitment.models.recruitment import Recruitment
+    from app.modules.hr.domains.recruitment.models.candidate import Candidate
+    from app.modules.hr.domains.recruitment.models.interview import Interview
+    from app.modules.hr.domains.recruitment.models.offer import Offer
+    from app.modules.hr.domains.onboarding.models.onboarding import Onboarding
+    from app.modules.hr.domains.offboarding.models.offboarding import Offboarding
+    from app.modules.hr.domains.promotion.models.promotion import Promotion
+    from app.modules.hr.domains.transfer.models.transfer import Transfer
+    from app.modules.hr.domains.performance.models.performance import PerformanceReview
+    from app.modules.hr.domains.training.models.training import Training
+    from app.modules.hr.domains.timeline.models.timeline import AuditTimeline
     target_metadata = Base.metadata
 except ImportError:
     target_metadata = None
