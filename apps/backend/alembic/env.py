@@ -3,6 +3,11 @@ import os
 import sys
 from logging.config import fileConfig
 
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
+
 from sqlalchemy import pool
 from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import async_engine_from_config
@@ -74,7 +79,20 @@ if config.config_file_name is not None:
 
 
 def get_url():
-    return os.getenv("DATABASE_URL", config.get_main_option("sqlalchemy.url"))
+    url = os.getenv("DATABASE_URL", config.get_main_option("sqlalchemy.url"))
+    if url.startswith("postgresql://"):
+        url = url.replace("postgresql://", "postgresql+asyncpg://", 1)
+    if "?" in url:
+        base, query = url.split("?", 1)
+        params = []
+        for param in query.split("&"):
+            if not any(param.startswith(bad) for bad in ("sslmode=", "channel_binding=")):
+                params.append(param)
+        if params:
+            url = f"{base}?{'&'.join(params)}"
+        else:
+            url = base
+    return url
 
 def run_migrations_offline() -> None:
     """Run migrations in 'offline' mode.
