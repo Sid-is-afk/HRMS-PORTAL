@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import { Text } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import HRWorkspaceScreen from './HRWorkspaceScreen';
 import { useHRDashboard } from '../hooks/useHRDashboard';
 import { usePendingTasks } from '../hooks/usePendingTasks';
@@ -132,14 +133,30 @@ export default function HRDashboardScreen() {
         return (
           <HRWidget key={widget.id} id={widget.id} title={widget.title} size={widget.size} onHide={toggleWidgetVisibility}>
             <View style={styles.quickActionsContainer}>
-              {(quickActions || []).map((action) => (
-                <HRQuickActionCard
-                  key={action.id}
-                  label={action.label}
-                  icon={action.icon}
-                  onPress={() => handleQuickAction(action)}
-                />
-              ))}
+              {isLoading && (!quickActions || quickActions.length === 0) ? (
+                <>
+                  {[1, 2, 3].map(i => (
+                    <View key={i} style={styles.skeletonCard}>
+                      <View style={styles.skeletonIcon} />
+                      <View style={styles.skeletonText} />
+                    </View>
+                  ))}
+                </>
+              ) : quickActions && quickActions.length > 0 ? (
+                quickActions.map((action) => (
+                  <HRQuickActionCard
+                    key={action.id}
+                    label={action.label}
+                    icon={action.icon}
+                    onPress={() => handleQuickAction(action)}
+                  />
+                ))
+              ) : (
+                <View style={styles.emptyQuickActions}>
+                  <MaterialCommunityIcons name="lightning-bolt-outline" size={32} color="#9CA3AF" />
+                  <Text style={styles.emptyQuickActionsText}>No quick actions available.</Text>
+                </View>
+              )}
             </View>
           </HRWidget>
         );
@@ -336,6 +353,41 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     gap: 8,
     width: '100%',
+  },
+  emptyQuickActions: {
+    flex: 1,
+    paddingVertical: 24,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  emptyQuickActionsText: {
+    marginTop: 8,
+    fontSize: 13,
+    color: '#9CA3AF',
+    fontWeight: '500',
+  },
+  skeletonCard: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 12,
+    backgroundColor: '#F3F4F6',
+    borderRadius: 12,
+    flex: 1,
+    minWidth: 110,
+    marginBottom: 8,
+  },
+  skeletonIcon: {
+    width: 44,
+    height: 44,
+    borderRadius: 10,
+    backgroundColor: '#E5E7EB',
+    marginBottom: 8,
+  },
+  skeletonText: {
+    width: 60,
+    height: 12,
+    backgroundColor: '#E5E7EB',
+    borderRadius: 4,
   },
   listContainer: {
     flexDirection: 'column',
