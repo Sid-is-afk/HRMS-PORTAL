@@ -18,7 +18,7 @@ TestingSessionLocal = async_sessionmaker(
 
 
 @pytest.fixture(autouse=True)
-async def setup_db() -> AsyncGenerator[None, None]:
+async def setup_db() -> AsyncGenerator[None]:
     # Create all tables in the SQLite database
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
@@ -39,7 +39,7 @@ async def db_session() -> AsyncGenerator[AsyncSession]:
 
 
 @pytest.fixture(autouse=True)
-async def override_db(db_session: AsyncSession) -> AsyncGenerator[None, None]:
+async def override_db(db_session: AsyncSession) -> AsyncGenerator[None]:
     async def _override_get_db() -> AsyncGenerator[AsyncSession]:
         yield db_session
 
@@ -49,7 +49,7 @@ async def override_db(db_session: AsyncSession) -> AsyncGenerator[None, None]:
 
 
 @pytest.fixture
-async def client() -> AsyncGenerator[AsyncClient, None]:
+async def client() -> AsyncGenerator[AsyncClient]:
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as ac:
         yield ac

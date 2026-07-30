@@ -29,6 +29,17 @@ try:
     from app.modules.employee.domains.emergency.models.emergency import EmergencyContact
     from app.modules.employee.domains.bank.models.bank import BankInformation
     from app.modules.employee.domains.documents.models.document import EmployeeDocument
+    # Import Admin domain models
+    from app.modules.admin.domains.organization.models.organization import Organization
+    from app.modules.admin.domains.business_units.models.business_unit import BusinessUnit
+    from app.modules.admin.domains.divisions.models.division import Division
+    from app.modules.admin.domains.departments.models.department import Department
+    from app.modules.admin.domains.teams.models.team import Team
+    from app.modules.admin.domains.designations.models.designation import Designation
+    from app.modules.admin.domains.job_levels.models.job_level import JobLevel
+    from app.modules.admin.domains.branches.models.branch import Branch
+    from app.modules.admin.domains.locations.models.location import Location
+    from app.modules.admin.domains.cost_centers.models.cost_center import CostCenter
     target_metadata = Base.metadata
 except ImportError:
     target_metadata = None
