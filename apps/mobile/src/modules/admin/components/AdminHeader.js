@@ -1,32 +1,14 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text, IconButton } from 'react-native-paper';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
-export default function AdminHeader({ title, onToggleSidebar }) {
+export default function AdminHeader({ title, onToggleSidebar, showBack }) {
   const navigation = useNavigation();
-  const route = useRoute();
-  const canGoBack = navigation.canGoBack();
+  const canGoBack = showBack !== false && navigation.canGoBack();
 
   const handleBack = () => {
-    const mainPages = [
-      'AdminEmployeeManagement',
-      'AdminAttendance',
-      'AdminLeave',
-      'AdminDepartments',
-      'AdminReports',
-      'AdminAnnouncements',
-      'AdminSettings',
-      'AdminIAM',
-      'AdminMasterData',
-      'WorkforceOverview'
-    ];
-
-    if (mainPages.includes(route.name)) {
-      navigation.navigate('AdminDashboard');
-    } else {
-      navigation.goBack();
-    }
+    navigation.goBack();
   };
 
   return (

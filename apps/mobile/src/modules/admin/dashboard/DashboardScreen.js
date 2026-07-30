@@ -28,7 +28,7 @@ export default function DashboardScreen() {
 
   if (isLoading && !summary) {
     return (
-      <AdminLayout title="Admin Dashboard">
+      <AdminLayout title="Admin Dashboard" showBack={false}>
         <SkeletonDashboard />
       </AdminLayout>
     );
@@ -173,6 +173,7 @@ export default function DashboardScreen() {
   return (
     <AdminLayout
       title="Admin Dashboard"
+      showBack={false}
       refreshControl={
         <RefreshControl refreshing={isRefreshing} onRefresh={refresh} colors={['#3B82F6']} />
       }

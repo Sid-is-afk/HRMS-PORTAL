@@ -41,7 +41,7 @@ export default function HRDashboardScreen() {
 
   if (isLoading && !summary) {
     return (
-      <HRWorkspaceScreen title="HR Dashboard">
+      <HRWorkspaceScreen title="HR Dashboard" showBack={false}>
         <View style={styles.loadingContainer}>
           <ActivityIndicator size="large" color="#2563EB" />
           <Text style={styles.loadingText}>Loading HR insights...</Text>
@@ -289,7 +289,7 @@ export default function HRDashboardScreen() {
   const sortedWidgets = [...widgets].sort((a, b) => a.order - b.order);
 
   return (
-    <HRWorkspaceScreen title="HR Dashboard">
+    <HRWorkspaceScreen title="HR Dashboard" showBack={false}>
       <View style={styles.container}>
         {error ? <ErrorMessage message={error} /> : null}
         <HRDashboardHeader
