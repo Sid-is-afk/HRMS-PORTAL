@@ -8,6 +8,7 @@ import AttendanceHistoryScreen from '@/modules/employee/attendance/screens/Atten
 import ApplyLeaveScreen from '@/modules/employee/leave/screens/ApplyLeaveScreen';
 import LeaveHistoryScreen from '@/modules/employee/leave/screens/LeaveHistoryScreen';
 import LeaveDetailsScreen from '@/modules/employee/leave/screens/LeaveDetailsScreen';
+import ProfileHomeScreen from '@/modules/employee/profile/screens/ProfileHomeScreen';
 import EditProfileScreen from '@/modules/employee/profile/screens/EditProfileScreen';
 import EmergencyContactsScreen from '@/modules/employee/profile/screens/EmergencyContactsScreen';
 import AccountInfoScreen from '@/modules/employee/profile/screens/AccountInfoScreen';
@@ -89,6 +90,7 @@ export default function RootNavigator() {
           <Stack.Screen name="ApplyLeave" component={ApplyLeaveScreen} />
           <Stack.Screen name="LeaveHistory" component={LeaveHistoryScreen} />
           <Stack.Screen name="LeaveDetails" component={LeaveDetailsScreen} />
+          <Stack.Screen name="ProfileHome" component={ProfileHomeScreen} />
           <Stack.Screen name="EditProfile" component={EditProfileScreen} />
           <Stack.Screen name="EmergencyContacts" component={EmergencyContactsScreen} />
           <Stack.Screen name="AccountInfo" component={AccountInfoScreen} />

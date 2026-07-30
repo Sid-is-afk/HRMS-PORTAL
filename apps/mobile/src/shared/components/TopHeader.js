@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
-import { Bell, ArrowLeft } from 'lucide-react-native';
+import { Bell, ArrowLeft, User } from 'lucide-react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 export function TopHeader({ title, showBack }) {
@@ -53,13 +53,22 @@ export function TopHeader({ title, showBack }) {
           {title || "WorkForce"}
         </Text>
       </View>
-      <TouchableOpacity 
-        onPress={() => navigation.navigate('Notifications')}
-        activeOpacity={0.6}
-        className="p-2 -mr-2"
-      >
-        <Bell size={24} color="#111827" />
-      </TouchableOpacity>
+      <View className="flex-row items-center">
+        <TouchableOpacity 
+          onPress={() => navigation.navigate('Notifications')}
+          activeOpacity={0.6}
+          className="p-2"
+        >
+          <Bell size={24} color="#111827" />
+        </TouchableOpacity>
+        <TouchableOpacity 
+          onPress={() => navigation.navigate('ProfileHome')}
+          activeOpacity={0.6}
+          className="p-2 -mr-2"
+        >
+          <User size={24} color="#111827" />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
