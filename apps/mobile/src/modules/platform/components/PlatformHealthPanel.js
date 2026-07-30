@@ -9,14 +9,14 @@ import {
   Clock,
 } from 'lucide-react-native';
 
-const SERVICES = [
-  { key: 'api', label: 'API Gateway', icon: Server, status: 'Operational', uptime: '99.98%' },
-  { key: 'db', label: 'Database', icon: Database, status: 'Operational', uptime: '99.95%' },
-  { key: 'auth', label: 'Authentication', icon: Shield, status: 'Operational', uptime: '100%' },
-  { key: 'storage', label: 'Storage', icon: HardDrive, status: 'Operational', uptime: '99.99%' },
-  { key: 'email', label: 'Email Service', icon: Mail, status: 'Degraded', uptime: '98.2%' },
-  { key: 'uptime', label: 'Overall Uptime', icon: Clock, status: 'Healthy', uptime: '99.94%' },
-];
+const ICON_MAP = {
+  Server,
+  Database,
+  Shield,
+  HardDrive,
+  Mail,
+  Clock,
+};
 
 const STATUS_STYLES = {
   Operational: { color: '#10B981', bg: '#D1FAE5', label: 'Operational' },
@@ -35,7 +35,7 @@ function ProgressBar({ value, color }) {
 }
 
 function ServiceRow({ service }) {
-  const IconComp = service.icon;
+  const IconComp = ICON_MAP[service.iconName] || Server;
   const st = STATUS_STYLES[service.status] || STATUS_STYLES.Operational;
 
   return (
@@ -60,8 +60,8 @@ function ServiceRow({ service }) {
   );
 }
 
-export const PlatformHealthPanel = memo(() => {
-  const allOperational = SERVICES.every(
+export const PlatformHealthPanel = memo(({ services = [] }) => {
+  const allOperational = services.every(
     (s) => s.status === 'Operational' || s.status === 'Healthy'
   );
 
@@ -92,7 +92,7 @@ export const PlatformHealthPanel = memo(() => {
         </View>
       </View>
 
-      {SERVICES.map((service) => (
+      {services.map((service) => (
         <ServiceRow key={service.key} service={service} />
       ))}
     </View>
