@@ -46,11 +46,23 @@ export const useAttendanceStore = create((set) => ({
     }
   },
 
+  dashboardSummary: null,
+
   submitRegularization: async (regularizationData) => {
     set({ isLoading: true, error: null });
     try {
       await attendanceService.submitRegularization(regularizationData);
       set({ isLoading: false });
+    } catch (error) {
+      set({ error: error.message, isLoading: false });
+    }
+  },
+
+  fetchAttendanceDashboardSummary: async () => {
+    set({ isLoading: true, error: null });
+    try {
+      const response = await attendanceService.getAttendanceDashboardSummary();
+      set({ dashboardSummary: response.data, isLoading: false });
     } catch (error) {
       set({ error: error.message, isLoading: false });
     }
