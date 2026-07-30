@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { FlatList, Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { ArrowLeft } from 'lucide-react-native';
 import { useNotificationsStore } from '@/modules/employee/notifications/store/notificationsStore';
 import NotificationItem from '@/modules/employee/notifications/components/NotificationItem';
 
@@ -38,9 +39,23 @@ export default function NotificationsScreen({ navigation }) {
   return (
     <SafeAreaView className="flex-1 bg-slate-50">
       <View className="flex-row items-center justify-between px-5 py-4">
-        <View>
-          <Text className="text-2xl font-semibold text-slate-900">Notifications</Text>
-          <Text className="text-sm text-slate-500">{unreadCount} unread updates</Text>
+        <View className="flex-row items-center">
+          <Pressable 
+            onPress={() => {
+              if (navigation.canGoBack()) {
+                navigation.goBack();
+              } else {
+                navigation.navigate('PlatformDashboard');
+              }
+            }}
+            className="mr-3 p-1 -ml-1 active:opacity-60"
+          >
+            <ArrowLeft size={24} color="#0f172a" />
+          </Pressable>
+          <View>
+            <Text className="text-2xl font-semibold text-slate-900">Notifications</Text>
+            <Text className="text-sm text-slate-500">{unreadCount} unread updates</Text>
+          </View>
         </View>
         <Pressable onPress={markAllAsRead} className="rounded-full bg-slate-900 px-3 py-2">
           <Text className="text-sm font-medium text-white">Mark all read</Text>
