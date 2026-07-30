@@ -22,6 +22,19 @@ from app.modules.admin.domains.teams.api.router import router as team_router
 from app.modules.auth.api.router import router as auth_router
 from app.modules.employee.domains.profile.api.router import router as employee_router
 
+# Import HR routers
+from app.modules.hr.domains.attendance.api.router import router as attendance_router
+from app.modules.hr.domains.holiday.api.router import router as holiday_router
+from app.modules.hr.domains.leave.api.router import router as leave_router
+from app.modules.hr.domains.offboarding.api.router import router as offboarding_router
+from app.modules.hr.domains.onboarding.api.router import router as onboarding_router
+from app.modules.hr.domains.performance.api.router import router as performance_router
+from app.modules.hr.domains.promotion.api.router import router as promotion_router
+from app.modules.hr.domains.recruitment.api.router import router as recruitment_router
+from app.modules.hr.domains.shift.api.router import router as shift_router
+from app.modules.hr.domains.training.api.router import router as training_router
+from app.modules.hr.domains.transfer.api.router import router as transfer_router
+
 api_v1_router = APIRouter()
 api_v1_router.include_router(health_router, prefix="/health", tags=["Health"])
 api_v1_router.include_router(auth_router, prefix="/auth", tags=["Auth"])
@@ -36,3 +49,16 @@ api_v1_router.include_router(job_level_router)
 api_v1_router.include_router(branch_router)
 api_v1_router.include_router(location_router)
 api_v1_router.include_router(cost_center_router)
+
+# Include HR routers
+api_v1_router.include_router(attendance_router)
+api_v1_router.include_router(leave_router)
+api_v1_router.include_router(shift_router)
+api_v1_router.include_router(holiday_router)
+api_v1_router.include_router(recruitment_router)
+api_v1_router.include_router(onboarding_router)
+api_v1_router.include_router(offboarding_router)
+api_v1_router.include_router(promotion_router)
+api_v1_router.include_router(transfer_router)
+api_v1_router.include_router(performance_router)
+api_v1_router.include_router(training_router)
