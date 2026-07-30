@@ -9,8 +9,8 @@ function SparkBars({ data, color }) {
   const maxVal = Math.max(...data.map((d) => d.value));
   return (
     <View style={sparkStyles.container}>
-      {data.map((d) => (
-        <View key={d.month} style={sparkStyles.barCol}>
+      {data.map((d, index) => (
+        <View key={d.month || index} style={sparkStyles.barCol}>
           <View
             style={[
               sparkStyles.bar,
@@ -189,6 +189,40 @@ function AnalyticsCard({ title, subtitle, icon: Icon, iconColor, children }) {
 
 /* ─── Main Export ───────────────────────────────────────────── */
 export const PlatformAnalyticsWidget = memo(({ orgGrowth = [], userDistribution = [], apiUsage = [] }) => {
+  // 1. Process orgGrowth for SparkBars
+  const processedGrowth = orgGrowth.map(d => ({
+    value: d.value,
+    month: d.date || d.month || '',
+  }));
+
+  // 2. Process userDistribution for DistributionBar
+  const totalUsers = userDistribution.reduce((acc, curr) => acc + (curr.value || curr.count || 0), 0) || 1;
+  const roleColors = {
+    'Admin': '#3B82F6',
+    'Employee': '#10B981',
+    'HR': '#F59E0B',
+    'Manager': '#8B5CF6',
+  };
+  const defaultColors = ['#3B82F6', '#10B981', '#F59E0B', '#8B5CF6', '#EF4444'];
+  const processedDistribution = userDistribution.map((item, idx) => {
+    const label = item.name || item.label || 'Other';
+    const count = item.value || item.count || 0;
+    const color = item.color || roleColors[label] || defaultColors[idx % defaultColors.length];
+    const pct = Math.round((count / totalUsers) * 100);
+    return { label, count, pct, color };
+  });
+
+  // 3. Process apiUsage for HorizontalBars
+  const maxApiVal = Math.max(...apiUsage.map(item => item.value || item.count || 0), 1);
+  const apiColors = ['#EA580C', '#EA580C', '#EA580C', '#EA580C', '#EA580C'];
+  const processedApiUsage = apiUsage.map((item, idx) => {
+    const label = item.name || item.label || '';
+    const count = item.value || item.count || 0;
+    const color = item.color || apiColors[idx % apiColors.length];
+    const pct = Math.round((count / maxApiVal) * 100);
+    return { label, count, pct, color };
+  });
+
   return (
     <View style={styles.container}>
       <AnalyticsCard
@@ -197,7 +231,7 @@ export const PlatformAnalyticsWidget = memo(({ orgGrowth = [], userDistribution 
         icon={TrendingUp}
         iconColor="#2563EB"
       >
-        <SparkBars data={orgGrowth} color="#2563EB" />
+        <SparkBars data={processedGrowth} color="#2563EB" />
       </AnalyticsCard>
 
       <AnalyticsCard
@@ -206,7 +240,7 @@ export const PlatformAnalyticsWidget = memo(({ orgGrowth = [], userDistribution 
         icon={Users}
         iconColor="#16A34A"
       >
-        <DistributionBar items={userDistribution} />
+        <DistributionBar items={processedDistribution} />
       </AnalyticsCard>
 
       <AnalyticsCard
@@ -215,7 +249,7 @@ export const PlatformAnalyticsWidget = memo(({ orgGrowth = [], userDistribution 
         icon={BarChart3}
         iconColor="#EA580C"
       >
-        <HorizontalBars items={apiUsage} />
+        <HorizontalBars items={processedApiUsage} />
       </AnalyticsCard>
     </View>
   );

@@ -93,7 +93,7 @@ export const PlatformHealthPanel = memo(({ services = [] }) => {
       </View>
 
       {services.map((service) => (
-        <ServiceRow key={service.key} service={service} />
+        <ServiceRow key={service.name || service.key} service={service} />
       ))}
     </View>
   );

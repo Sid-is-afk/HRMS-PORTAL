@@ -42,3 +42,34 @@ class AttendanceResponse(AttendanceBase):
     overtime: int
     status: str
     workflow_state: str
+
+
+class TodayAttendanceResponse(BaseModel):
+    status: str
+    checkIn: datetime | None = None
+    checkOut: datetime | None = None
+    hoursWorked: float = 0.0
+
+
+class AttendanceCheckOutRequest(BaseModel):
+    checkInTime: datetime | None = None
+
+
+class AttendanceHistoryItem(BaseModel):
+    id: str
+    date: str
+    status: str
+    checkIn: datetime | None = None
+    checkOut: datetime | None = None
+    hoursWorked: float
+
+
+class AttendanceSummaryResponse(BaseModel):
+    totalDays: int
+    present: int
+    absent: int
+    onLeave: int
+    late: int
+    holidays: int
+    weekends: int
+

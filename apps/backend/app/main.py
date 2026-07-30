@@ -57,3 +57,5 @@ def create_app() -> FastAPI:
 
 
 app = create_app()
+
+# Trigger reload to load updated CORS settings

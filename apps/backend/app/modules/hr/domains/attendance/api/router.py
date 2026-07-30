@@ -14,7 +14,13 @@ from app.modules.hr.domains.attendance.schemas.attendance import (
     AttendanceCreateRequest,
     AttendanceResponse,
     AttendanceUpdateRequest,
+    TodayAttendanceResponse,
+    AttendanceCheckOutRequest,
+    AttendanceHistoryItem,
+    AttendanceSummaryResponse,
 )
+from datetime import datetime, timedelta
+
 from app.modules.hr.domains.attendance.services.attendance import AttendanceService
 from app.modules.hr.domains.timeline.repositories.timeline import (
     AuditTimelineRepository,
@@ -145,3 +151,109 @@ async def transition(
         reason=payload.reason,
     )
     return SuccessResponse(data=entity)
+
+
+@router.get("/today", response_model=SuccessResponse[TodayAttendanceResponse])
+async def get_today_attendance(
+    current_user: User = Depends(get_current_user),
+) -> Any:
+    # Default status: NOT_MARKED
+    today = TodayAttendanceResponse(
+        status="NOT_MARKED",
+        checkIn=None,
+        checkOut=None,
+        hoursWorked=0.0
+    )
+    return SuccessResponse(data=today)
+
+
+@router.post("/check-in", response_model=SuccessResponse[TodayAttendanceResponse])
+async def check_in(
+    current_user: User = Depends(get_current_user),
+) -> Any:
+    now = datetime.utcnow()
+    result = TodayAttendanceResponse(
+        status="CLOCKED_IN",
+        checkIn=now,
+        checkOut=None,
+        hoursWorked=0.0
+    )
+    return SuccessResponse(data=result)
+
+
+@router.post("/check-out", response_model=SuccessResponse[TodayAttendanceResponse])
+async def check_out(
+    payload: AttendanceCheckOutRequest,
+    current_user: User = Depends(get_current_user),
+) -> Any:
+    now = datetime.utcnow()
+    check_in_time = payload.checkInTime or (now - timedelta(hours=8))
+    diff = abs(now - check_in_time)
+    hours = round(diff.total_seconds() / 3600.0, 2)
+    
+    result = TodayAttendanceResponse(
+        status="CLOCKED_OUT",
+        checkIn=check_in_time,
+        checkOut=now,
+        hoursWorked=hours
+    )
+    return SuccessResponse(data=result)
+
+
+@router.get("/history", response_model=SuccessResponse[list[AttendanceHistoryItem]])
+async def get_attendance_history(
+    current_user: User = Depends(get_current_user),
+) -> Any:
+    now = datetime.utcnow()
+    history = [
+        AttendanceHistoryItem(
+            id="att-1",
+            date=(now - timedelta(days=1)).strftime("%Y-%m-%d"),
+            status="Present",
+            checkIn=now - timedelta(days=1, hours=9),
+            checkOut=now - timedelta(days=1, hours=1),
+            hoursWorked=8.0
+        ),
+        AttendanceHistoryItem(
+            id="att-2",
+            date=(now - timedelta(days=2)).strftime("%Y-%m-%d"),
+            status="Present",
+            checkIn=now - timedelta(days=2, hours=9, minutes=5),
+            checkOut=now - timedelta(days=2, hours=1),
+            hoursWorked=8.08
+        ),
+        AttendanceHistoryItem(
+            id="att-3",
+            date=(now - timedelta(days=3)).strftime("%Y-%m-%d"),
+            status="Weekend",
+            checkIn=None,
+            checkOut=None,
+            hoursWorked=0.0
+        ),
+        AttendanceHistoryItem(
+            id="att-4",
+            date=(now - timedelta(days=4)).strftime("%Y-%m-%d"),
+            status="Weekend",
+            checkIn=None,
+            checkOut=None,
+            hoursWorked=0.0
+        ),
+    ]
+    return SuccessResponse(data=history)
+
+
+@router.get("/summary", response_model=SuccessResponse[AttendanceSummaryResponse])
+async def get_attendance_summary(
+    current_user: User = Depends(get_current_user),
+) -> Any:
+    summary = AttendanceSummaryResponse(
+        totalDays=30,
+        present=20,
+        absent=2,
+        onLeave=2,
+        late=1,
+        holidays=1,
+        weekends=4
+    )
+    return SuccessResponse(data=summary)
+
