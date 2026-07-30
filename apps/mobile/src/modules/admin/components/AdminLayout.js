@@ -6,7 +6,7 @@ import AdminPageContainer from './AdminPageContainer';
 import Breadcrumb from './Breadcrumb';
 import ContentContainer from './ContentContainer';
 
-export default function AdminLayout({ title, refreshControl, children }) {
+export default function AdminLayout({ title, refreshControl, children, showBack }) {
   const { width } = useWindowDimensions();
   const isLargeScreen = width >= 768;
   const [isSidebarOpen, setIsSidebarOpen] = useState(isLargeScreen);
@@ -19,7 +19,7 @@ export default function AdminLayout({ title, refreshControl, children }) {
 
   return (
     <View style={styles.layout}>
-      <AdminHeader title={title} onToggleSidebar={toggleSidebar} />
+      <AdminHeader title={title} onToggleSidebar={toggleSidebar} showBack={showBack} />
       <View style={styles.body}>
         <AdminSidebar isOpen={isSidebarOpen} isLargeScreen={isLargeScreen} onClose={() => setIsSidebarOpen(false)} />
         <AdminPageContainer>

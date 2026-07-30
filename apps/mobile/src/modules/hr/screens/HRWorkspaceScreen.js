@@ -5,10 +5,10 @@ import AdminSidebar from '@/modules/admin/components/AdminSidebar';
 import AdminPageContainer from '@/modules/admin/components/AdminPageContainer';
 import Breadcrumb from '@/modules/admin/components/Breadcrumb';
 
-export default function HRWorkspaceScreen({ title, children }) {
+export default function HRWorkspaceScreen({ title, children, showBack }) {
   return (
     <View style={styles.layout}>
-      <AdminHeader title={title} />
+      <AdminHeader title={title} showBack={showBack} />
       <View style={styles.body}>
         <AdminSidebar />
         <AdminPageContainer>

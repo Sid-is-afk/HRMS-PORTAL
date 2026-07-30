@@ -1,32 +1,14 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 import { Bell, ArrowLeft, User } from 'lucide-react-native';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 export function TopHeader({ title, showBack }) {
   const navigation = useNavigation();
-  const route = useRoute();
   const canGoBack = showBack !== false && navigation.canGoBack();
 
   const handleBack = () => {
-    const mainPages = [
-      'AdminEmployeeManagement',
-      'AdminAttendance',
-      'AdminLeave',
-      'AdminDepartments',
-      'AdminReports',
-      'AdminAnnouncements',
-      'AdminSettings',
-      'AdminIAM',
-      'AdminMasterData',
-      'WorkforceOverview'
-    ];
-
-    if (mainPages.includes(route.name)) {
-      navigation.navigate('AdminDashboard');
-    } else {
-      navigation.goBack();
-    }
+    navigation.goBack();
   };
 
   return (
