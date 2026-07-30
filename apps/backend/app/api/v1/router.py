@@ -19,8 +19,16 @@ from app.modules.admin.domains.organization.api.router import (
     router as organization_router,
 )
 from app.modules.admin.domains.teams.api.router import router as team_router
+from app.modules.admin.domains.attendance.api.router import router as admin_attendance_router
+from app.modules.admin.domains.leave.api.router import router as admin_leave_router
+from app.modules.platform.api.router import router as platform_router
+
+
+
 from app.modules.auth.api.router import router as auth_router
 from app.modules.employee.domains.profile.api.router import router as employee_router
+from app.modules.employee.domains.profile.api.profile_router import router as self_profile_router
+
 
 # Import HR routers
 from app.modules.hr.domains.attendance.api.router import router as attendance_router
@@ -34,11 +42,25 @@ from app.modules.hr.domains.recruitment.api.router import router as recruitment_
 from app.modules.hr.domains.shift.api.router import router as shift_router
 from app.modules.hr.domains.training.api.router import router as training_router
 from app.modules.hr.domains.transfer.api.router import router as transfer_router
+from app.modules.hr.domains.dashboard.api.router import router as hr_dashboard_router
+from app.modules.employee.domains.settings.api.router import router as settings_router
+from app.modules.employee.domains.dashboard.api.router import router as employee_dashboard_router
+
+
+
 
 api_v1_router = APIRouter()
 api_v1_router.include_router(health_router, prefix="/health", tags=["Health"])
 api_v1_router.include_router(auth_router, prefix="/auth", tags=["Auth"])
 api_v1_router.include_router(employee_router)
+api_v1_router.include_router(self_profile_router)
+api_v1_router.include_router(admin_attendance_router)
+api_v1_router.include_router(admin_leave_router)
+api_v1_router.include_router(platform_router)
+
+
+
+
 api_v1_router.include_router(organization_router)
 api_v1_router.include_router(business_unit_router)
 api_v1_router.include_router(division_router)
@@ -62,3 +84,9 @@ api_v1_router.include_router(promotion_router)
 api_v1_router.include_router(transfer_router)
 api_v1_router.include_router(performance_router)
 api_v1_router.include_router(training_router)
+api_v1_router.include_router(hr_dashboard_router)
+api_v1_router.include_router(settings_router)
+api_v1_router.include_router(employee_dashboard_router)
+
+
+

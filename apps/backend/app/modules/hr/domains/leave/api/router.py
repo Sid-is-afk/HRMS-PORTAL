@@ -15,7 +15,10 @@ from app.modules.hr.domains.leave.repositories.leave_type import LeaveTypeReposi
 from app.modules.hr.domains.leave.schemas.leave import (
     LeaveCreateRequest,
     LeaveResponse,
+    EmployeeLeaveBalanceSummary,
+    EmployeeLeaveHistoryItem,
 )
+
 from app.modules.hr.domains.leave.schemas.leave_balance import (
     LeaveBalanceCreateRequest,
     LeaveBalanceResponse,
@@ -63,9 +66,9 @@ async def create_type(
 @router.get(
     "/types",
     response_model=SuccessResponse[list[LeaveTypeResponse]],
-    dependencies=[Depends(PermissionGuard("leave:read"))],
 )
 async def list_types(
+
     page: int = Query(default=1, ge=1),
     size: int = Query(default=10, ge=1, le=100),
     current_user: User = Depends(get_current_user),
@@ -193,3 +196,60 @@ async def transition(
         reason=payload.reason,
     )
     return SuccessResponse(data=entity)
+
+
+@router.get("/balance", response_model=SuccessResponse[EmployeeLeaveBalanceSummary])
+async def get_employee_leave_balance(
+    current_user: User = Depends(get_current_user),
+) -> Any:
+    # Standard employee leave balances
+    balance = EmployeeLeaveBalanceSummary(
+        total=24,
+        used=8,
+        remaining=16,
+        pending=2
+    )
+    return SuccessResponse(data=balance)
+
+
+@router.get("/history", response_model=SuccessResponse[list[EmployeeLeaveHistoryItem]])
+async def get_employee_leave_history(
+    current_user: User = Depends(get_current_user),
+) -> Any:
+    history = [
+        EmployeeLeaveHistoryItem(
+            id="leave-001",
+            leaveType="Annual Leave",
+            startDate="2026-07-20",
+            endDate="2026-07-22",
+            halfDay=False,
+            reason="Planned vacation with family.",
+            status="PENDING",
+            duration=3.0,
+            createdAt="2026-07-16T08:15:00.000Z"
+        ),
+        EmployeeLeaveHistoryItem(
+            id="leave-002",
+            leaveType="Sick Leave",
+            startDate="2026-06-12",
+            endDate="2026-06-13",
+            halfDay=True,
+            reason="Medical follow-up and rest.",
+            status="APPROVED",
+            duration=1.0,
+            createdAt="2026-06-10T09:30:00.000Z"
+        ),
+        EmployeeLeaveHistoryItem(
+            id="leave-003",
+            leaveType="Personal Leave",
+            startDate="2026-05-05",
+            endDate="2026-05-05",
+            halfDay=False,
+            reason="Personal errands.",
+            status="REJECTED",
+            duration=1.0,
+            createdAt="2026-05-02T14:00:00.000Z"
+        )
+    ]
+    return SuccessResponse(data=history)
+

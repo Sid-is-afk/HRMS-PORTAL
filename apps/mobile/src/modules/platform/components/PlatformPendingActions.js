@@ -43,8 +43,8 @@ export const PlatformPendingActions = memo(({ actions = [] }) => {
         </View>
       </View>
 
-      {actions.map((action) => (
-        <ActionRow key={action.key} action={action} />
+      {actions.map((action, index) => (
+        <ActionRow key={action.id || action.key || index} service={action} action={action} />
       ))}
     </View>
   );

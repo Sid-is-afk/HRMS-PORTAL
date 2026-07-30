@@ -35,3 +35,23 @@ class LeaveResponse(LeaveBase):
     start_date: date
     end_date: date
     workflow_state: str
+
+
+class EmployeeLeaveBalanceSummary(BaseModel):
+    total: int
+    used: int
+    remaining: int
+    pending: int
+
+
+class EmployeeLeaveHistoryItem(BaseModel):
+    id: str
+    leaveType: str
+    startDate: str
+    endDate: str
+    halfDay: bool
+    reason: str
+    status: str
+    duration: float
+    createdAt: str
+

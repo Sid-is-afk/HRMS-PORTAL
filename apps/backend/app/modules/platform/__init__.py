@@ -1,1 +1,1 @@
-"""Platform super-admin management module."""
+# Platform module
