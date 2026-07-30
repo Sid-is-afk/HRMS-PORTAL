@@ -12,8 +12,22 @@ from app.core.config.settings import get_settings
 
 def get_engine() -> AsyncEngine:
     settings = get_settings()
+    db_url = settings.DATABASE_URL
+    if db_url.startswith("postgresql://"):
+        db_url = db_url.replace("postgresql://", "postgresql+asyncpg://", 1)
+    if "?" in db_url:
+        base, query = db_url.split("?", 1)
+        params = []
+        for param in query.split("&"):
+            if not any(param.startswith(bad) for bad in ("sslmode=", "channel_binding=")):
+                params.append(param)
+        if params:
+            db_url = f"{base}?{'&'.join(params)}"
+        else:
+            db_url = base
+            
     return create_async_engine(
-        settings.DATABASE_URL,
+        db_url,
         pool_size=settings.DATABASE_POOL_SIZE,
         max_overflow=settings.DATABASE_MAX_OVERFLOW,
         echo=settings.DEBUG,
