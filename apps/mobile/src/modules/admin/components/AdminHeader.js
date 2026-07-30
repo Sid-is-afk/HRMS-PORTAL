@@ -39,8 +39,8 @@ export default function AdminHeader({ title, onToggleSidebar }) {
         <Text style={styles.title}>{title}</Text>
       </View>
       <View style={styles.actions}>
-        <IconButton icon="bell" iconColor="#1F2937" size={24} onPress={() => {}} />
-        <IconButton icon="account-circle" iconColor="#1F2937" size={24} onPress={() => {}} />
+        <IconButton icon="bell" iconColor="#1F2937" size={24} onPress={() => navigation.navigate('Notifications')} />
+        <IconButton icon="account-circle" iconColor="#1F2937" size={24} onPress={() => navigation.navigate('ProfileHome')} />
       </View>
     </View>
   );
