@@ -34,10 +34,13 @@ def create_app() -> FastAPI:
         lifespan=lifespan,
     )
 
+    from app.core.middleware.idempotency import IdempotencyMiddleware
+
     # Middleware (order matters — outermost first)
     app.add_middleware(GZipMiddleware, minimum_size=1000)
     app.add_middleware(TimingMiddleware)
     app.add_middleware(CorrelationIdMiddleware)
+    app.add_middleware(IdempotencyMiddleware)
     app.add_middleware(
         CORSMiddleware,
         allow_origins=settings.CORS_ORIGINS,

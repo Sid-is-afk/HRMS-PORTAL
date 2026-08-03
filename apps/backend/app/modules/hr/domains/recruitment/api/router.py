@@ -5,6 +5,7 @@ from fastapi import APIRouter, Depends, Query, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.v1.dependencies.auth import PermissionGuard, get_current_user
+from app.core.middleware.idempotency import IdempotencyChecker
 from app.database.connection import get_db
 from app.modules.auth.domains.users.models.user import User
 from app.modules.hr.domains.recruitment.repositories.candidate import (
@@ -61,7 +62,10 @@ def get_service(db: AsyncSession = Depends(get_db)) -> RecruitmentService:
     "/jobs",
     response_model=SuccessResponse[RecruitmentResponse],
     status_code=status.HTTP_201_CREATED,
-    dependencies=[Depends(PermissionGuard("recruitment:create"))],
+    dependencies=[
+        Depends(PermissionGuard("recruitment:create")),
+        Depends(IdempotencyChecker()),
+    ],
 )
 async def create_job(
     payload: RecruitmentCreateRequest,

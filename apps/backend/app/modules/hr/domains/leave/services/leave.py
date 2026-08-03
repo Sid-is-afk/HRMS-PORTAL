@@ -69,6 +69,15 @@ class LeaveService:
     async def create_leave_request(
         self, company_id: uuid.UUID, payload: LeaveCreateRequest
     ) -> Leave:
+        # Check active employee policy
+        from app.modules.employee.domains.profile.repositories.employee import (
+            EmployeeRepository,
+        )
+        from app.modules.shared.policies.active_employee import ActiveEmployeePolicy
+
+        emp_repo = EmployeeRepository(self.leave_repo.session)
+        await ActiveEmployeePolicy(emp_repo).check(payload.employee_id)
+
         # Check leave balance
         balances, _ = await self.balance_repo.get_paginated(
             company_id=company_id,

@@ -26,12 +26,24 @@ class BaseRepository[ModelType]:
         return obj
 
     async def update_by_id(self, id: uuid.UUID, **kwargs: Any) -> None:
-        stmt = (
-            update(self.model)
-            .where(self.model.id == id)  # type: ignore[attr-defined]
-            .values(**kwargs)
-        )
-        await self.session.execute(stmt)
+        current_version = kwargs.pop("current_version", None)
+        stmt = update(self.model).where(self.model.id == id)  # type: ignore[attr-defined]
+
+        from app.core.exceptions.base import ConcurrencyException
+
+        if hasattr(self.model, "version") and current_version is not None:
+            stmt = stmt.where(self.model.version == current_version).values(  # type: ignore[attr-defined]
+                version=current_version + 1
+            )
+
+        stmt = stmt.values(**kwargs)
+        res = await self.session.execute(stmt)
+
+        if hasattr(self.model, "version") and current_version is not None:
+            if res.rowcount == 0:  # type: ignore[attr-defined]
+                raise ConcurrencyException(
+                    "CONCURRENT_UPDATE", "stale data: concurrent update detected"
+                )
 
     async def delete_by_id(self, id: uuid.UUID) -> None:
         stmt = delete(self.model).where(self.model.id == id)  # type: ignore[attr-defined]

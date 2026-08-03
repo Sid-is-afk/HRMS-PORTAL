@@ -5,6 +5,7 @@ from fastapi import APIRouter, Depends, Query, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.v1.dependencies.auth import PermissionGuard, get_current_user
+from app.core.middleware.idempotency import IdempotencyChecker
 from app.database.connection import get_db
 from app.modules.auth.domains.users.models.user import User
 from app.modules.hr.domains.leave.repositories.leave import LeaveRepository
@@ -124,7 +125,10 @@ async def list_balances(
     "/requests",
     response_model=SuccessResponse[LeaveResponse],
     status_code=status.HTTP_201_CREATED,
-    dependencies=[Depends(PermissionGuard("leave:create"))],
+    dependencies=[
+        Depends(PermissionGuard("leave:create")),
+        Depends(IdempotencyChecker()),
+    ],
 )
 async def create_request(
     payload: LeaveCreateRequest,

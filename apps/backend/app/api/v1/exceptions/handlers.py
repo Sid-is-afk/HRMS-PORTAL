@@ -9,7 +9,21 @@ from app.core.exceptions.base import AppException
 logger = logging.getLogger(__name__)
 
 
+from sqlalchemy.orm.exc import StaleDataError
+
+from app.core.exceptions.base import ConcurrencyException
+
+
 def register_exception_handlers(app: FastAPI) -> None:
+    @app.exception_handler(StaleDataError)
+    async def stale_data_exception_handler(
+        request: Request, exc: StaleDataError
+    ) -> JSONResponse:
+        concurrency_exc = ConcurrencyException(
+            "CONCURRENT_UPDATE", "stale data: concurrent update detected"
+        )
+        return await app_exception_handler(request, concurrency_exc)
+
     @app.exception_handler(AppException)
     async def app_exception_handler(
         request: Request, exc: AppException

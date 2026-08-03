@@ -1,4 +1,5 @@
 import uuid
+from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
 from datetime import date, datetime
 
@@ -28,7 +29,6 @@ from app.modules.platform.domains.configuration.models.configuration import (
 from app.modules.platform.domains.configuration.repositories.configuration import (
     ConfigurationRepository,
 )
-from typing import AsyncGenerator
 from app.modules.platform.domains.context_vars import bypass_tenant_context
 from app.modules.platform.domains.events import (
     AdminIdentityCreated,
@@ -51,7 +51,7 @@ from app.modules.platform.domains.tenant.repositories.tenant import TenantReposi
 
 
 @asynccontextmanager
-async def bypass_tenant() -> AsyncGenerator[None, None]:
+async def bypass_tenant() -> AsyncGenerator[None]:
     token = bypass_tenant_context.set(True)
     try:
         yield

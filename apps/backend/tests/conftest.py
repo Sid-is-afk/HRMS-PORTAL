@@ -5,7 +5,7 @@ from httpx import ASGITransport, AsyncClient
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
 from app.database.base import Base
-from app.database.connection import get_db
+from app.database.connection import current_db_session, get_db
 from app.main import app
 
 # Use an in-memory SQLite database for testing
@@ -30,12 +30,15 @@ async def setup_db() -> AsyncGenerator[None]:
 @pytest.fixture
 async def db_session() -> AsyncGenerator[AsyncSession]:
     async with TestingSessionLocal() as session:
+        token = current_db_session.set(session)
         try:
             yield session
             await session.commit()
         except Exception:
             await session.rollback()
             raise
+        finally:
+            current_db_session.reset(token)
 
 
 @pytest.fixture(autouse=True)

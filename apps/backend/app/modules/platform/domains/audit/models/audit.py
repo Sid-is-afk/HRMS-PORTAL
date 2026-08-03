@@ -1,7 +1,7 @@
 import uuid
 from datetime import datetime
-
 from typing import Any
+
 from sqlalchemy import JSON, UUID, DateTime, String, func
 from sqlalchemy.orm import Mapped, mapped_column
 
