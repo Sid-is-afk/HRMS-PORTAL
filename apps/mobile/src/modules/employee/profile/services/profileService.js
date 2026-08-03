@@ -2,7 +2,7 @@ import { apiClient } from '@/api/client/apiClient';
 import { API_ROUTES } from '@/shared/constants/apiRoutes';
 import { executeOrQueue } from '@/shared/utils/offlineUtils';
 import { SYNC_EVENTS } from '@/shared/models/offlineModels';
-import { USE_MOCK_DATA } from '@/shared/constants/env';
+import { USE_REAL_EMPLOYEE_API } from '@/shared/constants/env';
 import { mockData } from '@/tests/mocks/mockData';
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -15,7 +15,7 @@ let localAccount = { ...mockData.profile.account };
 
 export const profileService = {
   getProfile: async () => {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_EMPLOYEE_API) {
       await delay(300);
       return localProfile;
     }
@@ -24,7 +24,7 @@ export const profileService = {
   },
 
   updateProfile: async (payload) => {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_EMPLOYEE_API) {
       await delay(400);
       localProfile = { ...localProfile, ...payload };
       return localProfile;
@@ -49,7 +49,7 @@ export const profileService = {
   },
 
   getEmploymentDetails: async () => {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_EMPLOYEE_API) {
       await delay(200);
       return localEmployment;
     }
@@ -58,7 +58,7 @@ export const profileService = {
   },
 
   getEmergencyContacts: async () => {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_EMPLOYEE_API) {
       await delay(200);
       return localContacts;
     }
@@ -67,7 +67,7 @@ export const profileService = {
   },
 
   updateEmergencyContact: async (payload) => {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_EMPLOYEE_API) {
       await delay(300);
       localContacts = [payload];
       return localContacts;
@@ -92,7 +92,7 @@ export const profileService = {
   },
 
   uploadProfileImage: async () => {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_EMPLOYEE_API) {
       await delay(400);
       localProfile.avatarUrl = 'https://avatar.iran.liara.run/public/1';
       return { avatarUrl: localProfile.avatarUrl };
@@ -102,7 +102,7 @@ export const profileService = {
   },
 
   changePassword: async (payload) => {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_EMPLOYEE_API) {
       await delay(300);
       return { success: true, message: 'Password changed successfully.' };
     }
@@ -126,7 +126,7 @@ export const profileService = {
   },
 
   getDocuments: async () => {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_EMPLOYEE_API) {
       await delay(300);
       return localDocuments;
     }
@@ -135,7 +135,7 @@ export const profileService = {
   },
 
   getAccountInfo: async () => {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_EMPLOYEE_API) {
       await delay(200);
       return localAccount;
     }

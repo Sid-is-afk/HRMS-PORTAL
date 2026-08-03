@@ -1,13 +1,13 @@
 import { apiClient } from '@/api/client/apiClient';
 import { API_ROUTES } from '@/shared/constants/apiRoutes';
-import { USE_MOCK_DATA } from '@/shared/constants/env';
+import { USE_REAL_AUTH } from '@/shared/constants/env';
 import { mockData } from '@/tests/mocks/mockData';
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const authService = {
   login: async (identifier, password, role = null) => {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_AUTH) {
       await delay(800);
       const response = { ...mockData.auth.loginResponse };
       if (role) {
@@ -21,7 +21,7 @@ export const authService = {
   },
 
   refreshToken: async (refreshToken) => {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_AUTH) {
       await delay(200);
       return mockData.auth.loginResponse; // Returns new tokens
     }
@@ -30,7 +30,7 @@ export const authService = {
   },
 
   logout: async () => {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_AUTH) {
       await delay(400);
       return { success: true };
     }
@@ -39,7 +39,7 @@ export const authService = {
   },
 
   validateSession: async () => {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_AUTH) {
       await delay(300);
       return mockData.auth.validateResponse;
     }
@@ -48,7 +48,7 @@ export const authService = {
   },
 
   getProfile: async () => {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_AUTH) {
       await delay(400);
       return mockData.profile.main;
     }

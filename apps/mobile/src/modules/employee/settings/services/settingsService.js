@@ -1,6 +1,6 @@
 import { apiClient } from '@/api/client/apiClient';
 import { API_ROUTES } from '@/shared/constants/apiRoutes';
-import { USE_MOCK_DATA } from '@/shared/constants/env';
+import { USE_REAL_EMPLOYEE_API } from '@/shared/constants/env';
 import { mockData } from '@/tests/mocks/mockData';
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -9,7 +9,7 @@ let localMockSettings = { ...mockData.settings };
 
 export const settingsService = {
   async getSettings() {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_EMPLOYEE_API) {
       await delay(300);
       return localMockSettings;
     }
@@ -18,7 +18,7 @@ export const settingsService = {
   },
 
   async updateSettings(payload) {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_EMPLOYEE_API) {
       await delay(400);
       localMockSettings = { ...localMockSettings, ...payload };
       return localMockSettings;
@@ -28,7 +28,7 @@ export const settingsService = {
   },
 
   async getPreferences() {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_EMPLOYEE_API) {
       await delay(200);
       return localMockSettings.preferences;
     }
@@ -37,7 +37,7 @@ export const settingsService = {
   },
 
   async updatePreferences(payload) {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_EMPLOYEE_API) {
       await delay(300);
       localMockSettings.preferences = { ...localMockSettings.preferences, ...payload };
       return localMockSettings.preferences;
@@ -47,7 +47,7 @@ export const settingsService = {
   },
 
   async getNotificationSettings() {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_EMPLOYEE_API) {
       await delay(200);
       return localMockSettings.notificationPreferences;
     }
@@ -56,7 +56,7 @@ export const settingsService = {
   },
 
   async updateNotificationSettings(payload) {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_EMPLOYEE_API) {
       await delay(300);
       localMockSettings.notificationPreferences = { ...localMockSettings.notificationPreferences, ...payload };
       return localMockSettings.notificationPreferences;
@@ -66,7 +66,7 @@ export const settingsService = {
   },
 
   async logout() {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_EMPLOYEE_API) {
       await delay(300);
       return { success: true };
     }
@@ -75,7 +75,7 @@ export const settingsService = {
   },
 
   async contactSupport(payload) {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_EMPLOYEE_API) {
       await delay(500);
       return { success: true, message: 'Message sent successfully.' };
     }

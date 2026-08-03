@@ -1,5 +1,5 @@
 import { apiClient } from '@/api/client/apiClient';
-import { USE_MOCK_DATA } from '@/shared/constants/env';
+import { USE_REAL_EMPLOYEE_API, USE_REAL_ADMIN_API } from '@/shared/constants/env';
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -104,7 +104,7 @@ let mockEmployees = [
 
 export const employeeService = {
   getEmployees: async ({ search, departmentId, designationId, status, type, role, page = 1, limit = 10 }) => {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_EMPLOYEE_API) {
       await delay(600);
       let filtered = [...mockEmployees];
 
@@ -160,7 +160,7 @@ export const employeeService = {
   },
 
   getEmployee: async (id) => {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_EMPLOYEE_API) {
       await delay(400);
       const emp = mockEmployees.find((e) => e.id === id);
       if (!emp) throw new Error('Employee not found');
@@ -171,7 +171,7 @@ export const employeeService = {
   },
 
   createEmployee: async (data) => {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_EMPLOYEE_API) {
       await delay(500);
       const department = mockDepartments.find((d) => d.id === data.departmentId);
       const designation = mockDesignations.find((d) => d.id === data.designationId);
@@ -204,7 +204,7 @@ export const employeeService = {
   },
 
   updateEmployee: async (id, data) => {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_EMPLOYEE_API) {
       await delay(500);
       const index = mockEmployees.findIndex((e) => e.id === id);
       if (index === -1) throw new Error('Employee not found');
@@ -241,7 +241,7 @@ export const employeeService = {
   },
 
   deactivateEmployee: async (id) => {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_EMPLOYEE_API) {
       await delay(400);
       const index = mockEmployees.findIndex((e) => e.id === id);
       if (index === -1) throw new Error('Employee not found');
@@ -253,7 +253,7 @@ export const employeeService = {
   },
 
   activateEmployee: async (id) => {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_EMPLOYEE_API) {
       await delay(400);
       const index = mockEmployees.findIndex((e) => e.id === id);
       if (index === -1) throw new Error('Employee not found');
@@ -265,7 +265,7 @@ export const employeeService = {
   },
 
   getDepartments: async () => {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_ADMIN_API) {
       await delay(200);
       return mockDepartments;
     }
@@ -274,7 +274,7 @@ export const employeeService = {
   },
 
   getDesignations: async () => {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_ADMIN_API) {
       await delay(200);
       return mockDesignations;
     }
@@ -283,7 +283,7 @@ export const employeeService = {
   },
 
   getManagers: async () => {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_ADMIN_API) {
       await delay(200);
       return mockManagers;
     }

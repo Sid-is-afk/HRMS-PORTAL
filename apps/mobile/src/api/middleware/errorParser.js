@@ -26,6 +26,8 @@ export const parseApiError = (error) => {
       return { message: serverMessage || 'You do not have permission to perform this action.', code: 'FORBIDDEN' };
     case 404:
       return { message: serverMessage || 'The requested resource was not found.', code: 'NOT_FOUND' };
+    case 409:
+      return { message: serverMessage || 'Conflict error. The resource might already exist.', code: 'CONFLICT' };
     case 422:
       return { message: serverMessage || 'Validation failed. Please check the entered data.', code: 'VALIDATION_ERROR', validationErrors: data?.errors };
     case 429:

@@ -1,5 +1,5 @@
 import { apiClient } from '@/api/client/apiClient';
-import { USE_MOCK_DATA } from '@/shared/constants/env';
+import { USE_REAL_HR_API } from '@/shared/constants/env';
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -190,7 +190,7 @@ const mockNotifications = [
 
 export const hrDashboardService = {
   getHRDashboard: async () => {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_HR_API) {
       await delay(500);
       return mockSummary;
     }
@@ -199,7 +199,7 @@ export const hrDashboardService = {
   },
 
   getPendingTasks: async () => {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_HR_API) {
       await delay(400);
       return mockTasks;
     }
@@ -208,7 +208,7 @@ export const hrDashboardService = {
   },
 
   getUpcomingEvents: async () => {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_HR_API) {
       await delay(400);
       return mockEvents;
     }
@@ -217,7 +217,7 @@ export const hrDashboardService = {
   },
 
   getRecentActivities: async () => {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_HR_API) {
       await delay(300);
       return mockActivities;
     }
@@ -226,7 +226,7 @@ export const hrDashboardService = {
   },
 
   getQuickActions: async () => {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_HR_API) {
       await delay(300);
       return mockQuickActions;
     }
@@ -235,7 +235,7 @@ export const hrDashboardService = {
   },
 
   getNotifications: async () => {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_HR_API) {
       await delay(400);
       return mockNotifications;
     }

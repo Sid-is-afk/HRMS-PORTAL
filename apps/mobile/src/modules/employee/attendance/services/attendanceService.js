@@ -2,7 +2,7 @@ import { apiClient } from '@/api/client/apiClient';
 import { API_ROUTES } from '@/shared/constants/apiRoutes';
 import { executeOrQueue } from '@/shared/utils/offlineUtils';
 import { SYNC_EVENTS } from '@/shared/models/offlineModels';
-import { USE_MOCK_DATA } from '@/shared/constants/env';
+import { USE_REAL_EMPLOYEE_API } from '@/shared/constants/env';
 import { mockData } from '@/tests/mocks/mockData';
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -11,7 +11,7 @@ let localTodayAttendance = { ...mockData.attendance.today };
 
 export const attendanceService = {
   getTodayAttendance: async () => {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_EMPLOYEE_API) {
       await delay(300);
       return localTodayAttendance;
     }
@@ -20,7 +20,7 @@ export const attendanceService = {
   },
 
   checkIn: async () => {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_EMPLOYEE_API) {
       await delay(400);
       localTodayAttendance = {
         status: 'CLOCKED_IN',
@@ -56,7 +56,7 @@ export const attendanceService = {
   },
 
   checkOut: async (checkInTime) => {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_EMPLOYEE_API) {
       await delay(400);
       const now = new Date();
       let hoursWorked = 0;
@@ -106,7 +106,7 @@ export const attendanceService = {
   },
 
   getAttendanceHistory: async () => {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_EMPLOYEE_API) {
       await delay(400);
       return mockData.attendance.history;
     }
@@ -115,7 +115,7 @@ export const attendanceService = {
   },
 
   getAttendanceSummary: async () => {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_EMPLOYEE_API) {
       await delay(300);
       return mockData.attendance.summary;
     }

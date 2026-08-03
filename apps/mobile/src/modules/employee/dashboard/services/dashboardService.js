@@ -1,13 +1,13 @@
 import { apiClient } from '@/api/client/apiClient';
 import { API_ROUTES } from '@/shared/constants/apiRoutes';
-import { USE_MOCK_DATA } from '@/shared/constants/env';
+import { USE_REAL_EMPLOYEE_API } from '@/shared/constants/env';
 import { mockData } from '@/tests/mocks/mockData';
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const dashboardService = {
   getDashboardSummary: async () => {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_EMPLOYEE_API) {
       await delay(400);
       return mockData.dashboard.summary;
     }
@@ -16,7 +16,7 @@ export const dashboardService = {
   },
 
   getAnnouncements: async () => {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_EMPLOYEE_API) {
       await delay(300);
       return mockData.dashboard.announcements;
     }
@@ -25,7 +25,7 @@ export const dashboardService = {
   },
 
   getUpcomingHolidays: async () => {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_EMPLOYEE_API) {
       await delay(300);
       return mockData.dashboard.holidays;
     }
