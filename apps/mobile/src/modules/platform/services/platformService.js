@@ -1,5 +1,5 @@
 import { apiClient } from '@/api/client/apiClient';
-import { USE_MOCK_DATA } from '@/shared/constants/env';
+import { USE_REAL_PLATFORM_API } from '@/shared/constants/env';
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -51,7 +51,7 @@ const mockNotifications = [
 
 export const platformService = {
   getDashboardSummary: async () => {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_PLATFORM_API) {
       await delay(300);
       return mockSummary;
     }
@@ -60,7 +60,7 @@ export const platformService = {
   },
 
   getActivities: async () => {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_PLATFORM_API) {
       await delay(200);
       return mockActivities;
     }
@@ -69,7 +69,7 @@ export const platformService = {
   },
 
   getNotifications: async () => {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_PLATFORM_API) {
       await delay(200);
       return mockNotifications;
     }
@@ -78,7 +78,7 @@ export const platformService = {
   },
 
   searchPlatform: async (query) => {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_PLATFORM_API) {
       await delay(300);
       return { success: true, data: [] };
     }

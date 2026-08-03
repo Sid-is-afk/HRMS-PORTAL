@@ -1,5 +1,5 @@
 import { apiClient } from '@/api/client/apiClient';
-import { USE_MOCK_DATA } from '@/shared/constants/env';
+import { USE_REAL_ADMIN_API } from '@/shared/constants/env';
 import { organizationService } from '@/modules/admin/organization/services/organizationService';
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -113,7 +113,7 @@ let mockReferenceData = {
 
 export const masterDataService = {
   getCategories: async () => {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_ADMIN_API) {
       await delay(300);
       // Map live counts dynamically
       return mockCategories.map(cat => {
@@ -135,7 +135,7 @@ export const masterDataService = {
   },
 
   getReferenceValues: async (categoryId) => {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_ADMIN_API) {
       await delay(400);
 
       // Handle Organization consumption references
@@ -186,7 +186,7 @@ export const masterDataService = {
       throw new Error('Reference data owned by the Organization module cannot be modified inside Master Data.');
     }
 
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_ADMIN_API) {
       await delay(400);
       if (!mockReferenceData[categoryId]) {
         mockReferenceData[categoryId] = [];
@@ -208,7 +208,7 @@ export const masterDataService = {
       throw new Error('Reference data owned by the Organization module cannot be modified inside Master Data.');
     }
 
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_ADMIN_API) {
       await delay(450);
       const list = mockReferenceData[categoryId] || [];
       const idx = list.findIndex(item => item.id === valueId);
@@ -234,7 +234,7 @@ export const masterDataService = {
       throw new Error('Reference data owned by the Organization module cannot be modified inside Master Data.');
     }
 
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_ADMIN_API) {
       await delay(400);
       const list = mockReferenceData[categoryId] || [];
       const idx = list.findIndex(item => item.id === valueId);

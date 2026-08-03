@@ -2,7 +2,7 @@ import { apiClient } from '@/api/client/apiClient';
 import { API_ROUTES } from '@/shared/constants/apiRoutes';
 import { executeOrQueue } from '@/shared/utils/offlineUtils';
 import { SYNC_EVENTS } from '@/shared/models/offlineModels';
-import { USE_MOCK_DATA } from '@/shared/constants/env';
+import { USE_REAL_EMPLOYEE_API } from '@/shared/constants/env';
 import { mockData } from '@/tests/mocks/mockData';
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -21,7 +21,7 @@ let localLeaveTypes = [...mockData.leave.types];
 
 export const leaveService = {
   getLeaveBalance: async () => {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_EMPLOYEE_API) {
       await delay(300);
       return localLeaveBalance;
     }
@@ -30,7 +30,7 @@ export const leaveService = {
   },
 
   getLeaveHistory: async () => {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_EMPLOYEE_API) {
       await delay(400);
       return localLeaveHistory;
     }
@@ -39,7 +39,7 @@ export const leaveService = {
   },
 
   getLeaveDetails: async (requestId) => {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_EMPLOYEE_API) {
       await delay(200);
       const req = localLeaveHistory.find((h) => h.id === requestId);
       if (req) return req;
@@ -51,7 +51,7 @@ export const leaveService = {
   },
 
   applyLeave: async (payload) => {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_EMPLOYEE_API) {
       await delay(500);
       const duration = buildDuration(payload.startDate, payload.endDate, payload.halfDay);
       const newLeave = {
@@ -101,7 +101,7 @@ export const leaveService = {
   },
 
   cancelLeave: async (requestId) => {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_EMPLOYEE_API) {
       await delay(400);
       const reqIndex = localLeaveHistory.findIndex((h) => h.id === requestId);
       if (reqIndex !== -1) {
@@ -135,7 +135,7 @@ export const leaveService = {
   },
 
   getLeaveTypes: async () => {
-    if (USE_MOCK_DATA) {
+    if (!USE_REAL_EMPLOYEE_API) {
       await delay(200);
       return localLeaveTypes;
     }
