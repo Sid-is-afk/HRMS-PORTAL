@@ -23,13 +23,9 @@ from app.shared.responses.standard import SuccessResponse
 router = APIRouter(prefix="/profile", tags=["Self Profile"])
 
 
-async def get_current_employee(
-    current_user: User, db: AsyncSession
-) -> Employee | None:
+async def get_current_employee(current_user: User, db: AsyncSession) -> Employee | None:
     try:
-        stmt = select(Employee).where(
-            Employee.identity_id == current_user.identity_id
-        )
+        stmt = select(Employee).where(Employee.identity_id == current_user.identity_id)
         result = await db.execute(stmt)
         return result.scalars().first()
     except Exception:
@@ -64,9 +60,11 @@ async def get_profile(
         phone=emp.preferred_name or "+91 98765 43210" if emp else "+91 98765 43210",
         avatarUrl=emp.profile_photo if emp else None,
         department=emp.department or "Engineering" if emp else "Engineering",
-        designation=emp.designation or "Senior Mobile Engineer"
-        if emp
-        else "Senior Mobile Engineer",
+        designation=(
+            emp.designation or "Senior Mobile Engineer"
+            if emp
+            else "Senior Mobile Engineer"
+        ),
         managerName="Mina Rao",
         joiningDate=str(emp.joining_date) if emp else "2023-05-15",
         location=emp.work_location or "Bengaluru" if emp else "Bengaluru",
@@ -83,20 +81,16 @@ async def update_profile(
 ) -> Any:
     emp = await get_current_employee(current_user, db)
 
-    first_name = (
-        payload.firstName
-        or (emp.first_name if emp else current_user.display_name.split()[0])
+    first_name = payload.firstName or (
+        emp.first_name if emp else current_user.display_name.split()[0]
     )
-    last_name = (
-        payload.lastName
-        or (
-            emp.last_name
-            if emp
-            else (
-                current_user.display_name.split()[1]
-                if len(current_user.display_name.split()) > 1
-                else ""
-            )
+    last_name = payload.lastName or (
+        emp.last_name
+        if emp
+        else (
+            current_user.display_name.split()[1]
+            if len(current_user.display_name.split()) > 1
+            else ""
         )
     )
 
@@ -118,9 +112,11 @@ async def update_profile(
         phone=payload.phone or "+91 98765 43210",
         avatarUrl=emp.profile_photo if emp else None,
         department=emp.department or "Engineering" if emp else "Engineering",
-        designation=emp.designation or "Senior Mobile Engineer"
-        if emp
-        else "Senior Mobile Engineer",
+        designation=(
+            emp.designation or "Senior Mobile Engineer"
+            if emp
+            else "Senior Mobile Engineer"
+        ),
         managerName="Mina Rao",
         joiningDate=str(emp.joining_date) if emp else "2023-05-15",
         location=emp.work_location or "Bengaluru" if emp else "Bengaluru",
@@ -138,9 +134,11 @@ async def get_employment_details(
     data = EmploymentDetailsResponse(
         employeeId=emp.employee_code if emp else "EMP00001",
         department=emp.department or "Engineering" if emp else "Engineering",
-        designation=emp.designation or "Senior Mobile Engineer"
-        if emp
-        else "Senior Mobile Engineer",
+        designation=(
+            emp.designation or "Senior Mobile Engineer"
+            if emp
+            else "Senior Mobile Engineer"
+        ),
         managerName="Mina Rao",
         joiningDate=str(emp.joining_date) if emp else "2023-05-15",
         employmentStatus=emp.employment_status if emp else "ACTIVE",
@@ -157,7 +155,10 @@ async def get_emergency_contacts(
 ) -> Any:
     contacts = [
         EmergencyContactResponse(
-            id="emg-1", name="Asha Patel", relationship="Mother", phone="+91 99887 66554"
+            id="emg-1",
+            name="Asha Patel",
+            relationship="Mother",
+            phone="+91 99887 66554",
         )
     ]
     return SuccessResponse(data=contacts)
@@ -212,7 +213,9 @@ async def get_account_info(
     current_user: User = Depends(get_current_user),
 ) -> Any:
     data = AccountInfoResponse(
-        email=current_user.identity.email if current_user else "aarav.patel@company.com",
+        email=(
+            current_user.identity.email if current_user else "aarav.patel@company.com"
+        ),
         phone="+91 98765 43210",
         lastPasswordChange="2026-06-01",
         twoFactorEnabled=False,

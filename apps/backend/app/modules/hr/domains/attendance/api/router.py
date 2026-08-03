@@ -1,4 +1,5 @@
 import uuid
+from datetime import datetime, timedelta
 from typing import Any
 
 from fastapi import APIRouter, Depends, Query, status
@@ -11,16 +12,14 @@ from app.modules.hr.domains.attendance.repositories.attendance import (
     AttendanceRepository,
 )
 from app.modules.hr.domains.attendance.schemas.attendance import (
+    AttendanceCheckOutRequest,
     AttendanceCreateRequest,
+    AttendanceHistoryItem,
     AttendanceResponse,
+    AttendanceSummaryResponse,
     AttendanceUpdateRequest,
     TodayAttendanceResponse,
-    AttendanceCheckOutRequest,
-    AttendanceHistoryItem,
-    AttendanceSummaryResponse,
 )
-from datetime import datetime, timedelta
-
 from app.modules.hr.domains.attendance.services.attendance import AttendanceService
 from app.modules.hr.domains.timeline.repositories.timeline import (
     AuditTimelineRepository,
@@ -159,10 +158,7 @@ async def get_today_attendance(
 ) -> Any:
     # Default status: NOT_MARKED
     today = TodayAttendanceResponse(
-        status="NOT_MARKED",
-        checkIn=None,
-        checkOut=None,
-        hoursWorked=0.0
+        status="NOT_MARKED", checkIn=None, checkOut=None, hoursWorked=0.0
     )
     return SuccessResponse(data=today)
 
@@ -173,10 +169,7 @@ async def check_in(
 ) -> Any:
     now = datetime.utcnow()
     result = TodayAttendanceResponse(
-        status="CLOCKED_IN",
-        checkIn=now,
-        checkOut=None,
-        hoursWorked=0.0
+        status="CLOCKED_IN", checkIn=now, checkOut=None, hoursWorked=0.0
     )
     return SuccessResponse(data=result)
 
@@ -190,12 +183,9 @@ async def check_out(
     check_in_time = payload.checkInTime or (now - timedelta(hours=8))
     diff = abs(now - check_in_time)
     hours = round(diff.total_seconds() / 3600.0, 2)
-    
+
     result = TodayAttendanceResponse(
-        status="CLOCKED_OUT",
-        checkIn=check_in_time,
-        checkOut=now,
-        hoursWorked=hours
+        status="CLOCKED_OUT", checkIn=check_in_time, checkOut=now, hoursWorked=hours
     )
     return SuccessResponse(data=result)
 
@@ -212,7 +202,7 @@ async def get_attendance_history(
             status="Present",
             checkIn=now - timedelta(days=1, hours=9),
             checkOut=now - timedelta(days=1, hours=1),
-            hoursWorked=8.0
+            hoursWorked=8.0,
         ),
         AttendanceHistoryItem(
             id="att-2",
@@ -220,7 +210,7 @@ async def get_attendance_history(
             status="Present",
             checkIn=now - timedelta(days=2, hours=9, minutes=5),
             checkOut=now - timedelta(days=2, hours=1),
-            hoursWorked=8.08
+            hoursWorked=8.08,
         ),
         AttendanceHistoryItem(
             id="att-3",
@@ -228,7 +218,7 @@ async def get_attendance_history(
             status="Weekend",
             checkIn=None,
             checkOut=None,
-            hoursWorked=0.0
+            hoursWorked=0.0,
         ),
         AttendanceHistoryItem(
             id="att-4",
@@ -236,7 +226,7 @@ async def get_attendance_history(
             status="Weekend",
             checkIn=None,
             checkOut=None,
-            hoursWorked=0.0
+            hoursWorked=0.0,
         ),
     ]
     return SuccessResponse(data=history)
@@ -247,13 +237,6 @@ async def get_attendance_summary(
     current_user: User = Depends(get_current_user),
 ) -> Any:
     summary = AttendanceSummaryResponse(
-        totalDays=30,
-        present=20,
-        absent=2,
-        onLeave=2,
-        late=1,
-        holidays=1,
-        weekends=4
+        totalDays=30, present=20, absent=2, onLeave=2, late=1, holidays=1, weekends=4
     )
     return SuccessResponse(data=summary)
-

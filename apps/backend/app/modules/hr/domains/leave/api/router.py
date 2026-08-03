@@ -13,12 +13,11 @@ from app.modules.hr.domains.leave.repositories.leave_balance import (
 )
 from app.modules.hr.domains.leave.repositories.leave_type import LeaveTypeRepository
 from app.modules.hr.domains.leave.schemas.leave import (
-    LeaveCreateRequest,
-    LeaveResponse,
     EmployeeLeaveBalanceSummary,
     EmployeeLeaveHistoryItem,
+    LeaveCreateRequest,
+    LeaveResponse,
 )
-
 from app.modules.hr.domains.leave.schemas.leave_balance import (
     LeaveBalanceCreateRequest,
     LeaveBalanceResponse,
@@ -68,7 +67,6 @@ async def create_type(
     response_model=SuccessResponse[list[LeaveTypeResponse]],
 )
 async def list_types(
-
     page: int = Query(default=1, ge=1),
     size: int = Query(default=10, ge=1, le=100),
     current_user: User = Depends(get_current_user),
@@ -203,12 +201,7 @@ async def get_employee_leave_balance(
     current_user: User = Depends(get_current_user),
 ) -> Any:
     # Standard employee leave balances
-    balance = EmployeeLeaveBalanceSummary(
-        total=24,
-        used=8,
-        remaining=16,
-        pending=2
-    )
+    balance = EmployeeLeaveBalanceSummary(total=24, used=8, remaining=16, pending=2)
     return SuccessResponse(data=balance)
 
 
@@ -226,7 +219,7 @@ async def get_employee_leave_history(
             reason="Planned vacation with family.",
             status="PENDING",
             duration=3.0,
-            createdAt="2026-07-16T08:15:00.000Z"
+            createdAt="2026-07-16T08:15:00.000Z",
         ),
         EmployeeLeaveHistoryItem(
             id="leave-002",
@@ -237,7 +230,7 @@ async def get_employee_leave_history(
             reason="Medical follow-up and rest.",
             status="APPROVED",
             duration=1.0,
-            createdAt="2026-06-10T09:30:00.000Z"
+            createdAt="2026-06-10T09:30:00.000Z",
         ),
         EmployeeLeaveHistoryItem(
             id="leave-003",
@@ -248,8 +241,7 @@ async def get_employee_leave_history(
             reason="Personal errands.",
             status="REJECTED",
             duration=1.0,
-            createdAt="2026-05-02T14:00:00.000Z"
-        )
+            createdAt="2026-05-02T14:00:00.000Z",
+        ),
     ]
     return SuccessResponse(data=history)
-

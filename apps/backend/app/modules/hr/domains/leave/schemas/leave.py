@@ -54,4 +54,3 @@ class EmployeeLeaveHistoryItem(BaseModel):
     status: str
     duration: float
     createdAt: str
-

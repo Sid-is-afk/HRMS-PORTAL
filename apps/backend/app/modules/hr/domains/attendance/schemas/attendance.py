@@ -72,4 +72,3 @@ class AttendanceSummaryResponse(BaseModel):
     late: int
     holidays: int
     weekends: int
-
