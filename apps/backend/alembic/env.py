@@ -18,6 +18,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 # Import your models here to ensure they are registered with Base.metadata
 try:
     from app.database.base import Base
+    from app.database.outbox import OutboxEvent
     from app.modules.admin.domains.branches.models.branch import Branch
     from app.modules.admin.domains.business_units.models.business_unit import (
         BusinessUnit,
@@ -80,8 +81,6 @@ try:
         ProvisioningHistory,
         ProvisioningJob,
     )
-
-    # Import Platform domain models
     from app.modules.platform.domains.tenant.models.tenant import Tenant
 
     target_metadata = Base.metadata

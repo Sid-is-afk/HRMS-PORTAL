@@ -5,6 +5,7 @@ from fastapi import APIRouter, Depends, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.v1.dependencies.auth import PermissionGuard, get_current_user
+from app.core.middleware.idempotency import IdempotencyChecker
 from app.database.connection import get_db
 from app.modules.auth.domains.users.models.user import User
 from app.modules.hr.domains.timeline.repositories.timeline import (
@@ -34,7 +35,10 @@ def get_service(db: AsyncSession = Depends(get_db)) -> TransferService:
     "",
     response_model=SuccessResponse[TransferResponse],
     status_code=status.HTTP_201_CREATED,
-    dependencies=[Depends(PermissionGuard("transfer:create"))],
+    dependencies=[
+        Depends(PermissionGuard("transfer:create")),
+        Depends(IdempotencyChecker()),
+    ],
 )
 async def create(
     payload: TransferCreateRequest,

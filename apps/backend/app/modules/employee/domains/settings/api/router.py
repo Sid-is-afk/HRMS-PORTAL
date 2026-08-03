@@ -15,7 +15,7 @@ from app.shared.responses.standard import SuccessResponse
 
 router = APIRouter(prefix="/settings", tags=["Settings"])
 
-DEFAULT_SETTINGS = {
+DEFAULT_SETTINGS: dict[str, dict[str, Any]] = {
     "preferences": {"theme": "system", "language": "en"},
     "notificationPreferences": {"push": True, "email": True, "sms": False},
     "privacySettings": {"profileVisibility": "employees", "showOnlineStatus": True},
@@ -28,10 +28,14 @@ def get_user_settings(user: User) -> dict[str, Any]:
     if "settings" not in profile_info:
         return DEFAULT_SETTINGS
     # Merge default settings keys to ensure new fields are populated
-    current_settings = profile_info["settings"]
+    current_settings = profile_info.get("settings", {})
+    if not isinstance(current_settings, dict):
+        current_settings = {}
     merged = {}
     for key, val in DEFAULT_SETTINGS.items():
-        merged[key] = {**val, **current_settings.get(key, {})}
+        user_val = current_settings.get(key)
+        user_dict: dict[str, Any] = user_val if isinstance(user_val, dict) else {}
+        merged[key] = {**val, **user_dict}
     return merged
 
 

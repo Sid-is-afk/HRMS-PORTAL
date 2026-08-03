@@ -79,14 +79,19 @@ class EmployeeService:
             )
 
     async def _validate_manager(
-        self, manager_id: uuid.UUID | None, company_id: uuid.UUID
+        self,
+        manager_id: uuid.UUID | None,
+        company_id: uuid.UUID,
+        employee_id: uuid.UUID | None = None,
     ) -> None:
         if manager_id:
-            mgr = await self.employee_repo.get_by_id(manager_id)
-            if not mgr or mgr.company_id != company_id or mgr.deleted_at is not None:
-                raise NotFoundException(
-                    "INVALID_MANAGER", "Manager not found or belongs to another company"
-                )
+            from app.modules.shared.policies.manager_assignment import (
+                ManagerAssignmentPolicy,
+            )
+
+            policy = ManagerAssignmentPolicy(self.employee_repo)
+            emp_id = employee_id or uuid.uuid4()
+            await policy.check(emp_id, manager_id)
 
     async def create_employee(
         self,
@@ -283,7 +288,9 @@ class EmployeeService:
 
         # 2. Manager change check
         if payload.manager_id is not None and payload.manager_id != employee.manager_id:
-            await self._validate_manager(payload.manager_id, company_id)
+            await self._validate_manager(
+                payload.manager_id, company_id, employee_id=employee.id
+            )
             old_mgr = employee.manager_id
             employee.manager_id = payload.manager_id
             await publish_employee_event(

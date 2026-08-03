@@ -48,3 +48,8 @@ class DatabaseException(AppException):
 class InfrastructureException(AppException):
     def __init__(self, code: str, message: str, details: list[Any] | None = None):
         super().__init__(code, message, 500, details)
+
+
+class ConcurrencyException(AppException):
+    def __init__(self, code: str, message: str, details: list[Any] | None = None):
+        super().__init__(code, message, 409, details)

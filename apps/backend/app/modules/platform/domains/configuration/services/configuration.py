@@ -43,10 +43,9 @@ class ConfigurationService:
             )
         saved = await self.repo.create(config)
 
-        # Publish event
         await publish_platform_event(
             ConfigurationUpdated(
-                tenant_id=payload.tenant_id or uuid.UUID(int=0),
+                tenant_id=payload.tenant_id,
                 payload={"key": saved.key, "version": saved.version},
             )
         )

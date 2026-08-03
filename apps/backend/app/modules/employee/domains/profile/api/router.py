@@ -52,10 +52,16 @@ async def get_profile_service(db: AsyncSession = Depends(get_db)) -> ProfileServ
     return ProfileService(employee_repo=EmployeeRepository(db))
 
 
+from app.core.middleware.idempotency import IdempotencyChecker
+
+
 @router.post(
     "",
     response_model=SuccessResponse[EmployeeFullResponse],
-    dependencies=[Depends(PermissionGuard("employee:create"))],
+    dependencies=[
+        Depends(PermissionGuard("employee:create")),
+        Depends(IdempotencyChecker()),
+    ],
     summary="Create Employee",
 )
 async def create_employee(

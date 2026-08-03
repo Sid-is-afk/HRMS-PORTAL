@@ -211,6 +211,21 @@ async def test_leave_balance_check(db_session: AsyncSession) -> None:
     timeline_service = AuditTimelineService(timeline_repo)
     service = LeaveService(leave_repo, type_repo, balance_repo, timeline_service)
 
+    # 1. Setup Active Employee
+    from app.modules.employee.domains.profile.models.employee import Employee
+
+    emp = Employee(
+        id=employee_id,
+        company_id=company_id,
+        employee_code="EMP-BAL-TEST",
+        first_name="Test",
+        last_name="Employee",
+        employment_status="Active",
+        joining_date=date.today(),
+    )
+    db_session.add(emp)
+    await db_session.flush()
+
     # 1. Setup Leave Type and Balance
     type_payload = LeaveTypeCreateRequest(name="Annual Leave", code="AL")
     ltype = await service.create_leave_type(company_id, type_payload)

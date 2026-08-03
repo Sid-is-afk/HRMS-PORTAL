@@ -1,6 +1,6 @@
 import uuid
-
 from typing import Any
+
 from app.modules.platform.domains.audit.models.audit import PlatformAudit
 from app.modules.platform.domains.audit.repositories.audit import (
     PlatformAuditRepository,

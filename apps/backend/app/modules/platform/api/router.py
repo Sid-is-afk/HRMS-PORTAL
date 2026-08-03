@@ -5,6 +5,7 @@ from fastapi import APIRouter, Depends, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.v1.dependencies.auth import PermissionGuard, get_current_user
+from app.core.middleware.idempotency import IdempotencyChecker
 from app.database.connection import get_db
 from app.modules.auth.domains.users.models.user import User
 from app.modules.platform.domains.configuration.repositories.configuration import (
@@ -179,7 +180,10 @@ async def get_tenant(
     "/tenants",
     response_model=SuccessResponse[TenantResponse],
     status_code=201,
-    dependencies=[Depends(PermissionGuard("tenant:create"))],
+    dependencies=[
+        Depends(PermissionGuard("tenant:create")),
+        Depends(IdempotencyChecker()),
+    ],
 )
 async def create_tenant(
     payload: TenantCreateRequest,
@@ -222,7 +226,10 @@ async def update_tenant_status(
 @router.post(
     "/provision",
     response_model=SuccessResponse[ProvisioningJobResponse],
-    dependencies=[Depends(PermissionGuard("platform:admin"))],
+    dependencies=[
+        Depends(PermissionGuard("platform:admin")),
+        Depends(IdempotencyChecker()),
+    ],
 )
 async def provision_tenant(
     payload: ProvisionRequest,

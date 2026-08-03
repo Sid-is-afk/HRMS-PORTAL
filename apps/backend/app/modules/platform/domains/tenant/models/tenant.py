@@ -5,9 +5,10 @@ from sqlalchemy.orm import Mapped, mapped_column
 
 from app.database.base import Base
 from app.database.mixins import SoftDeleteMixin, TimestampMixin, UUIDMixin
+from app.database.version_mixin import VersionMixin
 
 
-class Tenant(Base, UUIDMixin, TimestampMixin, SoftDeleteMixin):
+class Tenant(Base, UUIDMixin, TimestampMixin, SoftDeleteMixin, VersionMixin):
     __tablename__ = "tenants"
 
     tenant_code: Mapped[str] = mapped_column(

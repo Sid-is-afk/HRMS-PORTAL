@@ -42,7 +42,7 @@ class FeatureFlagService:
         if saved.is_enabled:
             await publish_platform_event(
                 FeatureEnabled(
-                    tenant_id=payload.tenant_id or uuid.UUID(int=0),
+                    tenant_id=payload.tenant_id,
                     payload={"key": saved.key},
                 )
             )

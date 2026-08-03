@@ -1,4 +1,6 @@
 from collections.abc import AsyncGenerator
+from contextvars import ContextVar
+from typing import Any
 
 from sqlalchemy import event
 from sqlalchemy.ext.asyncio import (
@@ -7,13 +9,19 @@ from sqlalchemy.ext.asyncio import (
     async_sessionmaker,
     create_async_engine,
 )
-from typing import Any
-from sqlalchemy.orm import Session, with_loader_criteria, ORMExecuteState
+from sqlalchemy.orm import ORMExecuteState, Session, with_loader_criteria
 
 from app.core.config.settings import get_settings
 from app.modules.platform.domains.context_vars import (
     bypass_tenant_context,
     current_tenant_context,
+)
+
+current_db_session: ContextVar[AsyncSession | None] = ContextVar(
+    "current_db_session", default=None
+)
+bypass_outbox_context: ContextVar[bool] = ContextVar(
+    "bypass_outbox_context", default=False
 )
 
 
@@ -94,9 +102,12 @@ def get_session_factory() -> async_sessionmaker[AsyncSession]:
 async def get_db() -> AsyncGenerator[AsyncSession]:  # FastAPI dependency
     session_factory = get_session_factory()
     async with session_factory() as session:
+        token = current_db_session.set(session)
         try:
             yield session
             await session.commit()
         except Exception:
             await session.rollback()
             raise
+        finally:
+            current_db_session.reset(token)

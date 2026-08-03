@@ -11,7 +11,7 @@ class PlatformDomainEvent(BaseModel):
     timestamp: datetime = Field(
         default_factory=lambda: datetime.now(UTC).replace(tzinfo=None)
     )
-    tenant_id: uuid.UUID
+    tenant_id: uuid.UUID | None = None
     actor_id: uuid.UUID | None = None
     payload: dict[str, Any] = {}
 
