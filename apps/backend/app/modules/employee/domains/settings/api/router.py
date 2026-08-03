@@ -9,8 +9,6 @@ from app.modules.auth.domains.users.models.user import User
 from app.modules.employee.domains.settings.schemas.settings import (
     NotificationPreferences,
     Preferences,
-    PrivacySettings,
-    SecuritySettings,
     UserSettingsResponse,
 )
 from app.shared.responses.standard import SuccessResponse

@@ -1,6 +1,9 @@
 from fastapi import APIRouter
 
 from app.api.v1.health.router import router as health_router
+from app.modules.admin.domains.attendance.api.router import (
+    router as admin_attendance_router,
+)
 from app.modules.admin.domains.branches.api.router import router as branch_router
 from app.modules.admin.domains.business_units.api.router import (
     router as business_unit_router,
@@ -14,24 +17,25 @@ from app.modules.admin.domains.designations.api.router import (
 )
 from app.modules.admin.domains.divisions.api.router import router as division_router
 from app.modules.admin.domains.job_levels.api.router import router as job_level_router
+from app.modules.admin.domains.leave.api.router import router as admin_leave_router
 from app.modules.admin.domains.locations.api.router import router as location_router
 from app.modules.admin.domains.organization.api.router import (
     router as organization_router,
 )
 from app.modules.admin.domains.teams.api.router import router as team_router
-from app.modules.admin.domains.attendance.api.router import router as admin_attendance_router
-from app.modules.admin.domains.leave.api.router import router as admin_leave_router
-from app.modules.platform.api.router import router as platform_router
-
-
-
 from app.modules.auth.api.router import router as auth_router
+from app.modules.employee.domains.dashboard.api.router import (
+    router as employee_dashboard_router,
+)
+from app.modules.employee.domains.profile.api.profile_router import (
+    router as self_profile_router,
+)
 from app.modules.employee.domains.profile.api.router import router as employee_router
-from app.modules.employee.domains.profile.api.profile_router import router as self_profile_router
-
+from app.modules.employee.domains.settings.api.router import router as settings_router
 
 # Import HR routers
 from app.modules.hr.domains.attendance.api.router import router as attendance_router
+from app.modules.hr.domains.dashboard.api.router import router as hr_dashboard_router
 from app.modules.hr.domains.holiday.api.router import router as holiday_router
 from app.modules.hr.domains.leave.api.router import router as leave_router
 from app.modules.hr.domains.offboarding.api.router import router as offboarding_router
@@ -42,12 +46,7 @@ from app.modules.hr.domains.recruitment.api.router import router as recruitment_
 from app.modules.hr.domains.shift.api.router import router as shift_router
 from app.modules.hr.domains.training.api.router import router as training_router
 from app.modules.hr.domains.transfer.api.router import router as transfer_router
-from app.modules.hr.domains.dashboard.api.router import router as hr_dashboard_router
-from app.modules.employee.domains.settings.api.router import router as settings_router
-from app.modules.employee.domains.dashboard.api.router import router as employee_dashboard_router
-
-
-
+from app.modules.platform.api.router import router as platform_router
 
 api_v1_router = APIRouter()
 api_v1_router.include_router(health_router, prefix="/health", tags=["Health"])
@@ -57,8 +56,6 @@ api_v1_router.include_router(self_profile_router)
 api_v1_router.include_router(admin_attendance_router)
 api_v1_router.include_router(admin_leave_router)
 api_v1_router.include_router(platform_router)
-
-
 
 
 api_v1_router.include_router(organization_router)
@@ -87,6 +84,3 @@ api_v1_router.include_router(training_router)
 api_v1_router.include_router(hr_dashboard_router)
 api_v1_router.include_router(settings_router)
 api_v1_router.include_router(employee_dashboard_router)
-
-
-

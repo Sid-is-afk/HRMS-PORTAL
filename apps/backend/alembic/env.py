@@ -8,9 +8,7 @@ from dotenv import load_dotenv
 # Load environment variables
 load_dotenv()
 
-from sqlalchemy import pool
 from sqlalchemy.engine import Connection
-from sqlalchemy.ext.asyncio import async_engine_from_config
 from sqlalchemy.ext.asyncio import create_async_engine
 
 from alembic import context
@@ -20,50 +18,72 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 # Import your models here to ensure they are registered with Base.metadata
 try:
     from app.database.base import Base
-    # Import all models to ensure registration on metadata
-    from app.modules.auth.domains.identity.models.identity import Identity
-    from app.modules.auth.domains.users.models.user import User
-    from app.modules.auth.domains.roles.models.role import Role
-    from app.modules.auth.domains.permissions.models.permission import Permission
-    from app.modules.auth.domains.sessions.models.session import Session
-    from app.modules.auth.domains.tokens.models.refresh_token import RefreshToken
-    # Import Employee domain models
-    from app.modules.employee.domains.profile.models.employee import Employee
-    from app.modules.employee.domains.contacts.models.contact import ContactInformation
-    from app.modules.employee.domains.employment.models.employment import Employment
-    from app.modules.employee.domains.emergency.models.emergency import EmergencyContact
-    from app.modules.employee.domains.bank.models.bank import BankInformation
-    from app.modules.employee.domains.documents.models.document import EmployeeDocument
+    from app.modules.admin.domains.branches.models.branch import Branch
+    from app.modules.admin.domains.business_units.models.business_unit import (
+        BusinessUnit,
+    )
+    from app.modules.admin.domains.cost_centers.models.cost_center import CostCenter
+    from app.modules.admin.domains.departments.models.department import Department
+    from app.modules.admin.domains.designations.models.designation import Designation
+    from app.modules.admin.domains.divisions.models.division import Division
+    from app.modules.admin.domains.job_levels.models.job_level import JobLevel
+    from app.modules.admin.domains.locations.models.location import Location
+
     # Import Admin domain models
     from app.modules.admin.domains.organization.models.organization import Organization
-    from app.modules.admin.domains.business_units.models.business_unit import BusinessUnit
-    from app.modules.admin.domains.divisions.models.division import Division
-    from app.modules.admin.domains.departments.models.department import Department
     from app.modules.admin.domains.teams.models.team import Team
-    from app.modules.admin.domains.designations.models.designation import Designation
-    from app.modules.admin.domains.job_levels.models.job_level import JobLevel
-    from app.modules.admin.domains.branches.models.branch import Branch
-    from app.modules.admin.domains.locations.models.location import Location
-    from app.modules.admin.domains.cost_centers.models.cost_center import CostCenter
+
+    # Import all models to ensure registration on metadata
+    from app.modules.auth.domains.identity.models.identity import Identity
+    from app.modules.auth.domains.permissions.models.permission import Permission
+    from app.modules.auth.domains.roles.models.role import Role
+    from app.modules.auth.domains.sessions.models.session import Session
+    from app.modules.auth.domains.tokens.models.refresh_token import RefreshToken
+    from app.modules.auth.domains.users.models.user import User
+    from app.modules.employee.domains.bank.models.bank import BankInformation
+    from app.modules.employee.domains.contacts.models.contact import ContactInformation
+    from app.modules.employee.domains.documents.models.document import EmployeeDocument
+    from app.modules.employee.domains.emergency.models.emergency import EmergencyContact
+    from app.modules.employee.domains.employment.models.employment import Employment
+
+    # Import Employee domain models
+    from app.modules.employee.domains.profile.models.employee import Employee
+
     # Import HR domain models
     from app.modules.hr.domains.attendance.models.attendance import Attendance
-    from app.modules.hr.domains.leave.models.leave import Leave
-    from app.modules.hr.domains.leave.models.leave_type import LeaveType
-    from app.modules.hr.domains.leave.models.leave_balance import LeaveBalance
-    from app.modules.hr.domains.shift.models.shift import Shift
-    from app.modules.hr.domains.shift.models.shift_assignment import ShiftAssignment
     from app.modules.hr.domains.holiday.models.holiday import Holiday
-    from app.modules.hr.domains.recruitment.models.recruitment import Recruitment
+    from app.modules.hr.domains.leave.models.leave import Leave
+    from app.modules.hr.domains.leave.models.leave_balance import LeaveBalance
+    from app.modules.hr.domains.leave.models.leave_type import LeaveType
+    from app.modules.hr.domains.offboarding.models.offboarding import Offboarding
+    from app.modules.hr.domains.onboarding.models.onboarding import Onboarding
+    from app.modules.hr.domains.performance.models.performance import PerformanceReview
+    from app.modules.hr.domains.promotion.models.promotion import Promotion
     from app.modules.hr.domains.recruitment.models.candidate import Candidate
     from app.modules.hr.domains.recruitment.models.interview import Interview
     from app.modules.hr.domains.recruitment.models.offer import Offer
-    from app.modules.hr.domains.onboarding.models.onboarding import Onboarding
-    from app.modules.hr.domains.offboarding.models.offboarding import Offboarding
-    from app.modules.hr.domains.promotion.models.promotion import Promotion
-    from app.modules.hr.domains.transfer.models.transfer import Transfer
-    from app.modules.hr.domains.performance.models.performance import PerformanceReview
-    from app.modules.hr.domains.training.models.training import Training
+    from app.modules.hr.domains.recruitment.models.recruitment import Recruitment
+    from app.modules.hr.domains.shift.models.shift import Shift
+    from app.modules.hr.domains.shift.models.shift_assignment import ShiftAssignment
     from app.modules.hr.domains.timeline.models.timeline import AuditTimeline
+    from app.modules.hr.domains.training.models.training import Training
+    from app.modules.hr.domains.transfer.models.transfer import Transfer
+    from app.modules.platform.domains.audit.models.audit import PlatformAudit
+    from app.modules.platform.domains.configuration.models.configuration import (
+        PlatformConfiguration,
+    )
+    from app.modules.platform.domains.feature_flags.models.feature_flag import (
+        FeatureFlag,
+    )
+    from app.modules.platform.domains.licensing.models.license import License
+    from app.modules.platform.domains.provisioning.models.provisioning import (
+        ProvisioningHistory,
+        ProvisioningJob,
+    )
+
+    # Import Platform domain models
+    from app.modules.platform.domains.tenant.models.tenant import Tenant
+
     target_metadata = Base.metadata
 except ImportError:
     target_metadata = None
@@ -86,13 +106,16 @@ def get_url():
         base, query = url.split("?", 1)
         params = []
         for param in query.split("&"):
-            if not any(param.startswith(bad) for bad in ("sslmode=", "channel_binding=")):
+            if not any(
+                param.startswith(bad) for bad in ("sslmode=", "channel_binding=")
+            ):
                 params.append(param)
         if params:
             url = f"{base}?{'&'.join(params)}"
         else:
             url = base
     return url
+
 
 def run_migrations_offline() -> None:
     """Run migrations in 'offline' mode.

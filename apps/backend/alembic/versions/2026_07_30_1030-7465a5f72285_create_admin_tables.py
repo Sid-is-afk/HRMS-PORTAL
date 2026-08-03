@@ -5,17 +5,18 @@ Revises: 6465a5f72284
 Create Date: 2026-07-30 10:30:00.000000
 
 """
-from typing import Sequence, Union
 
-from alembic import op
+from collections.abc import Sequence
+
 import sqlalchemy as sa
 
+from alembic import op
 
 # revision identifiers, used by Alembic.
-revision: str = '7465a5f72285'
-down_revision: Union[str, None] = '6465a5f72284'
-branch_labels: Union[str, Sequence[str], None] = None
-depends_on: Union[str, Sequence[str], None] = None
+revision: str = "7465a5f72285"
+down_revision: str | None = "6465a5f72284"
+branch_labels: str | Sequence[str] | None = None
+depends_on: str | Sequence[str] | None = None
 
 
 def upgrade() -> None:
@@ -28,17 +29,27 @@ def upgrade() -> None:
         sa.Column("code", sa.String(length=20), nullable=False),
         sa.Column("org_type", sa.String(length=50), nullable=True),
         sa.Column("description", sa.String(length=255), nullable=True),
-        sa.Column("status", sa.String(length=50), nullable=False, server_default="ACTIVE"),
+        sa.Column(
+            "status", sa.String(length=50), nullable=False, server_default="ACTIVE"
+        ),
         sa.Column("parent_organization_id", sa.UUID(), nullable=True),
         sa.Column("effective_from", sa.Date(), nullable=False),
         sa.Column("effective_to", sa.Date(), nullable=True),
         sa.Column("is_active", sa.Boolean(), nullable=False, server_default="true"),
-        sa.Column("created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
-        sa.Column("updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
+        sa.Column(
+            "created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
+        sa.Column(
+            "updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
         sa.Column("deleted_at", sa.DateTime(), nullable=True),
         sa.Column("created_by", sa.UUID(), nullable=True),
         sa.Column("updated_by", sa.UUID(), nullable=True),
-        sa.ForeignKeyConstraint(["parent_organization_id"], ["organizations.id"], name=op.f("fk_organizations_parent_organization_id_organizations")),
+        sa.ForeignKeyConstraint(
+            ["parent_organization_id"],
+            ["organizations.id"],
+            name=op.f("fk_organizations_parent_organization_id_organizations"),
+        ),
         sa.PrimaryKeyConstraint("id", name=op.f("pk_organizations")),
     )
     op.create_index("ix_organizations_company_id", "organizations", ["company_id"])
@@ -56,12 +67,21 @@ def upgrade() -> None:
         sa.Column("effective_from", sa.Date(), nullable=False),
         sa.Column("effective_to", sa.Date(), nullable=True),
         sa.Column("is_active", sa.Boolean(), nullable=False, server_default="true"),
-        sa.Column("created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
-        sa.Column("updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
+        sa.Column(
+            "created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
+        sa.Column(
+            "updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
         sa.Column("deleted_at", sa.DateTime(), nullable=True),
         sa.Column("created_by", sa.UUID(), nullable=True),
         sa.Column("updated_by", sa.UUID(), nullable=True),
-        sa.ForeignKeyConstraint(["organization_id"], ["organizations.id"], name=op.f("fk_business_units_organization_id_organizations"), ondelete="CASCADE"),
+        sa.ForeignKeyConstraint(
+            ["organization_id"],
+            ["organizations.id"],
+            name=op.f("fk_business_units_organization_id_organizations"),
+            ondelete="CASCADE",
+        ),
         sa.PrimaryKeyConstraint("id", name=op.f("pk_business_units")),
     )
     op.create_index("ix_business_units_company_id", "business_units", ["company_id"])
@@ -79,12 +99,21 @@ def upgrade() -> None:
         sa.Column("effective_from", sa.Date(), nullable=False),
         sa.Column("effective_to", sa.Date(), nullable=True),
         sa.Column("is_active", sa.Boolean(), nullable=False, server_default="true"),
-        sa.Column("created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
-        sa.Column("updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
+        sa.Column(
+            "created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
+        sa.Column(
+            "updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
         sa.Column("deleted_at", sa.DateTime(), nullable=True),
         sa.Column("created_by", sa.UUID(), nullable=True),
         sa.Column("updated_by", sa.UUID(), nullable=True),
-        sa.ForeignKeyConstraint(["business_unit_id"], ["business_units.id"], name=op.f("fk_divisions_business_unit_id_business_units"), ondelete="CASCADE"),
+        sa.ForeignKeyConstraint(
+            ["business_unit_id"],
+            ["business_units.id"],
+            name=op.f("fk_divisions_business_unit_id_business_units"),
+            ondelete="CASCADE",
+        ),
         sa.PrimaryKeyConstraint("id", name=op.f("pk_divisions")),
     )
     op.create_index("ix_divisions_company_id", "divisions", ["company_id"])
@@ -103,12 +132,21 @@ def upgrade() -> None:
         sa.Column("effective_from", sa.Date(), nullable=False),
         sa.Column("effective_to", sa.Date(), nullable=True),
         sa.Column("is_active", sa.Boolean(), nullable=False, server_default="true"),
-        sa.Column("created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
-        sa.Column("updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
+        sa.Column(
+            "created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
+        sa.Column(
+            "updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
         sa.Column("deleted_at", sa.DateTime(), nullable=True),
         sa.Column("created_by", sa.UUID(), nullable=True),
         sa.Column("updated_by", sa.UUID(), nullable=True),
-        sa.ForeignKeyConstraint(["division_id"], ["divisions.id"], name=op.f("fk_departments_division_id_divisions"), ondelete="CASCADE"),
+        sa.ForeignKeyConstraint(
+            ["division_id"],
+            ["divisions.id"],
+            name=op.f("fk_departments_division_id_divisions"),
+            ondelete="CASCADE",
+        ),
         sa.PrimaryKeyConstraint("id", name=op.f("pk_departments")),
     )
     op.create_index("ix_departments_company_id", "departments", ["company_id"])
@@ -127,12 +165,21 @@ def upgrade() -> None:
         sa.Column("effective_from", sa.Date(), nullable=False),
         sa.Column("effective_to", sa.Date(), nullable=True),
         sa.Column("is_active", sa.Boolean(), nullable=False, server_default="true"),
-        sa.Column("created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
-        sa.Column("updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
+        sa.Column(
+            "created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
+        sa.Column(
+            "updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
         sa.Column("deleted_at", sa.DateTime(), nullable=True),
         sa.Column("created_by", sa.UUID(), nullable=True),
         sa.Column("updated_by", sa.UUID(), nullable=True),
-        sa.ForeignKeyConstraint(["department_id"], ["departments.id"], name=op.f("fk_teams_department_id_departments"), ondelete="CASCADE"),
+        sa.ForeignKeyConstraint(
+            ["department_id"],
+            ["departments.id"],
+            name=op.f("fk_teams_department_id_departments"),
+            ondelete="CASCADE",
+        ),
         sa.PrimaryKeyConstraint("id", name=op.f("pk_teams")),
     )
     op.create_index("ix_teams_company_id", "teams", ["company_id"])
@@ -149,8 +196,12 @@ def upgrade() -> None:
         sa.Column("effective_from", sa.Date(), nullable=False),
         sa.Column("effective_to", sa.Date(), nullable=True),
         sa.Column("is_active", sa.Boolean(), nullable=False, server_default="true"),
-        sa.Column("created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
-        sa.Column("updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
+        sa.Column(
+            "created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
+        sa.Column(
+            "updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
         sa.Column("deleted_at", sa.DateTime(), nullable=True),
         sa.Column("created_by", sa.UUID(), nullable=True),
         sa.Column("updated_by", sa.UUID(), nullable=True),
@@ -170,12 +221,21 @@ def upgrade() -> None:
         sa.Column("effective_from", sa.Date(), nullable=False),
         sa.Column("effective_to", sa.Date(), nullable=True),
         sa.Column("is_active", sa.Boolean(), nullable=False, server_default="true"),
-        sa.Column("created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
-        sa.Column("updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
+        sa.Column(
+            "created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
+        sa.Column(
+            "updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
         sa.Column("deleted_at", sa.DateTime(), nullable=True),
         sa.Column("created_by", sa.UUID(), nullable=True),
         sa.Column("updated_by", sa.UUID(), nullable=True),
-        sa.ForeignKeyConstraint(["job_level_id"], ["job_levels.id"], name=op.f("fk_designations_job_level_id_job_levels"), ondelete="CASCADE"),
+        sa.ForeignKeyConstraint(
+            ["job_level_id"],
+            ["job_levels.id"],
+            name=op.f("fk_designations_job_level_id_job_levels"),
+            ondelete="CASCADE",
+        ),
         sa.PrimaryKeyConstraint("id", name=op.f("pk_designations")),
     )
     op.create_index("ix_designations_company_id", "designations", ["company_id"])
@@ -197,12 +257,21 @@ def upgrade() -> None:
         sa.Column("effective_from", sa.Date(), nullable=False),
         sa.Column("effective_to", sa.Date(), nullable=True),
         sa.Column("is_active", sa.Boolean(), nullable=False, server_default="true"),
-        sa.Column("created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
-        sa.Column("updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
+        sa.Column(
+            "created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
+        sa.Column(
+            "updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
         sa.Column("deleted_at", sa.DateTime(), nullable=True),
         sa.Column("created_by", sa.UUID(), nullable=True),
         sa.Column("updated_by", sa.UUID(), nullable=True),
-        sa.ForeignKeyConstraint(["organization_id"], ["organizations.id"], name=op.f("fk_branches_organization_id_organizations"), ondelete="CASCADE"),
+        sa.ForeignKeyConstraint(
+            ["organization_id"],
+            ["organizations.id"],
+            name=op.f("fk_branches_organization_id_organizations"),
+            ondelete="CASCADE",
+        ),
         sa.PrimaryKeyConstraint("id", name=op.f("pk_branches")),
     )
     op.create_index("ix_branches_company_id", "branches", ["company_id"])
@@ -221,12 +290,21 @@ def upgrade() -> None:
         sa.Column("effective_from", sa.Date(), nullable=False),
         sa.Column("effective_to", sa.Date(), nullable=True),
         sa.Column("is_active", sa.Boolean(), nullable=False, server_default="true"),
-        sa.Column("created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
-        sa.Column("updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
+        sa.Column(
+            "created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
+        sa.Column(
+            "updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
         sa.Column("deleted_at", sa.DateTime(), nullable=True),
         sa.Column("created_by", sa.UUID(), nullable=True),
         sa.Column("updated_by", sa.UUID(), nullable=True),
-        sa.ForeignKeyConstraint(["branch_id"], ["branches.id"], name=op.f("fk_work_locations_branch_id_branches"), ondelete="CASCADE"),
+        sa.ForeignKeyConstraint(
+            ["branch_id"],
+            ["branches.id"],
+            name=op.f("fk_work_locations_branch_id_branches"),
+            ondelete="CASCADE",
+        ),
         sa.PrimaryKeyConstraint("id", name=op.f("pk_work_locations")),
     )
     op.create_index("ix_work_locations_company_id", "work_locations", ["company_id"])
@@ -243,12 +321,21 @@ def upgrade() -> None:
         sa.Column("effective_from", sa.Date(), nullable=False),
         sa.Column("effective_to", sa.Date(), nullable=True),
         sa.Column("is_active", sa.Boolean(), nullable=False, server_default="true"),
-        sa.Column("created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
-        sa.Column("updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
+        sa.Column(
+            "created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
+        sa.Column(
+            "updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
         sa.Column("deleted_at", sa.DateTime(), nullable=True),
         sa.Column("created_by", sa.UUID(), nullable=True),
         sa.Column("updated_by", sa.UUID(), nullable=True),
-        sa.ForeignKeyConstraint(["organization_id"], ["organizations.id"], name=op.f("fk_cost_centers_organization_id_organizations"), ondelete="CASCADE"),
+        sa.ForeignKeyConstraint(
+            ["organization_id"],
+            ["organizations.id"],
+            name=op.f("fk_cost_centers_organization_id_organizations"),
+            ondelete="CASCADE",
+        ),
         sa.PrimaryKeyConstraint("id", name=op.f("pk_cost_centers")),
     )
     op.create_index("ix_cost_centers_company_id", "cost_centers", ["company_id"])

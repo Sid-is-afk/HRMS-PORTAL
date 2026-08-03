@@ -1,15 +1,13 @@
 from typing import Any
 
 from fastapi import APIRouter, Depends
-from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.v1.dependencies.auth import get_current_user
-from app.database.connection import get_db
-from app.modules.auth.domains.users.models.user import User
 from app.modules.admin.domains.leave.schemas.leave import (
     AdminLeaveDashboardSummary,
     AdminLeaveRequest,
 )
+from app.modules.auth.domains.users.models.user import User
 from app.shared.responses.standard import SuccessResponse
 
 router = APIRouter(prefix="/admin/leave", tags=["Admin Leave"])

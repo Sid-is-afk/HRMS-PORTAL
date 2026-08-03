@@ -5,17 +5,18 @@ Revises: 7465a5f72285
 Create Date: 2026-07-30 10:50:00.000000
 
 """
-from typing import Sequence, Union
 
-from alembic import op
+from collections.abc import Sequence
+
 import sqlalchemy as sa
 
+from alembic import op
 
 # revision identifiers, used by Alembic.
-revision: str = '8465a5f72286'
-down_revision: Union[str, None] = '7465a5f72285'
-branch_labels: Union[str, Sequence[str], None] = None
-depends_on: Union[str, Sequence[str], None] = None
+revision: str = "8465a5f72286"
+down_revision: str | None = "7465a5f72285"
+branch_labels: str | Sequence[str] | None = None
+depends_on: str | Sequence[str] | None = None
 
 
 def upgrade() -> None:
@@ -29,17 +30,32 @@ def upgrade() -> None:
         sa.Column("check_out", sa.DateTime(), nullable=True),
         sa.Column("breaks", sa.JSON(), nullable=True),
         sa.Column("overtime", sa.Integer(), nullable=False, server_default="0"),
-        sa.Column("status", sa.String(length=50), nullable=False, server_default="Present"),
-        sa.Column("workflow_state", sa.String(length=50), nullable=False, server_default="Draft"),
-        sa.Column("created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
-        sa.Column("updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
+        sa.Column(
+            "status", sa.String(length=50), nullable=False, server_default="Present"
+        ),
+        sa.Column(
+            "workflow_state",
+            sa.String(length=50),
+            nullable=False,
+            server_default="Draft",
+        ),
+        sa.Column(
+            "created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
+        sa.Column(
+            "updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
         sa.Column("deleted_at", sa.DateTime(), nullable=True),
         sa.Column("created_by", sa.UUID(), nullable=True),
         sa.Column("updated_by", sa.UUID(), nullable=True),
         sa.PrimaryKeyConstraint("id", name=op.f("pk_attendance_records")),
     )
-    op.create_index("ix_attendance_records_company_id", "attendance_records", ["company_id"])
-    op.create_index("ix_attendance_records_employee_id", "attendance_records", ["employee_id"])
+    op.create_index(
+        "ix_attendance_records_company_id", "attendance_records", ["company_id"]
+    )
+    op.create_index(
+        "ix_attendance_records_employee_id", "attendance_records", ["employee_id"]
+    )
 
     # 2. leave_types
     op.create_table(
@@ -48,8 +64,12 @@ def upgrade() -> None:
         sa.Column("company_id", sa.UUID(), nullable=False),
         sa.Column("name", sa.String(length=100), nullable=False),
         sa.Column("code", sa.String(length=20), nullable=False),
-        sa.Column("created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
-        sa.Column("updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
+        sa.Column(
+            "created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
+        sa.Column(
+            "updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
         sa.Column("deleted_at", sa.DateTime(), nullable=True),
         sa.Column("created_by", sa.UUID(), nullable=True),
         sa.Column("updated_by", sa.UUID(), nullable=True),
@@ -65,12 +85,21 @@ def upgrade() -> None:
         sa.Column("employee_id", sa.UUID(), nullable=False),
         sa.Column("leave_type_id", sa.UUID(), nullable=False),
         sa.Column("balance", sa.Float(), nullable=False, server_default="0.0"),
-        sa.Column("created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
-        sa.Column("updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
+        sa.Column(
+            "created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
+        sa.Column(
+            "updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
         sa.Column("deleted_at", sa.DateTime(), nullable=True),
         sa.Column("created_by", sa.UUID(), nullable=True),
         sa.Column("updated_by", sa.UUID(), nullable=True),
-        sa.ForeignKeyConstraint(["leave_type_id"], ["leave_types.id"], name=op.f("fk_leave_balances_leave_type_id_leave_types"), ondelete="CASCADE"),
+        sa.ForeignKeyConstraint(
+            ["leave_type_id"],
+            ["leave_types.id"],
+            name=op.f("fk_leave_balances_leave_type_id_leave_types"),
+            ondelete="CASCADE",
+        ),
         sa.PrimaryKeyConstraint("id", name=op.f("pk_leave_balances")),
     )
     op.create_index("ix_leave_balances_company_id", "leave_balances", ["company_id"])
@@ -85,13 +114,26 @@ def upgrade() -> None:
         sa.Column("leave_type_id", sa.UUID(), nullable=False),
         sa.Column("start_date", sa.Date(), nullable=False),
         sa.Column("end_date", sa.Date(), nullable=False),
-        sa.Column("workflow_state", sa.String(length=50), nullable=False, server_default="Draft"),
-        sa.Column("created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
-        sa.Column("updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
+        sa.Column(
+            "workflow_state",
+            sa.String(length=50),
+            nullable=False,
+            server_default="Draft",
+        ),
+        sa.Column(
+            "created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
+        sa.Column(
+            "updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
         sa.Column("deleted_at", sa.DateTime(), nullable=True),
         sa.Column("created_by", sa.UUID(), nullable=True),
         sa.Column("updated_by", sa.UUID(), nullable=True),
-        sa.ForeignKeyConstraint(["leave_type_id"], ["leave_types.id"], name=op.f("fk_leave_requests_leave_type_id_leave_types")),
+        sa.ForeignKeyConstraint(
+            ["leave_type_id"],
+            ["leave_types.id"],
+            name=op.f("fk_leave_requests_leave_type_id_leave_types"),
+        ),
         sa.PrimaryKeyConstraint("id", name=op.f("pk_leave_requests")),
     )
     op.create_index("ix_leave_requests_company_id", "leave_requests", ["company_id"])
@@ -106,8 +148,12 @@ def upgrade() -> None:
         sa.Column("code", sa.String(length=20), nullable=False),
         sa.Column("start_time", sa.Time(), nullable=False),
         sa.Column("end_time", sa.Time(), nullable=False),
-        sa.Column("created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
-        sa.Column("updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
+        sa.Column(
+            "created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
+        sa.Column(
+            "updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
         sa.Column("deleted_at", sa.DateTime(), nullable=True),
         sa.Column("created_by", sa.UUID(), nullable=True),
         sa.Column("updated_by", sa.UUID(), nullable=True),
@@ -124,16 +170,29 @@ def upgrade() -> None:
         sa.Column("shift_id", sa.UUID(), nullable=False),
         sa.Column("start_date", sa.Date(), nullable=False),
         sa.Column("end_date", sa.Date(), nullable=True),
-        sa.Column("created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
-        sa.Column("updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
+        sa.Column(
+            "created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
+        sa.Column(
+            "updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
         sa.Column("deleted_at", sa.DateTime(), nullable=True),
         sa.Column("created_by", sa.UUID(), nullable=True),
         sa.Column("updated_by", sa.UUID(), nullable=True),
-        sa.ForeignKeyConstraint(["shift_id"], ["shifts.id"], name=op.f("fk_shift_assignments_shift_id_shifts"), ondelete="CASCADE"),
+        sa.ForeignKeyConstraint(
+            ["shift_id"],
+            ["shifts.id"],
+            name=op.f("fk_shift_assignments_shift_id_shifts"),
+            ondelete="CASCADE",
+        ),
         sa.PrimaryKeyConstraint("id", name=op.f("pk_shift_assignments")),
     )
-    op.create_index("ix_shift_assignments_company_id", "shift_assignments", ["company_id"])
-    op.create_index("ix_shift_assignments_employee_id", "shift_assignments", ["employee_id"])
+    op.create_index(
+        "ix_shift_assignments_company_id", "shift_assignments", ["company_id"]
+    )
+    op.create_index(
+        "ix_shift_assignments_employee_id", "shift_assignments", ["employee_id"]
+    )
 
     # 7. holidays
     op.create_table(
@@ -142,9 +201,18 @@ def upgrade() -> None:
         sa.Column("company_id", sa.UUID(), nullable=False),
         sa.Column("name", sa.String(length=100), nullable=False),
         sa.Column("holiday_date", sa.Date(), nullable=False),
-        sa.Column("holiday_type", sa.String(length=50), nullable=False, server_default="Organization"),
-        sa.Column("created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
-        sa.Column("updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
+        sa.Column(
+            "holiday_type",
+            sa.String(length=50),
+            nullable=False,
+            server_default="Organization",
+        ),
+        sa.Column(
+            "created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
+        sa.Column(
+            "updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
         sa.Column("deleted_at", sa.DateTime(), nullable=True),
         sa.Column("created_by", sa.UUID(), nullable=True),
         sa.Column("updated_by", sa.UUID(), nullable=True),
@@ -159,9 +227,18 @@ def upgrade() -> None:
         sa.Column("company_id", sa.UUID(), nullable=False),
         sa.Column("title", sa.String(length=100), nullable=False),
         sa.Column("department_id", sa.UUID(), nullable=False),
-        sa.Column("workflow_state", sa.String(length=50), nullable=False, server_default="Draft"),
-        sa.Column("created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
-        sa.Column("updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
+        sa.Column(
+            "workflow_state",
+            sa.String(length=50),
+            nullable=False,
+            server_default="Draft",
+        ),
+        sa.Column(
+            "created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
+        sa.Column(
+            "updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
         sa.Column("deleted_at", sa.DateTime(), nullable=True),
         sa.Column("created_by", sa.UUID(), nullable=True),
         sa.Column("updated_by", sa.UUID(), nullable=True),
@@ -178,13 +255,24 @@ def upgrade() -> None:
         sa.Column("first_name", sa.String(length=50), nullable=False),
         sa.Column("last_name", sa.String(length=50), nullable=False),
         sa.Column("email", sa.String(length=100), nullable=False),
-        sa.Column("status", sa.String(length=50), nullable=False, server_default="Applied"),
-        sa.Column("created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
-        sa.Column("updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
+        sa.Column(
+            "status", sa.String(length=50), nullable=False, server_default="Applied"
+        ),
+        sa.Column(
+            "created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
+        sa.Column(
+            "updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
         sa.Column("deleted_at", sa.DateTime(), nullable=True),
         sa.Column("created_by", sa.UUID(), nullable=True),
         sa.Column("updated_by", sa.UUID(), nullable=True),
-        sa.ForeignKeyConstraint(["job_opening_id"], ["job_openings.id"], name=op.f("fk_candidates_job_opening_id_job_openings"), ondelete="CASCADE"),
+        sa.ForeignKeyConstraint(
+            ["job_opening_id"],
+            ["job_openings.id"],
+            name=op.f("fk_candidates_job_opening_id_job_openings"),
+            ondelete="CASCADE",
+        ),
         sa.PrimaryKeyConstraint("id", name=op.f("pk_candidates")),
     )
     op.create_index("ix_candidates_company_id", "candidates", ["company_id"])
@@ -199,12 +287,21 @@ def upgrade() -> None:
         sa.Column("interview_date", sa.DateTime(), nullable=False),
         sa.Column("feedback", sa.String(length=255), nullable=True),
         sa.Column("rating", sa.Integer(), nullable=True),
-        sa.Column("created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
-        sa.Column("updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
+        sa.Column(
+            "created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
+        sa.Column(
+            "updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
         sa.Column("deleted_at", sa.DateTime(), nullable=True),
         sa.Column("created_by", sa.UUID(), nullable=True),
         sa.Column("updated_by", sa.UUID(), nullable=True),
-        sa.ForeignKeyConstraint(["candidate_id"], ["candidates.id"], name=op.f("fk_interviews_candidate_id_candidates"), ondelete="CASCADE"),
+        sa.ForeignKeyConstraint(
+            ["candidate_id"],
+            ["candidates.id"],
+            name=op.f("fk_interviews_candidate_id_candidates"),
+            ondelete="CASCADE",
+        ),
         sa.PrimaryKeyConstraint("id", name=op.f("pk_interviews")),
     )
     op.create_index("ix_interviews_company_id", "interviews", ["company_id"])
@@ -218,13 +315,24 @@ def upgrade() -> None:
         sa.Column("offered_position_id", sa.UUID(), nullable=False),
         sa.Column("salary", sa.Float(), nullable=False),
         sa.Column("joining_date", sa.Date(), nullable=False),
-        sa.Column("status", sa.String(length=50), nullable=False, server_default="Pending"),
-        sa.Column("created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
-        sa.Column("updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
+        sa.Column(
+            "status", sa.String(length=50), nullable=False, server_default="Pending"
+        ),
+        sa.Column(
+            "created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
+        sa.Column(
+            "updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
         sa.Column("deleted_at", sa.DateTime(), nullable=True),
         sa.Column("created_by", sa.UUID(), nullable=True),
         sa.Column("updated_by", sa.UUID(), nullable=True),
-        sa.ForeignKeyConstraint(["candidate_id"], ["candidates.id"], name=op.f("fk_offers_candidate_id_candidates"), ondelete="CASCADE"),
+        sa.ForeignKeyConstraint(
+            ["candidate_id"],
+            ["candidates.id"],
+            name=op.f("fk_offers_candidate_id_candidates"),
+            ondelete="CASCADE",
+        ),
         sa.PrimaryKeyConstraint("id", name=op.f("pk_offers")),
     )
     op.create_index("ix_offers_company_id", "offers", ["company_id"])
@@ -236,15 +344,26 @@ def upgrade() -> None:
         sa.Column("company_id", sa.UUID(), nullable=False),
         sa.Column("employee_id", sa.UUID(), nullable=False),
         sa.Column("buddy_id", sa.UUID(), nullable=True),
-        sa.Column("workflow_state", sa.String(length=50), nullable=False, server_default="Created"),
-        sa.Column("created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
-        sa.Column("updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
+        sa.Column(
+            "workflow_state",
+            sa.String(length=50),
+            nullable=False,
+            server_default="Created",
+        ),
+        sa.Column(
+            "created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
+        sa.Column(
+            "updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
         sa.Column("deleted_at", sa.DateTime(), nullable=True),
         sa.Column("created_by", sa.UUID(), nullable=True),
         sa.Column("updated_by", sa.UUID(), nullable=True),
         sa.PrimaryKeyConstraint("id", name=op.f("pk_onboarding_processes")),
     )
-    op.create_index("ix_onboarding_processes_company_id", "onboarding_processes", ["company_id"])
+    op.create_index(
+        "ix_onboarding_processes_company_id", "onboarding_processes", ["company_id"]
+    )
 
     # 13. offboarding_processes
     op.create_table(
@@ -253,15 +372,26 @@ def upgrade() -> None:
         sa.Column("company_id", sa.UUID(), nullable=False),
         sa.Column("employee_id", sa.UUID(), nullable=False),
         sa.Column("resignation_date", sa.Date(), nullable=False),
-        sa.Column("workflow_state", sa.String(length=50), nullable=False, server_default="Requested"),
-        sa.Column("created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
-        sa.Column("updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
+        sa.Column(
+            "workflow_state",
+            sa.String(length=50),
+            nullable=False,
+            server_default="Requested",
+        ),
+        sa.Column(
+            "created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
+        sa.Column(
+            "updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
         sa.Column("deleted_at", sa.DateTime(), nullable=True),
         sa.Column("created_by", sa.UUID(), nullable=True),
         sa.Column("updated_by", sa.UUID(), nullable=True),
         sa.PrimaryKeyConstraint("id", name=op.f("pk_offboarding_processes")),
     )
-    op.create_index("ix_offboarding_processes_company_id", "offboarding_processes", ["company_id"])
+    op.create_index(
+        "ix_offboarding_processes_company_id", "offboarding_processes", ["company_id"]
+    )
 
     # 14. promotions
     op.create_table(
@@ -272,9 +402,18 @@ def upgrade() -> None:
         sa.Column("current_designation_id", sa.UUID(), nullable=False),
         sa.Column("proposed_designation_id", sa.UUID(), nullable=False),
         sa.Column("effective_date", sa.Date(), nullable=False),
-        sa.Column("workflow_state", sa.String(length=50), nullable=False, server_default="Draft"),
-        sa.Column("created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
-        sa.Column("updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
+        sa.Column(
+            "workflow_state",
+            sa.String(length=50),
+            nullable=False,
+            server_default="Draft",
+        ),
+        sa.Column(
+            "created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
+        sa.Column(
+            "updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
         sa.Column("deleted_at", sa.DateTime(), nullable=True),
         sa.Column("created_by", sa.UUID(), nullable=True),
         sa.Column("updated_by", sa.UUID(), nullable=True),
@@ -292,9 +431,18 @@ def upgrade() -> None:
         sa.Column("proposed_department_id", sa.UUID(), nullable=False),
         sa.Column("proposed_manager_id", sa.UUID(), nullable=False),
         sa.Column("effective_date", sa.Date(), nullable=False),
-        sa.Column("workflow_state", sa.String(length=50), nullable=False, server_default="Draft"),
-        sa.Column("created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
-        sa.Column("updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
+        sa.Column(
+            "workflow_state",
+            sa.String(length=50),
+            nullable=False,
+            server_default="Draft",
+        ),
+        sa.Column(
+            "created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
+        sa.Column(
+            "updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
         sa.Column("deleted_at", sa.DateTime(), nullable=True),
         sa.Column("created_by", sa.UUID(), nullable=True),
         sa.Column("updated_by", sa.UUID(), nullable=True),
@@ -311,15 +459,26 @@ def upgrade() -> None:
         sa.Column("reviewer_id", sa.UUID(), nullable=False),
         sa.Column("rating", sa.Float(), nullable=True),
         sa.Column("feedback", sa.String(length=255), nullable=True),
-        sa.Column("workflow_state", sa.String(length=50), nullable=False, server_default="Draft"),
-        sa.Column("created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
-        sa.Column("updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
+        sa.Column(
+            "workflow_state",
+            sa.String(length=50),
+            nullable=False,
+            server_default="Draft",
+        ),
+        sa.Column(
+            "created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
+        sa.Column(
+            "updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
         sa.Column("deleted_at", sa.DateTime(), nullable=True),
         sa.Column("created_by", sa.UUID(), nullable=True),
         sa.Column("updated_by", sa.UUID(), nullable=True),
         sa.PrimaryKeyConstraint("id", name=op.f("pk_performance_reviews")),
     )
-    op.create_index("ix_performance_reviews_company_id", "performance_reviews", ["company_id"])
+    op.create_index(
+        "ix_performance_reviews_company_id", "performance_reviews", ["company_id"]
+    )
 
     # 17. trainings
     op.create_table(
@@ -329,8 +488,12 @@ def upgrade() -> None:
         sa.Column("name", sa.String(length=100), nullable=False),
         sa.Column("description", sa.String(length=255), nullable=True),
         sa.Column("trainer", sa.String(length=100), nullable=True),
-        sa.Column("created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
-        sa.Column("updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
+        sa.Column(
+            "created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
+        sa.Column(
+            "updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
         sa.Column("deleted_at", sa.DateTime(), nullable=True),
         sa.Column("created_by", sa.UUID(), nullable=True),
         sa.Column("updated_by", sa.UUID(), nullable=True),
@@ -350,8 +513,12 @@ def upgrade() -> None:
         sa.Column("actor_id", sa.UUID(), nullable=True),
         sa.Column("comment", sa.String(length=255), nullable=True),
         sa.Column("reason", sa.String(length=255), nullable=True),
-        sa.Column("created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
-        sa.Column("updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()),
+        sa.Column(
+            "created_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
+        sa.Column(
+            "updated_at", sa.DateTime(), nullable=False, server_default=sa.func.now()
+        ),
         sa.PrimaryKeyConstraint("id", name=op.f("pk_audit_timelines")),
     )
     op.create_index("ix_audit_timelines_company_id", "audit_timelines", ["company_id"])
