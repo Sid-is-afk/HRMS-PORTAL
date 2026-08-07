@@ -1,0 +1,1429 @@
+Run uv run ruff check .
+E402 Module level import not at top of file
+  --> alembic/env.py:11:1
+   |
+ 9 | load_dotenv()
+10 |
+11 | from sqlalchemy.engine import Connection
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+12 | from sqlalchemy.ext.asyncio import create_async_engine
+   |
+help: Move module level imports to top of file
+
+E402 Module level import not at top of file
+  --> alembic/env.py:12:1
+   |
+11 | from sqlalchemy.engine import Connection
+12 | from sqlalchemy.ext.asyncio import create_async_engine
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+13 |
+14 | from alembic import context
+   |
+help: Move module level imports to top of file
+
+E402 Module level import not at top of file
+  --> alembic/env.py:14:1
+   |
+12 | from sqlalchemy.ext.asyncio import create_async_engine
+13 |
+14 | from alembic import context
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+15 |
+16 | sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
+   |
+help: Move module level imports to top of file
+
+F401 `app.database.outbox.OutboxEvent` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> alembic/env.py:21:37
+   |
+19 | try:
+20 |     from app.database.base import Base
+21 |     from app.database.outbox import OutboxEvent
+   |                                     ^^^^^^^^^^^
+22 |     from app.modules.admin.domains.branches.models.branch import Branch
+23 |     from app.modules.admin.domains.business_units.models.business_unit import (
+   |
+help: Remove unused import: `app.database.outbox.OutboxEvent`
+
+F401 `app.modules.admin.domains.branches.models.branch.Branch` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> alembic/env.py:22:66
+   |
+20 |     from app.database.base import Base
+21 |     from app.database.outbox import OutboxEvent
+22 |     from app.modules.admin.domains.branches.models.branch import Branch
+   |                                                                  ^^^^^^
+23 |     from app.modules.admin.domains.business_units.models.business_unit import (
+24 |         BusinessUnit,
+   |
+help: Remove unused import: `app.modules.admin.domains.branches.models.branch.Branch`
+
+F401 `app.modules.admin.domains.business_units.models.business_unit.BusinessUnit` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> alembic/env.py:24:9
+   |
+22 |     from app.modules.admin.domains.branches.models.branch import Branch
+23 |     from app.modules.admin.domains.business_units.models.business_unit import (
+24 |         BusinessUnit,
+   |         ^^^^^^^^^^^^
+25 |     )
+26 |     from app.modules.admin.domains.cost_centers.models.cost_center import CostCenter
+   |
+help: Remove unused import: `app.modules.admin.domains.business_units.models.business_unit.BusinessUnit`
+
+F401 `app.modules.admin.domains.cost_centers.models.cost_center.CostCenter` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> alembic/env.py:26:75
+   |
+24 |         BusinessUnit,
+25 |     )
+26 |     from app.modules.admin.domains.cost_centers.models.cost_center import CostCenter
+   |                                                                           ^^^^^^^^^^
+27 |     from app.modules.admin.domains.departments.models.department import Department
+28 |     from app.modules.admin.domains.designations.models.designation import Designation
+   |
+help: Remove unused import: `app.modules.admin.domains.cost_centers.models.cost_center.CostCenter`
+
+F401 `app.modules.admin.domains.departments.models.department.Department` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> alembic/env.py:27:73
+   |
+25 |     )
+26 |     from app.modules.admin.domains.cost_centers.models.cost_center import CostCenter
+27 |     from app.modules.admin.domains.departments.models.department import Department
+   |                                                                         ^^^^^^^^^^
+28 |     from app.modules.admin.domains.designations.models.designation import Designation
+29 |     from app.modules.admin.domains.divisions.models.division import Division
+   |
+help: Remove unused import: `app.modules.admin.domains.departments.models.department.Department`
+
+F401 `app.modules.admin.domains.designations.models.designation.Designation` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> alembic/env.py:28:75
+   |
+26 |     from app.modules.admin.domains.cost_centers.models.cost_center import CostCenter
+27 |     from app.modules.admin.domains.departments.models.department import Department
+28 |     from app.modules.admin.domains.designations.models.designation import Designation
+   |                                                                           ^^^^^^^^^^^
+29 |     from app.modules.admin.domains.divisions.models.division import Division
+30 |     from app.modules.admin.domains.job_levels.models.job_level import JobLevel
+   |
+help: Remove unused import: `app.modules.admin.domains.designations.models.designation.Designation`
+
+F401 `app.modules.admin.domains.divisions.models.division.Division` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> alembic/env.py:29:69
+   |
+27 |     from app.modules.admin.domains.departments.models.department import Department
+28 |     from app.modules.admin.domains.designations.models.designation import Designation
+29 |     from app.modules.admin.domains.divisions.models.division import Division
+   |                                                                     ^^^^^^^^
+30 |     from app.modules.admin.domains.job_levels.models.job_level import JobLevel
+31 |     from app.modules.admin.domains.locations.models.location import Location
+   |
+help: Remove unused import: `app.modules.admin.domains.divisions.models.division.Division`
+
+F401 `app.modules.admin.domains.job_levels.models.job_level.JobLevel` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> alembic/env.py:30:71
+   |
+28 |     from app.modules.admin.domains.designations.models.designation import Designation
+29 |     from app.modules.admin.domains.divisions.models.division import Division
+30 |     from app.modules.admin.domains.job_levels.models.job_level import JobLevel
+   |                                                                       ^^^^^^^^
+31 |     from app.modules.admin.domains.locations.models.location import Location
+   |
+help: Remove unused import: `app.modules.admin.domains.job_levels.models.job_level.JobLevel`
+
+F401 `app.modules.admin.domains.locations.models.location.Location` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> alembic/env.py:31:69
+   |
+29 |     from app.modules.admin.domains.divisions.models.division import Division
+30 |     from app.modules.admin.domains.job_levels.models.job_level import JobLevel
+31 |     from app.modules.admin.domains.locations.models.location import Location
+   |                                                                     ^^^^^^^^
+32 |
+33 |     # Import Admin domain models
+   |
+help: Remove unused import: `app.modules.admin.domains.locations.models.location.Location`
+
+F401 `app.modules.admin.domains.organization.models.organization.Organization` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> alembic/env.py:34:76
+   |
+33 |     # Import Admin domain models
+34 |     from app.modules.admin.domains.organization.models.organization import Organization
+   |                                                                            ^^^^^^^^^^^^
+35 |     from app.modules.admin.domains.teams.models.team import Team
+   |
+help: Remove unused import: `app.modules.admin.domains.organization.models.organization.Organization`
+
+F401 `app.modules.admin.domains.teams.models.team.Team` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> alembic/env.py:35:61
+   |
+33 |     # Import Admin domain models
+34 |     from app.modules.admin.domains.organization.models.organization import Organization
+35 |     from app.modules.admin.domains.teams.models.team import Team
+   |                                                             ^^^^
+36 |
+37 |     # Import all models to ensure registration on metadata
+   |
+help: Remove unused import: `app.modules.admin.domains.teams.models.team.Team`
+
+F401 `app.modules.auth.domains.identity.models.identity.Identity` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> alembic/env.py:38:67
+   |
+37 |     # Import all models to ensure registration on metadata
+38 |     from app.modules.auth.domains.identity.models.identity import Identity
+   |                                                                   ^^^^^^^^
+39 |     from app.modules.auth.domains.permissions.models.permission import Permission
+40 |     from app.modules.auth.domains.roles.models.role import Role
+   |
+help: Remove unused import: `app.modules.auth.domains.identity.models.identity.Identity`
+
+F401 `app.modules.auth.domains.permissions.models.permission.Permission` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> alembic/env.py:39:72
+   |
+37 |     # Import all models to ensure registration on metadata
+38 |     from app.modules.auth.domains.identity.models.identity import Identity
+39 |     from app.modules.auth.domains.permissions.models.permission import Permission
+   |                                                                        ^^^^^^^^^^
+40 |     from app.modules.auth.domains.roles.models.role import Role
+41 |     from app.modules.auth.domains.sessions.models.session import Session
+   |
+help: Remove unused import: `app.modules.auth.domains.permissions.models.permission.Permission`
+
+F401 `app.modules.auth.domains.roles.models.role.Role` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> alembic/env.py:40:60
+   |
+38 |     from app.modules.auth.domains.identity.models.identity import Identity
+39 |     from app.modules.auth.domains.permissions.models.permission import Permission
+40 |     from app.modules.auth.domains.roles.models.role import Role
+   |                                                            ^^^^
+41 |     from app.modules.auth.domains.sessions.models.session import Session
+42 |     from app.modules.auth.domains.tokens.models.refresh_token import RefreshToken
+   |
+help: Remove unused import: `app.modules.auth.domains.roles.models.role.Role`
+
+F401 `app.modules.auth.domains.sessions.models.session.Session` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> alembic/env.py:41:66
+   |
+39 |     from app.modules.auth.domains.permissions.models.permission import Permission
+40 |     from app.modules.auth.domains.roles.models.role import Role
+41 |     from app.modules.auth.domains.sessions.models.session import Session
+   |                                                                  ^^^^^^^
+42 |     from app.modules.auth.domains.tokens.models.refresh_token import RefreshToken
+43 |     from app.modules.auth.domains.users.models.user import User
+   |
+help: Remove unused import: `app.modules.auth.domains.sessions.models.session.Session`
+
+F401 `app.modules.auth.domains.tokens.models.refresh_token.RefreshToken` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> alembic/env.py:42:70
+   |
+40 |     from app.modules.auth.domains.roles.models.role import Role
+41 |     from app.modules.auth.domains.sessions.models.session import Session
+42 |     from app.modules.auth.domains.tokens.models.refresh_token import RefreshToken
+   |                                                                      ^^^^^^^^^^^^
+43 |     from app.modules.auth.domains.users.models.user import User
+44 |     from app.modules.employee.domains.bank.models.bank import BankInformation
+   |
+help: Remove unused import: `app.modules.auth.domains.tokens.models.refresh_token.RefreshToken`
+
+F401 `app.modules.auth.domains.users.models.user.User` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> alembic/env.py:43:60
+   |
+41 |     from app.modules.auth.domains.sessions.models.session import Session
+42 |     from app.modules.auth.domains.tokens.models.refresh_token import RefreshToken
+43 |     from app.modules.auth.domains.users.models.user import User
+   |                                                            ^^^^
+44 |     from app.modules.employee.domains.bank.models.bank import BankInformation
+45 |     from app.modules.employee.domains.contacts.models.contact import ContactInformation
+   |
+help: Remove unused import: `app.modules.auth.domains.users.models.user.User`
+
+F401 `app.modules.employee.domains.bank.models.bank.BankInformation` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> alembic/env.py:44:63
+   |
+42 |     from app.modules.auth.domains.tokens.models.refresh_token import RefreshToken
+43 |     from app.modules.auth.domains.users.models.user import User
+44 |     from app.modules.employee.domains.bank.models.bank import BankInformation
+   |                                                               ^^^^^^^^^^^^^^^
+45 |     from app.modules.employee.domains.contacts.models.contact import ContactInformation
+46 |     from app.modules.employee.domains.documents.models.document import EmployeeDocument
+   |
+help: Remove unused import: `app.modules.employee.domains.bank.models.bank.BankInformation`
+
+F401 `app.modules.employee.domains.contacts.models.contact.ContactInformation` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> alembic/env.py:45:70
+   |
+43 |     from app.modules.auth.domains.users.models.user import User
+44 |     from app.modules.employee.domains.bank.models.bank import BankInformation
+45 |     from app.modules.employee.domains.contacts.models.contact import ContactInformation
+   |                                                                      ^^^^^^^^^^^^^^^^^^
+46 |     from app.modules.employee.domains.documents.models.document import EmployeeDocument
+47 |     from app.modules.employee.domains.emergency.models.emergency import EmergencyContact
+   |
+help: Remove unused import: `app.modules.employee.domains.contacts.models.contact.ContactInformation`
+
+F401 `app.modules.employee.domains.documents.models.document.EmployeeDocument` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> alembic/env.py:46:72
+   |
+44 |     from app.modules.employee.domains.bank.models.bank import BankInformation
+45 |     from app.modules.employee.domains.contacts.models.contact import ContactInformation
+46 |     from app.modules.employee.domains.documents.models.document import EmployeeDocument
+   |                                                                        ^^^^^^^^^^^^^^^^
+47 |     from app.modules.employee.domains.emergency.models.emergency import EmergencyContact
+48 |     from app.modules.employee.domains.employment.models.employment import Employment
+   |
+help: Remove unused import: `app.modules.employee.domains.documents.models.document.EmployeeDocument`
+
+F401 `app.modules.employee.domains.emergency.models.emergency.EmergencyContact` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> alembic/env.py:47:73
+   |
+45 |     from app.modules.employee.domains.contacts.models.contact import ContactInformation
+46 |     from app.modules.employee.domains.documents.models.document import EmployeeDocument
+47 |     from app.modules.employee.domains.emergency.models.emergency import EmergencyContact
+   |                                                                         ^^^^^^^^^^^^^^^^
+48 |     from app.modules.employee.domains.employment.models.employment import Employment
+   |
+help: Remove unused import: `app.modules.employee.domains.emergency.models.emergency.EmergencyContact`
+
+F401 `app.modules.employee.domains.employment.models.employment.Employment` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> alembic/env.py:48:75
+   |
+46 |     from app.modules.employee.domains.documents.models.document import EmployeeDocument
+47 |     from app.modules.employee.domains.emergency.models.emergency import EmergencyContact
+48 |     from app.modules.employee.domains.employment.models.employment import Employment
+   |                                                                           ^^^^^^^^^^
+49 |
+50 |     # Import Employee domain models
+   |
+help: Remove unused import: `app.modules.employee.domains.employment.models.employment.Employment`
+
+F401 `app.modules.employee.domains.profile.models.employee.Employee` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> alembic/env.py:51:70
+   |
+50 |     # Import Employee domain models
+51 |     from app.modules.employee.domains.profile.models.employee import Employee
+   |                                                                      ^^^^^^^^
+52 |
+53 |     # Import HR domain models
+   |
+help: Remove unused import: `app.modules.employee.domains.profile.models.employee.Employee`
+
+F401 `app.modules.hr.domains.attendance.models.attendance.Attendance` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> alembic/env.py:54:69
+   |
+53 |     # Import HR domain models
+54 |     from app.modules.hr.domains.attendance.models.attendance import Attendance
+   |                                                                     ^^^^^^^^^^
+55 |     from app.modules.hr.domains.holiday.models.holiday import Holiday
+56 |     from app.modules.hr.domains.leave.models.leave import Leave
+   |
+help: Remove unused import: `app.modules.hr.domains.attendance.models.attendance.Attendance`
+
+F401 `app.modules.hr.domains.holiday.models.holiday.Holiday` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> alembic/env.py:55:63
+   |
+53 |     # Import HR domain models
+54 |     from app.modules.hr.domains.attendance.models.attendance import Attendance
+55 |     from app.modules.hr.domains.holiday.models.holiday import Holiday
+   |                                                               ^^^^^^^
+56 |     from app.modules.hr.domains.leave.models.leave import Leave
+57 |     from app.modules.hr.domains.leave.models.leave_balance import LeaveBalance
+   |
+help: Remove unused import: `app.modules.hr.domains.holiday.models.holiday.Holiday`
+
+F401 `app.modules.hr.domains.leave.models.leave.Leave` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> alembic/env.py:56:59
+   |
+54 |     from app.modules.hr.domains.attendance.models.attendance import Attendance
+55 |     from app.modules.hr.domains.holiday.models.holiday import Holiday
+56 |     from app.modules.hr.domains.leave.models.leave import Leave
+   |                                                           ^^^^^
+57 |     from app.modules.hr.domains.leave.models.leave_balance import LeaveBalance
+58 |     from app.modules.hr.domains.leave.models.leave_type import LeaveType
+   |
+help: Remove unused import: `app.modules.hr.domains.leave.models.leave.Leave`
+
+F401 `app.modules.hr.domains.leave.models.leave_balance.LeaveBalance` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> alembic/env.py:57:67
+   |
+55 |     from app.modules.hr.domains.holiday.models.holiday import Holiday
+56 |     from app.modules.hr.domains.leave.models.leave import Leave
+57 |     from app.modules.hr.domains.leave.models.leave_balance import LeaveBalance
+   |                                                                   ^^^^^^^^^^^^
+58 |     from app.modules.hr.domains.leave.models.leave_type import LeaveType
+59 |     from app.modules.hr.domains.offboarding.models.offboarding import Offboarding
+   |
+help: Remove unused import: `app.modules.hr.domains.leave.models.leave_balance.LeaveBalance`
+
+F401 `app.modules.hr.domains.leave.models.leave_type.LeaveType` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> alembic/env.py:58:64
+   |
+56 |     from app.modules.hr.domains.leave.models.leave import Leave
+57 |     from app.modules.hr.domains.leave.models.leave_balance import LeaveBalance
+58 |     from app.modules.hr.domains.leave.models.leave_type import LeaveType
+   |                                                                ^^^^^^^^^
+59 |     from app.modules.hr.domains.offboarding.models.offboarding import Offboarding
+60 |     from app.modules.hr.domains.onboarding.models.onboarding import Onboarding
+   |
+help: Remove unused import: `app.modules.hr.domains.leave.models.leave_type.LeaveType`
+
+F401 `app.modules.hr.domains.offboarding.models.offboarding.Offboarding` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> alembic/env.py:59:71
+   |
+57 |     from app.modules.hr.domains.leave.models.leave_balance import LeaveBalance
+58 |     from app.modules.hr.domains.leave.models.leave_type import LeaveType
+59 |     from app.modules.hr.domains.offboarding.models.offboarding import Offboarding
+   |                                                                       ^^^^^^^^^^^
+60 |     from app.modules.hr.domains.onboarding.models.onboarding import Onboarding
+61 |     from app.modules.hr.domains.performance.models.performance import PerformanceReview
+   |
+help: Remove unused import: `app.modules.hr.domains.offboarding.models.offboarding.Offboarding`
+
+F401 `app.modules.hr.domains.onboarding.models.onboarding.Onboarding` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> alembic/env.py:60:69
+   |
+58 |     from app.modules.hr.domains.leave.models.leave_type import LeaveType
+59 |     from app.modules.hr.domains.offboarding.models.offboarding import Offboarding
+60 |     from app.modules.hr.domains.onboarding.models.onboarding import Onboarding
+   |                                                                     ^^^^^^^^^^
+61 |     from app.modules.hr.domains.performance.models.performance import PerformanceReview
+62 |     from app.modules.hr.domains.promotion.models.promotion import Promotion
+   |
+help: Remove unused import: `app.modules.hr.domains.onboarding.models.onboarding.Onboarding`
+
+F401 `app.modules.hr.domains.performance.models.performance.PerformanceReview` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> alembic/env.py:61:71
+   |
+59 |     from app.modules.hr.domains.offboarding.models.offboarding import Offboarding
+60 |     from app.modules.hr.domains.onboarding.models.onboarding import Onboarding
+61 |     from app.modules.hr.domains.performance.models.performance import PerformanceReview
+   |                                                                       ^^^^^^^^^^^^^^^^^
+62 |     from app.modules.hr.domains.promotion.models.promotion import Promotion
+63 |     from app.modules.hr.domains.recruitment.models.candidate import Candidate
+   |
+help: Remove unused import: `app.modules.hr.domains.performance.models.performance.PerformanceReview`
+
+F401 `app.modules.hr.domains.promotion.models.promotion.Promotion` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> alembic/env.py:62:67
+   |
+60 |     from app.modules.hr.domains.onboarding.models.onboarding import Onboarding
+61 |     from app.modules.hr.domains.performance.models.performance import PerformanceReview
+62 |     from app.modules.hr.domains.promotion.models.promotion import Promotion
+   |                                                                   ^^^^^^^^^
+63 |     from app.modules.hr.domains.recruitment.models.candidate import Candidate
+64 |     from app.modules.hr.domains.recruitment.models.interview import Interview
+   |
+help: Remove unused import: `app.modules.hr.domains.promotion.models.promotion.Promotion`
+
+F401 `app.modules.hr.domains.recruitment.models.candidate.Candidate` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> alembic/env.py:63:69
+   |
+61 |     from app.modules.hr.domains.performance.models.performance import PerformanceReview
+62 |     from app.modules.hr.domains.promotion.models.promotion import Promotion
+63 |     from app.modules.hr.domains.recruitment.models.candidate import Candidate
+   |                                                                     ^^^^^^^^^
+64 |     from app.modules.hr.domains.recruitment.models.interview import Interview
+65 |     from app.modules.hr.domains.recruitment.models.offer import Offer
+   |
+help: Remove unused import: `app.modules.hr.domains.recruitment.models.candidate.Candidate`
+
+F401 `app.modules.hr.domains.recruitment.models.interview.Interview` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> alembic/env.py:64:69
+   |
+62 |     from app.modules.hr.domains.promotion.models.promotion import Promotion
+63 |     from app.modules.hr.domains.recruitment.models.candidate import Candidate
+64 |     from app.modules.hr.domains.recruitment.models.interview import Interview
+   |                                                                     ^^^^^^^^^
+65 |     from app.modules.hr.domains.recruitment.models.offer import Offer
+66 |     from app.modules.hr.domains.recruitment.models.recruitment import Recruitment
+   |
+help: Remove unused import: `app.modules.hr.domains.recruitment.models.interview.Interview`
+
+F401 `app.modules.hr.domains.recruitment.models.offer.Offer` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> alembic/env.py:65:65
+   |
+63 |     from app.modules.hr.domains.recruitment.models.candidate import Candidate
+64 |     from app.modules.hr.domains.recruitment.models.interview import Interview
+65 |     from app.modules.hr.domains.recruitment.models.offer import Offer
+   |                                                                 ^^^^^
+66 |     from app.modules.hr.domains.recruitment.models.recruitment import Recruitment
+67 |     from app.modules.hr.domains.shift.models.shift import Shift
+   |
+help: Remove unused import: `app.modules.hr.domains.recruitment.models.offer.Offer`
+
+F401 `app.modules.hr.domains.recruitment.models.recruitment.Recruitment` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> alembic/env.py:66:71
+   |
+64 |     from app.modules.hr.domains.recruitment.models.interview import Interview
+65 |     from app.modules.hr.domains.recruitment.models.offer import Offer
+66 |     from app.modules.hr.domains.recruitment.models.recruitment import Recruitment
+   |                                                                       ^^^^^^^^^^^
+67 |     from app.modules.hr.domains.shift.models.shift import Shift
+68 |     from app.modules.hr.domains.shift.models.shift_assignment import ShiftAssignment
+   |
+help: Remove unused import: `app.modules.hr.domains.recruitment.models.recruitment.Recruitment`
+
+F401 `app.modules.hr.domains.shift.models.shift.Shift` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> alembic/env.py:67:59
+   |
+65 |     from app.modules.hr.domains.recruitment.models.offer import Offer
+66 |     from app.modules.hr.domains.recruitment.models.recruitment import Recruitment
+67 |     from app.modules.hr.domains.shift.models.shift import Shift
+   |                                                           ^^^^^
+68 |     from app.modules.hr.domains.shift.models.shift_assignment import ShiftAssignment
+69 |     from app.modules.hr.domains.timeline.models.timeline import AuditTimeline
+   |
+help: Remove unused import: `app.modules.hr.domains.shift.models.shift.Shift`
+
+F401 `app.modules.hr.domains.shift.models.shift_assignment.ShiftAssignment` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> alembic/env.py:68:70
+   |
+66 |     from app.modules.hr.domains.recruitment.models.recruitment import Recruitment
+67 |     from app.modules.hr.domains.shift.models.shift import Shift
+68 |     from app.modules.hr.domains.shift.models.shift_assignment import ShiftAssignment
+   |                                                                      ^^^^^^^^^^^^^^^
+69 |     from app.modules.hr.domains.timeline.models.timeline import AuditTimeline
+70 |     from app.modules.hr.domains.training.models.training import Training
+   |
+help: Remove unused import: `app.modules.hr.domains.shift.models.shift_assignment.ShiftAssignment`
+
+F401 `app.modules.hr.domains.timeline.models.timeline.AuditTimeline` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> alembic/env.py:69:65
+   |
+67 |     from app.modules.hr.domains.shift.models.shift import Shift
+68 |     from app.modules.hr.domains.shift.models.shift_assignment import ShiftAssignment
+69 |     from app.modules.hr.domains.timeline.models.timeline import AuditTimeline
+   |                                                                 ^^^^^^^^^^^^^
+70 |     from app.modules.hr.domains.training.models.training import Training
+71 |     from app.modules.hr.domains.transfer.models.transfer import Transfer
+   |
+help: Remove unused import: `app.modules.hr.domains.timeline.models.timeline.AuditTimeline`
+
+F401 `app.modules.hr.domains.training.models.training.Training` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> alembic/env.py:70:65
+   |
+68 |     from app.modules.hr.domains.shift.models.shift_assignment import ShiftAssignment
+69 |     from app.modules.hr.domains.timeline.models.timeline import AuditTimeline
+70 |     from app.modules.hr.domains.training.models.training import Training
+   |                                                                 ^^^^^^^^
+71 |     from app.modules.hr.domains.transfer.models.transfer import Transfer
+72 |     from app.modules.platform.domains.audit.models.audit import PlatformAudit
+   |
+help: Remove unused import: `app.modules.hr.domains.training.models.training.Training`
+
+F401 `app.modules.hr.domains.transfer.models.transfer.Transfer` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> alembic/env.py:71:65
+   |
+69 |     from app.modules.hr.domains.timeline.models.timeline import AuditTimeline
+70 |     from app.modules.hr.domains.training.models.training import Training
+71 |     from app.modules.hr.domains.transfer.models.transfer import Transfer
+   |                                                                 ^^^^^^^^
+72 |     from app.modules.platform.domains.audit.models.audit import PlatformAudit
+73 |     from app.modules.platform.domains.configuration.models.configuration import (
+   |
+help: Remove unused import: `app.modules.hr.domains.transfer.models.transfer.Transfer`
+
+F401 `app.modules.platform.domains.audit.models.audit.PlatformAudit` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> alembic/env.py:72:65
+   |
+70 |     from app.modules.hr.domains.training.models.training import Training
+71 |     from app.modules.hr.domains.transfer.models.transfer import Transfer
+72 |     from app.modules.platform.domains.audit.models.audit import PlatformAudit
+   |                                                                 ^^^^^^^^^^^^^
+73 |     from app.modules.platform.domains.configuration.models.configuration import (
+74 |         PlatformConfiguration,
+   |
+help: Remove unused import: `app.modules.platform.domains.audit.models.audit.PlatformAudit`
+
+F401 `app.modules.platform.domains.configuration.models.configuration.PlatformConfiguration` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> alembic/env.py:74:9
+   |
+72 |     from app.modules.platform.domains.audit.models.audit import PlatformAudit
+73 |     from app.modules.platform.domains.configuration.models.configuration import (
+74 |         PlatformConfiguration,
+   |         ^^^^^^^^^^^^^^^^^^^^^
+75 |     )
+76 |     from app.modules.platform.domains.feature_flags.models.feature_flag import (
+   |
+help: Remove unused import: `app.modules.platform.domains.configuration.models.configuration.PlatformConfiguration`
+
+F401 `app.modules.platform.domains.feature_flags.models.feature_flag.FeatureFlag` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> alembic/env.py:77:9
+   |
+75 |     )
+76 |     from app.modules.platform.domains.feature_flags.models.feature_flag import (
+77 |         FeatureFlag,
+   |         ^^^^^^^^^^^
+78 |     )
+79 |     from app.modules.platform.domains.licensing.models.license import License
+   |
+help: Remove unused import: `app.modules.platform.domains.feature_flags.models.feature_flag.FeatureFlag`
+
+F401 `app.modules.platform.domains.licensing.models.license.License` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> alembic/env.py:79:71
+   |
+77 |         FeatureFlag,
+78 |     )
+79 |     from app.modules.platform.domains.licensing.models.license import License
+   |                                                                       ^^^^^^^
+80 |     from app.modules.platform.domains.provisioning.models.provisioning import (
+81 |         ProvisioningHistory,
+   |
+help: Remove unused import: `app.modules.platform.domains.licensing.models.license.License`
+
+F401 `app.modules.platform.domains.provisioning.models.provisioning.ProvisioningHistory` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> alembic/env.py:81:9
+   |
+79 |     from app.modules.platform.domains.licensing.models.license import License
+80 |     from app.modules.platform.domains.provisioning.models.provisioning import (
+81 |         ProvisioningHistory,
+   |         ^^^^^^^^^^^^^^^^^^^
+82 |         ProvisioningJob,
+83 |     )
+   |
+help: Remove unused import
+
+F401 `app.modules.platform.domains.provisioning.models.provisioning.ProvisioningJob` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> alembic/env.py:82:9
+   |
+80 |     from app.modules.platform.domains.provisioning.models.provisioning import (
+81 |         ProvisioningHistory,
+82 |         ProvisioningJob,
+   |         ^^^^^^^^^^^^^^^
+83 |     )
+84 |     from app.modules.platform.domains.tenant.models.tenant import Tenant
+   |
+help: Remove unused import
+
+F401 `app.modules.platform.domains.tenant.models.tenant.Tenant` imported but unused; consider using `importlib.util.find_spec` to test for availability
+  --> alembic/env.py:84:67
+   |
+82 |         ProvisioningJob,
+83 |     )
+84 |     from app.modules.platform.domains.tenant.models.tenant import Tenant
+   |                                                                   ^^^^^^
+85 |
+86 |     target_metadata = Base.metadata
+   |
+help: Remove unused import: `app.modules.platform.domains.tenant.models.tenant.Tenant`
+
+E402 Module level import not at top of file
+  --> app/api/v1/exceptions/handlers.py:12:1
+   |
+12 | from sqlalchemy.orm.exc import StaleDataError
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+13 |
+14 | from app.core.exceptions.base import ConcurrencyException
+   |
+help: Move module level imports to top of file
+
+E402 Module level import not at top of file
+  --> app/api/v1/exceptions/handlers.py:14:1
+   |
+12 | from sqlalchemy.orm.exc import StaleDataError
+13 |
+14 | from app.core.exceptions.base import ConcurrencyException
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+help: Move module level imports to top of file
+
+I001 [*] Import block is un-sorted or un-formatted
+ --> app/core/config/settings.py:1:1
+  |
+1 | / import functools
+2 | | from pydantic import model_validator
+3 | | from pydantic_settings import BaseSettings, SettingsConfigDict
+  | |______________________________________________________________^
+  |
+help: Organize imports
+  |
+1 | import functools
+2 +
+3 | from pydantic import model_validator
+  |
+
+E402 Module level import not at top of file
+  --> app/database/outbox_processor.py:82:1
+   |
+82 | import uuid
+   | ^^^^^^^^^^^
+83 |
+84 | from app.database.connection import bypass_outbox_context
+   |
+help: Move module level imports to top of file
+
+E402 Module level import not at top of file
+  --> app/database/outbox_processor.py:84:1
+   |
+82 | import uuid
+83 |
+84 | from app.database.connection import bypass_outbox_context
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+help: Move module level imports to top of file
+
+N815 Variable `presentPercentage` in class scope should not be mixedCase
+ --> app/modules/admin/domains/attendance/schemas/attendance.py:5:5
+  |
+4 | class AdminAttendanceDashboardSummary(BaseModel):
+5 |     presentPercentage: int
+  |     ^^^^^^^^^^^^^^^^^
+6 |     absentCount: int
+7 |     lateCount: int
+  |
+
+N815 Variable `absentCount` in class scope should not be mixedCase
+ --> app/modules/admin/domains/attendance/schemas/attendance.py:6:5
+  |
+4 | class AdminAttendanceDashboardSummary(BaseModel):
+5 |     presentPercentage: int
+6 |     absentCount: int
+  |     ^^^^^^^^^^^
+7 |     lateCount: int
+8 |     onLeaveCount: int
+  |
+
+N815 Variable `lateCount` in class scope should not be mixedCase
+ --> app/modules/admin/domains/attendance/schemas/attendance.py:7:5
+  |
+5 |     presentPercentage: int
+6 |     absentCount: int
+7 |     lateCount: int
+  |     ^^^^^^^^^
+8 |     onLeaveCount: int
+  |
+
+N815 Variable `onLeaveCount` in class scope should not be mixedCase
+ --> app/modules/admin/domains/attendance/schemas/attendance.py:8:5
+  |
+6 |     absentCount: int
+7 |     lateCount: int
+8 |     onLeaveCount: int
+  |     ^^^^^^^^^^^^
+  |
+
+N815 Variable `totalRequests` in class scope should not be mixedCase
+ --> app/modules/admin/domains/leave/schemas/leave.py:5:5
+  |
+4 | class AdminLeaveDashboardSummary(BaseModel):
+5 |     totalRequests: int
+  |     ^^^^^^^^^^^^^
+6 |     pendingApproval: int
+7 |     approvedToday: int
+  |
+
+N815 Variable `pendingApproval` in class scope should not be mixedCase
+ --> app/modules/admin/domains/leave/schemas/leave.py:6:5
+  |
+4 | class AdminLeaveDashboardSummary(BaseModel):
+5 |     totalRequests: int
+6 |     pendingApproval: int
+  |     ^^^^^^^^^^^^^^^
+7 |     approvedToday: int
+8 |     onLeaveToday: int
+  |
+
+N815 Variable `approvedToday` in class scope should not be mixedCase
+ --> app/modules/admin/domains/leave/schemas/leave.py:7:5
+  |
+5 |     totalRequests: int
+6 |     pendingApproval: int
+7 |     approvedToday: int
+  |     ^^^^^^^^^^^^^
+8 |     onLeaveToday: int
+  |
+
+N815 Variable `onLeaveToday` in class scope should not be mixedCase
+ --> app/modules/admin/domains/leave/schemas/leave.py:8:5
+  |
+6 |     pendingApproval: int
+7 |     approvedToday: int
+8 |     onLeaveToday: int
+  |     ^^^^^^^^^^^^
+  |
+
+N815 Variable `checkIn` in class scope should not be mixedCase
+ --> app/modules/employee/domains/dashboard/schemas/dashboard.py:6:5
+  |
+4 | class AttendanceSummary(BaseModel):
+5 |     status: str
+6 |     checkIn: str | None = None
+  |     ^^^^^^^
+7 |     checkOut: str | None = None
+  |
+
+N815 Variable `checkOut` in class scope should not be mixedCase
+ --> app/modules/employee/domains/dashboard/schemas/dashboard.py:7:5
+  |
+5 |     status: str
+6 |     checkIn: str | None = None
+7 |     checkOut: str | None = None
+  |     ^^^^^^^^
+  |
+
+N815 Variable `leaveBalance` in class scope should not be mixedCase
+  --> app/modules/employee/domains/dashboard/schemas/dashboard.py:18:5
+   |
+16 | class DashboardSummaryResponse(BaseModel):
+17 |     attendance: AttendanceSummary
+18 |     leaveBalance: LeaveBalanceSummary
+   |     ^^^^^^^^^^^^
+   |
+
+E402 Module level import not at top of file
+  --> app/modules/employee/domains/profile/api/router.py:55:1
+   |
+55 | from app.core.middleware.idempotency import IdempotencyChecker
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+help: Move module level imports to top of file
+
+N815 Variable `employeeId` in class scope should not be mixedCase
+ --> app/modules/employee/domains/profile/schemas/profile_self.py:6:5
+  |
+4 | class ProfileSelfResponse(BaseModel):
+5 |     id: str
+6 |     employeeId: str
+  |     ^^^^^^^^^^
+7 |     firstName: str
+8 |     lastName: str
+  |
+
+N815 Variable `firstName` in class scope should not be mixedCase
+ --> app/modules/employee/domains/profile/schemas/profile_self.py:7:5
+  |
+5 |     id: str
+6 |     employeeId: str
+7 |     firstName: str
+  |     ^^^^^^^^^
+8 |     lastName: str
+9 |     email: str
+  |
+
+N815 Variable `lastName` in class scope should not be mixedCase
+  --> app/modules/employee/domains/profile/schemas/profile_self.py:8:5
+   |
+ 6 |     employeeId: str
+ 7 |     firstName: str
+ 8 |     lastName: str
+   |     ^^^^^^^^
+ 9 |     email: str
+10 |     phone: str
+   |
+
+N815 Variable `avatarUrl` in class scope should not be mixedCase
+  --> app/modules/employee/domains/profile/schemas/profile_self.py:11:5
+   |
+ 9 |     email: str
+10 |     phone: str
+11 |     avatarUrl: str | None = None
+   |     ^^^^^^^^^
+12 |     department: str
+13 |     designation: str
+   |
+
+N815 Variable `managerName` in class scope should not be mixedCase
+  --> app/modules/employee/domains/profile/schemas/profile_self.py:14:5
+   |
+12 |     department: str
+13 |     designation: str
+14 |     managerName: str
+   |     ^^^^^^^^^^^
+15 |     joiningDate: str
+16 |     location: str
+   |
+
+N815 Variable `joiningDate` in class scope should not be mixedCase
+  --> app/modules/employee/domains/profile/schemas/profile_self.py:15:5
+   |
+13 |     designation: str
+14 |     managerName: str
+15 |     joiningDate: str
+   |     ^^^^^^^^^^^
+16 |     location: str
+17 |     address: str
+   |
+
+N815 Variable `firstName` in class scope should not be mixedCase
+  --> app/modules/employee/domains/profile/schemas/profile_self.py:21:5
+   |
+20 | class ProfileSelfUpdateRequest(BaseModel):
+21 |     firstName: str | None = None
+   |     ^^^^^^^^^
+22 |     lastName: str | None = None
+23 |     phone: str | None = None
+   |
+
+N815 Variable `lastName` in class scope should not be mixedCase
+  --> app/modules/employee/domains/profile/schemas/profile_self.py:22:5
+   |
+20 | class ProfileSelfUpdateRequest(BaseModel):
+21 |     firstName: str | None = None
+22 |     lastName: str | None = None
+   |     ^^^^^^^^
+23 |     phone: str | None = None
+24 |     address: str | None = None
+   |
+
+N815 Variable `employeeId` in class scope should not be mixedCase
+  --> app/modules/employee/domains/profile/schemas/profile_self.py:28:5
+   |
+27 | class EmploymentDetailsResponse(BaseModel):
+28 |     employeeId: str
+   |     ^^^^^^^^^^
+29 |     department: str
+30 |     designation: str
+   |
+
+N815 Variable `managerName` in class scope should not be mixedCase
+  --> app/modules/employee/domains/profile/schemas/profile_self.py:31:5
+   |
+29 |     department: str
+30 |     designation: str
+31 |     managerName: str
+   |     ^^^^^^^^^^^
+32 |     joiningDate: str
+33 |     employmentStatus: str
+   |
+
+N815 Variable `joiningDate` in class scope should not be mixedCase
+  --> app/modules/employee/domains/profile/schemas/profile_self.py:32:5
+   |
+30 |     designation: str
+31 |     managerName: str
+32 |     joiningDate: str
+   |     ^^^^^^^^^^^
+33 |     employmentStatus: str
+   |
+
+N815 Variable `employmentStatus` in class scope should not be mixedCase
+  --> app/modules/employee/domains/profile/schemas/profile_self.py:33:5
+   |
+31 |     managerName: str
+32 |     joiningDate: str
+33 |     employmentStatus: str
+   |     ^^^^^^^^^^^^^^^^
+   |
+
+N815 Variable `avatarUrl` in class scope should not be mixedCase
+  --> app/modules/employee/domains/profile/schemas/profile_self.py:44:5
+   |
+43 | class AvatarResponse(BaseModel):
+44 |     avatarUrl: str
+   |     ^^^^^^^^^
+   |
+
+N815 Variable `currentPassword` in class scope should not be mixedCase
+  --> app/modules/employee/domains/profile/schemas/profile_self.py:48:5
+   |
+47 | class ChangePasswordRequest(BaseModel):
+48 |     currentPassword: str
+   |     ^^^^^^^^^^^^^^^
+49 |     newPassword: str
+   |
+
+N815 Variable `newPassword` in class scope should not be mixedCase
+  --> app/modules/employee/domains/profile/schemas/profile_self.py:49:5
+   |
+47 | class ChangePasswordRequest(BaseModel):
+48 |     currentPassword: str
+49 |     newPassword: str
+   |     ^^^^^^^^^^^
+   |
+
+N815 Variable `uploadedAt` in class scope should not be mixedCase
+  --> app/modules/employee/domains/profile/schemas/profile_self.py:56:5
+   |
+54 |     name: str
+55 |     type: str
+56 |     uploadedAt: str
+   |     ^^^^^^^^^^
+   |
+
+N815 Variable `lastPasswordChange` in class scope should not be mixedCase
+  --> app/modules/employee/domains/profile/schemas/profile_self.py:62:5
+   |
+60 |     email: str
+61 |     phone: str
+62 |     lastPasswordChange: str
+   |     ^^^^^^^^^^^^^^^^^^
+63 |     twoFactorEnabled: bool
+   |
+
+N815 Variable `twoFactorEnabled` in class scope should not be mixedCase
+  --> app/modules/employee/domains/profile/schemas/profile_self.py:63:5
+   |
+61 |     phone: str
+62 |     lastPasswordChange: str
+63 |     twoFactorEnabled: bool
+   |     ^^^^^^^^^^^^^^^^
+   |
+
+N815 Variable `profileVisibility` in class scope should not be mixedCase
+  --> app/modules/employee/domains/settings/schemas/settings.py:16:5
+   |
+15 | class PrivacySettings(BaseModel):
+16 |     profileVisibility: str = "employees"
+   |     ^^^^^^^^^^^^^^^^^
+17 |     showOnlineStatus: bool = True
+   |
+
+N815 Variable `showOnlineStatus` in class scope should not be mixedCase
+  --> app/modules/employee/domains/settings/schemas/settings.py:17:5
+   |
+15 | class PrivacySettings(BaseModel):
+16 |     profileVisibility: str = "employees"
+17 |     showOnlineStatus: bool = True
+   |     ^^^^^^^^^^^^^^^^
+   |
+
+N815 Variable `twoFactorEnabled` in class scope should not be mixedCase
+  --> app/modules/employee/domains/settings/schemas/settings.py:21:5
+   |
+20 | class SecuritySettings(BaseModel):
+21 |     twoFactorEnabled: bool = False
+   |     ^^^^^^^^^^^^^^^^
+22 |     biometricsEnabled: bool = False
+   |
+
+N815 Variable `biometricsEnabled` in class scope should not be mixedCase
+  --> app/modules/employee/domains/settings/schemas/settings.py:22:5
+   |
+20 | class SecuritySettings(BaseModel):
+21 |     twoFactorEnabled: bool = False
+22 |     biometricsEnabled: bool = False
+   |     ^^^^^^^^^^^^^^^^^
+   |
+
+N815 Variable `notificationPreferences` in class scope should not be mixedCase
+  --> app/modules/employee/domains/settings/schemas/settings.py:27:5
+   |
+25 | class UserSettingsResponse(BaseModel):
+26 |     preferences: Preferences
+27 |     notificationPreferences: NotificationPreferences
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+28 |     privacySettings: PrivacySettings
+29 |     securitySettings: SecuritySettings
+   |
+
+N815 Variable `privacySettings` in class scope should not be mixedCase
+  --> app/modules/employee/domains/settings/schemas/settings.py:28:5
+   |
+26 |     preferences: Preferences
+27 |     notificationPreferences: NotificationPreferences
+28 |     privacySettings: PrivacySettings
+   |     ^^^^^^^^^^^^^^^
+29 |     securitySettings: SecuritySettings
+   |
+
+N815 Variable `securitySettings` in class scope should not be mixedCase
+  --> app/modules/employee/domains/settings/schemas/settings.py:29:5
+   |
+27 |     notificationPreferences: NotificationPreferences
+28 |     privacySettings: PrivacySettings
+29 |     securitySettings: SecuritySettings
+   |     ^^^^^^^^^^^^^^^^
+   |
+
+N815 Variable `checkIn` in class scope should not be mixedCase
+  --> app/modules/hr/domains/attendance/schemas/attendance.py:49:5
+   |
+47 | class TodayAttendanceResponse(BaseModel):
+48 |     status: str
+49 |     checkIn: datetime | None = None
+   |     ^^^^^^^
+50 |     checkOut: datetime | None = None
+51 |     hoursWorked: float = 0.0
+   |
+
+N815 Variable `checkOut` in class scope should not be mixedCase
+  --> app/modules/hr/domains/attendance/schemas/attendance.py:50:5
+   |
+48 |     status: str
+49 |     checkIn: datetime | None = None
+50 |     checkOut: datetime | None = None
+   |     ^^^^^^^^
+51 |     hoursWorked: float = 0.0
+   |
+
+N815 Variable `hoursWorked` in class scope should not be mixedCase
+  --> app/modules/hr/domains/attendance/schemas/attendance.py:51:5
+   |
+49 |     checkIn: datetime | None = None
+50 |     checkOut: datetime | None = None
+51 |     hoursWorked: float = 0.0
+   |     ^^^^^^^^^^^
+   |
+
+N815 Variable `checkInTime` in class scope should not be mixedCase
+  --> app/modules/hr/domains/attendance/schemas/attendance.py:55:5
+   |
+54 | class AttendanceCheckOutRequest(BaseModel):
+55 |     checkInTime: datetime | None = None
+   |     ^^^^^^^^^^^
+   |
+
+N815 Variable `checkIn` in class scope should not be mixedCase
+  --> app/modules/hr/domains/attendance/schemas/attendance.py:62:5
+   |
+60 |     date: str
+61 |     status: str
+62 |     checkIn: datetime | None = None
+   |     ^^^^^^^
+63 |     checkOut: datetime | None = None
+64 |     hoursWorked: float
+   |
+
+N815 Variable `checkOut` in class scope should not be mixedCase
+  --> app/modules/hr/domains/attendance/schemas/attendance.py:63:5
+   |
+61 |     status: str
+62 |     checkIn: datetime | None = None
+63 |     checkOut: datetime | None = None
+   |     ^^^^^^^^
+64 |     hoursWorked: float
+   |
+
+N815 Variable `hoursWorked` in class scope should not be mixedCase
+  --> app/modules/hr/domains/attendance/schemas/attendance.py:64:5
+   |
+62 |     checkIn: datetime | None = None
+63 |     checkOut: datetime | None = None
+64 |     hoursWorked: float
+   |     ^^^^^^^^^^^
+   |
+
+N815 Variable `totalDays` in class scope should not be mixedCase
+  --> app/modules/hr/domains/attendance/schemas/attendance.py:68:5
+   |
+67 | class AttendanceSummaryResponse(BaseModel):
+68 |     totalDays: int
+   |     ^^^^^^^^^
+69 |     present: int
+70 |     absent: int
+   |
+
+N815 Variable `onLeave` in class scope should not be mixedCase
+  --> app/modules/hr/domains/attendance/schemas/attendance.py:71:5
+   |
+69 |     present: int
+70 |     absent: int
+71 |     onLeave: int
+   |     ^^^^^^^
+72 |     late: int
+73 |     holidays: int
+   |
+
+N815 Variable `openPositions` in class scope should not be mixedCase
+ --> app/modules/hr/domains/dashboard/schemas/dashboard.py:5:5
+  |
+4 | class HRDashboardSummaryResponse(BaseModel):
+5 |     openPositions: int
+  |     ^^^^^^^^^^^^^
+6 |     candidates: int
+7 |     upcomingInterviews: int
+  |
+
+N815 Variable `upcomingInterviews` in class scope should not be mixedCase
+ --> app/modules/hr/domains/dashboard/schemas/dashboard.py:7:5
+  |
+5 |     openPositions: int
+6 |     candidates: int
+7 |     upcomingInterviews: int
+  |     ^^^^^^^^^^^^^^^^^^
+8 |     pendingOnboarding: int
+9 |     pendingConfirmations: int
+  |
+
+N815 Variable `pendingOnboarding` in class scope should not be mixedCase
+  --> app/modules/hr/domains/dashboard/schemas/dashboard.py:8:5
+   |
+ 6 |     candidates: int
+ 7 |     upcomingInterviews: int
+ 8 |     pendingOnboarding: int
+   |     ^^^^^^^^^^^^^^^^^
+ 9 |     pendingConfirmations: int
+10 |     employeesOnProbation: int
+   |
+
+N815 Variable `pendingConfirmations` in class scope should not be mixedCase
+  --> app/modules/hr/domains/dashboard/schemas/dashboard.py:9:5
+   |
+ 7 |     upcomingInterviews: int
+ 8 |     pendingOnboarding: int
+ 9 |     pendingConfirmations: int
+   |     ^^^^^^^^^^^^^^^^^^^^
+10 |     employeesOnProbation: int
+11 |     upcomingReviews: int
+   |
+
+N815 Variable `employeesOnProbation` in class scope should not be mixedCase
+  --> app/modules/hr/domains/dashboard/schemas/dashboard.py:10:5
+   |
+ 8 |     pendingOnboarding: int
+ 9 |     pendingConfirmations: int
+10 |     employeesOnProbation: int
+   |     ^^^^^^^^^^^^^^^^^^^^
+11 |     upcomingReviews: int
+12 |     trainingStatus: int
+   |
+
+N815 Variable `upcomingReviews` in class scope should not be mixedCase
+  --> app/modules/hr/domains/dashboard/schemas/dashboard.py:11:5
+   |
+ 9 |     pendingConfirmations: int
+10 |     employeesOnProbation: int
+11 |     upcomingReviews: int
+   |     ^^^^^^^^^^^^^^^
+12 |     trainingStatus: int
+13 |     expiringDocuments: int
+   |
+
+N815 Variable `trainingStatus` in class scope should not be mixedCase
+  --> app/modules/hr/domains/dashboard/schemas/dashboard.py:12:5
+   |
+10 |     employeesOnProbation: int
+11 |     upcomingReviews: int
+12 |     trainingStatus: int
+   |     ^^^^^^^^^^^^^^
+13 |     expiringDocuments: int
+14 |     pendingWorkflowApprovals: int
+   |
+
+N815 Variable `expiringDocuments` in class scope should not be mixedCase
+  --> app/modules/hr/domains/dashboard/schemas/dashboard.py:13:5
+   |
+11 |     upcomingReviews: int
+12 |     trainingStatus: int
+13 |     expiringDocuments: int
+   |     ^^^^^^^^^^^^^^^^^
+14 |     pendingWorkflowApprovals: int
+15 |     upcomingBirthdays: int
+   |
+
+N815 Variable `pendingWorkflowApprovals` in class scope should not be mixedCase
+  --> app/modules/hr/domains/dashboard/schemas/dashboard.py:14:5
+   |
+12 |     trainingStatus: int
+13 |     expiringDocuments: int
+14 |     pendingWorkflowApprovals: int
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^
+15 |     upcomingBirthdays: int
+16 |     upcomingWorkAnniversaries: int
+   |
+
+N815 Variable `upcomingBirthdays` in class scope should not be mixedCase
+  --> app/modules/hr/domains/dashboard/schemas/dashboard.py:15:5
+   |
+13 |     expiringDocuments: int
+14 |     pendingWorkflowApprovals: int
+15 |     upcomingBirthdays: int
+   |     ^^^^^^^^^^^^^^^^^
+16 |     upcomingWorkAnniversaries: int
+   |
+
+N815 Variable `upcomingWorkAnniversaries` in class scope should not be mixedCase
+  --> app/modules/hr/domains/dashboard/schemas/dashboard.py:16:5
+   |
+14 |     pendingWorkflowApprovals: int
+15 |     upcomingBirthdays: int
+16 |     upcomingWorkAnniversaries: int
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+
+N815 Variable `dueDate` in class scope should not be mixedCase
+  --> app/modules/hr/domains/dashboard/schemas/dashboard.py:23:5
+   |
+21 |     title: str
+22 |     description: str
+23 |     dueDate: str
+   |     ^^^^^^^
+24 |     priority: str
+   |
+
+N815 Variable `performedBy` in class scope should not be mixedCase
+  --> app/modules/hr/domains/dashboard/schemas/dashboard.py:39:5
+   |
+37 |     type: str
+38 |     description: str
+39 |     performedBy: str
+   |     ^^^^^^^^^^^
+40 |     timestamp: str
+   |
+
+N815 Variable `isRead` in class scope should not be mixedCase
+  --> app/modules/hr/domains/dashboard/schemas/dashboard.py:54:5
+   |
+52 |     title: str
+53 |     body: str
+54 |     isRead: bool
+   |     ^^^^^^
+55 |     type: str
+   |
+
+N815 Variable `leaveType` in class scope should not be mixedCase
+  --> app/modules/hr/domains/leave/schemas/leave.py:49:5
+   |
+47 | class EmployeeLeaveHistoryItem(BaseModel):
+48 |     id: str
+49 |     leaveType: str
+   |     ^^^^^^^^^
+50 |     startDate: str
+51 |     endDate: str
+   |
+
+N815 Variable `startDate` in class scope should not be mixedCase
+  --> app/modules/hr/domains/leave/schemas/leave.py:50:5
+   |
+48 |     id: str
+49 |     leaveType: str
+50 |     startDate: str
+   |     ^^^^^^^^^
+51 |     endDate: str
+52 |     halfDay: bool
+   |
+
+N815 Variable `endDate` in class scope should not be mixedCase
+  --> app/modules/hr/domains/leave/schemas/leave.py:51:5
+   |
+49 |     leaveType: str
+50 |     startDate: str
+51 |     endDate: str
+   |     ^^^^^^^
+52 |     halfDay: bool
+53 |     reason: str
+   |
+
+N815 Variable `halfDay` in class scope should not be mixedCase
+  --> app/modules/hr/domains/leave/schemas/leave.py:52:5
+   |
+50 |     startDate: str
+51 |     endDate: str
+52 |     halfDay: bool
+   |     ^^^^^^^
+53 |     reason: str
+54 |     status: str
+   |
+
+N815 Variable `createdAt` in class scope should not be mixedCase
+  --> app/modules/hr/domains/leave/schemas/leave.py:56:5
+   |
+54 |     status: str
+55 |     duration: float
+56 |     createdAt: str
+   |     ^^^^^^^^^
+   |
+
+N815 Variable `iconName` in class scope should not be mixedCase
+  --> app/modules/platform/schemas/dashboard.py:14:5
+   |
+12 |     label: str
+13 |     count: int
+14 |     iconName: str
+   |     ^^^^^^^^
+15 |     bg: str
+16 |     color: str
+   |
+
+N815 Variable `totalOrganizations` in class scope should not be mixedCase
+  --> app/modules/platform/schemas/dashboard.py:26:5
+   |
+25 | class PlatformDashboardSummaryResponse(BaseModel):
+26 |     totalOrganizations: int
+   |     ^^^^^^^^^^^^^^^^^^
+27 |     platformUsers: int
+28 |     systemHealth: str
+   |
+
+N815 Variable `platformUsers` in class scope should not be mixedCase
+  --> app/modules/platform/schemas/dashboard.py:27:5
+   |
+25 | class PlatformDashboardSummaryResponse(BaseModel):
+26 |     totalOrganizations: int
+27 |     platformUsers: int
+   |     ^^^^^^^^^^^^^
+28 |     systemHealth: str
+29 |     apiHealth: str
+   |
+
+N815 Variable `systemHealth` in class scope should not be mixedCase
+  --> app/modules/platform/schemas/dashboard.py:28:5
+   |
+26 |     totalOrganizations: int
+27 |     platformUsers: int
+28 |     systemHealth: str
+   |     ^^^^^^^^^^^^
+29 |     apiHealth: str
+30 |     healthServices: list[PlatformHealthService]
+   |
+
+N815 Variable `apiHealth` in class scope should not be mixedCase
+  --> app/modules/platform/schemas/dashboard.py:29:5
+   |
+27 |     platformUsers: int
+28 |     systemHealth: str
+29 |     apiHealth: str
+   |     ^^^^^^^^^
+30 |     healthServices: list[PlatformHealthService]
+31 |     pendingActions: list[PlatformPendingAction]
+   |
+
+N815 Variable `healthServices` in class scope should not be mixedCase
+  --> app/modules/platform/schemas/dashboard.py:30:5
+   |
+28 |     systemHealth: str
+29 |     apiHealth: str
+30 |     healthServices: list[PlatformHealthService]
+   |     ^^^^^^^^^^^^^^
+31 |     pendingActions: list[PlatformPendingAction]
+32 |     orgGrowth: list[PlatformMetricItem]
+   |
+
+N815 Variable `pendingActions` in class scope should not be mixedCase
+  --> app/modules/platform/schemas/dashboard.py:31:5
+   |
+29 |     apiHealth: str
+30 |     healthServices: list[PlatformHealthService]
+31 |     pendingActions: list[PlatformPendingAction]
+   |     ^^^^^^^^^^^^^^
+32 |     orgGrowth: list[PlatformMetricItem]
+33 |     userDistribution: list[PlatformMetricItem]
+   |
+
+N815 Variable `orgGrowth` in class scope should not be mixedCase
+  --> app/modules/platform/schemas/dashboard.py:32:5
+   |
+30 |     healthServices: list[PlatformHealthService]
+31 |     pendingActions: list[PlatformPendingAction]
+32 |     orgGrowth: list[PlatformMetricItem]
+   |     ^^^^^^^^^
+33 |     userDistribution: list[PlatformMetricItem]
+34 |     apiUsage: list[PlatformMetricItem]
+   |
+
+N815 Variable `userDistribution` in class scope should not be mixedCase
+  --> app/modules/platform/schemas/dashboard.py:33:5
+   |
+31 |     pendingActions: list[PlatformPendingAction]
+32 |     orgGrowth: list[PlatformMetricItem]
+33 |     userDistribution: list[PlatformMetricItem]
+   |     ^^^^^^^^^^^^^^^^
+34 |     apiUsage: list[PlatformMetricItem]
+   |
+
+N815 Variable `apiUsage` in class scope should not be mixedCase
+  --> app/modules/platform/schemas/dashboard.py:34:5
+   |
+32 |     orgGrowth: list[PlatformMetricItem]
+33 |     userDistribution: list[PlatformMetricItem]
+34 |     apiUsage: list[PlatformMetricItem]
+   |     ^^^^^^^^
+   |
+
+N815 Variable `createdAt` in class scope should not be mixedCase
+  --> app/modules/platform/schemas/dashboard.py:49:5
+   |
+47 |     message: str
+48 |     read: bool
+49 |     createdAt: str
+   |     ^^^^^^^^^
+   |
+
+Found 132 errors.
+[*] 1 fixable with the `--fix` option.
+Error: Process completed with exit code 1.
