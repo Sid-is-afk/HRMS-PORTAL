@@ -1,5 +1,5 @@
 import functools
-
+from pydantic import model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -23,6 +23,24 @@ class Settings(BaseSettings):
     CORS_ORIGINS: list[str] = ["*"]
 
     LOG_LEVEL: str = "INFO"
+
+    @model_validator(mode="after")
+    def validate_production_secrets(self) -> "Settings":
+        if self.APP_ENV == "production":
+            if self.DEBUG:
+                raise ValueError("DEBUG must be False in production environment")
+            if "change-me" in self.SECRET_KEY.lower() or len(self.SECRET_KEY) < 32:
+                raise ValueError(
+                    "SECRET_KEY must be a strong secret of at least 32 characters in production"
+                )
+            if (
+                "change-me" in self.JWT_SECRET_KEY.lower()
+                or len(self.JWT_SECRET_KEY) < 32
+            ):
+                raise ValueError(
+                    "JWT_SECRET_KEY must be a strong secret of at least 32 characters in production"
+                )
+        return self
 
     model_config = SettingsConfigDict(
         env_file=".env", env_file_encoding="utf-8", case_sensitive=True
