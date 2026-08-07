@@ -6,6 +6,7 @@ from fastapi import APIRouter, Depends, Query, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.v1.dependencies.auth import PermissionGuard, get_current_user
+from app.core.middleware.idempotency import IdempotencyChecker
 from app.database.connection import get_db
 from app.modules.auth.domains.users.models.user import User
 from app.modules.employee.domains.bank.repositories.bank import BankRepository
@@ -50,9 +51,6 @@ async def get_employee_service(db: AsyncSession = Depends(get_db)) -> EmployeeSe
 
 async def get_profile_service(db: AsyncSession = Depends(get_db)) -> ProfileService:
     return ProfileService(employee_repo=EmployeeRepository(db))
-
-
-from app.core.middleware.idempotency import IdempotencyChecker
 
 
 @router.post(

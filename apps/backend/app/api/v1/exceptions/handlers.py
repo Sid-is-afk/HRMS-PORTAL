@@ -3,15 +3,11 @@ import logging
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
-
-from app.core.exceptions.base import AppException
-
-logger = logging.getLogger(__name__)
-
-
 from sqlalchemy.orm.exc import StaleDataError
 
-from app.core.exceptions.base import ConcurrencyException
+from app.core.exceptions.base import AppException, ConcurrencyException
+
+logger = logging.getLogger(__name__)
 
 
 def register_exception_handlers(app: FastAPI) -> None:

@@ -1,7 +1,9 @@
 import logging
+import uuid
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.database.connection import bypass_outbox_context
 from app.database.outbox_repository import OutboxRepository
 from app.events.publishers.hr import publish_hr_event
 from app.events.publishers.platform import publish_platform_event
@@ -77,11 +79,6 @@ PLATFORM_EVENT_MAP = {
     "TenantSuspended": TenantSuspended,
     "TenantActivated": TenantActivated,
 }
-
-
-import uuid
-
-from app.database.connection import bypass_outbox_context
 
 
 async def process_outbox_events(db: AsyncSession) -> int:
