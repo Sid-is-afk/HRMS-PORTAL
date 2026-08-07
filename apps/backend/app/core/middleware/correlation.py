@@ -15,6 +15,13 @@ class CorrelationIdMiddleware(BaseHTTPMiddleware):
         correlation_id = request.headers.get("X-Correlation-ID", str(uuid.uuid4()))
         request.state.correlation_id = correlation_id
 
-        response = await call_next(request)
+        from app.core.logging.config import correlation_id_var
+
+        token = correlation_id_var.set(correlation_id)
+        try:
+            response = await call_next(request)
+        finally:
+            correlation_id_var.reset(token)
+
         response.headers["X-Correlation-ID"] = correlation_id
         return response

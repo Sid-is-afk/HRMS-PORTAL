@@ -79,10 +79,10 @@ PLATFORM_EVENT_MAP = {
 }
 
 
+import uuid
+
 from app.database.connection import bypass_outbox_context
 
-
-import uuid
 
 async def process_outbox_events(db: AsyncSession) -> int:
     token = bypass_outbox_context.set(True)

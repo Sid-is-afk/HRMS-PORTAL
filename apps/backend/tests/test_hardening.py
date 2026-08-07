@@ -127,6 +127,7 @@ async def test_idempotency_caching_and_conflict() -> None:
     }
 
     from typing import Any
+
     from fastapi import Response
 
     async def mock_receive() -> dict[str, Any]:
